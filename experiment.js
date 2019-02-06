@@ -15,6 +15,8 @@ function openFullscreen() {
   }
 }
 
+openFullscreen();
+
 
 // Shows slides. We're using jQuery here - the **$** is the jQuery selector function, which takes as input either a DOM element or a CSS selector string.
 function showSlide(id) {
@@ -27,6 +29,14 @@ function showSlide(id) {
 
 // Randomize to 1 of 4 groups
 
+// ## Configuration settings
+var group = randomGroup,
+    allTrialOrders = [
+      [1,3,2,5,4,9,8,7,6],
+      [8,4,3,7,5,6,2,1,9] ],
+    myKeyBindings = randomElement(allKeyBindings),
+    myTrialOrder = randomElement(allTrialOrders),
+    pOdd = (myKeyBindings["p"] == "odd");
 
 
 // Show the instructions slide -- this is what we want subjects to see first.
