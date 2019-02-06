@@ -31,16 +31,34 @@ function randomInteger(n) {
   return Math.floor(Math.random()*n);
 }
 
-// Randomize to 1 of 4 groups
+// Fisher-Yates (aka Knuth) Shuffle
+// https://github.com/coolaj86/knuth-shuffle
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 
 // ## Configuration settings
-var condition = randomInteger(5),
-    allTrialOrders = [
-      [1,3,2,5,4,9,8,7,6],
-      [8,4,3,7,5,6,2,1,9] ],
-    myKeyBindings = randomElement(allKeyBindings),
-    myTrialOrder = randomElement(allTrialOrders),
-    pOdd = (myKeyBindings["p"] == "odd");
+var numTrials = 40,
+  condition = randomInteger(5), 
+  myTrialOrder = shuffle([...Array(numTrials).keys()]);,
+  interventionTrials = myTrialOrder.splice(0,(numTrials / 2)),
+  assessmentTrials = myTrialOrder.splice((numTrials / 2), numTrials);
 
 
 // Show the instructions slide -- this is what we want subjects to see first.
