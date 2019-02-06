@@ -15,7 +15,7 @@ function openFullscreen() {
   }
 }
 
-openFullscreen();
+// openFullscreen();
 
 
 // Shows slides. We're using jQuery here - the **$** is the jQuery selector function, which takes as input either a DOM element or a CSS selector string.
@@ -26,11 +26,15 @@ function showSlide(id) {
     $("#"+id).show();
 }
 
+// Get a random integer less than n.
+function randomInteger(n) {
+  return Math.floor(Math.random()*n);
+}
 
 // Randomize to 1 of 4 groups
 
 // ## Configuration settings
-var group = randomGroup,
+var condition = randomInteger(5),
     allTrialOrders = [
       [1,3,2,5,4,9,8,7,6],
       [8,4,3,7,5,6,2,1,9] ],
