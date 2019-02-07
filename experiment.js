@@ -112,7 +112,7 @@ var experiment = {
                 advance to the next pair. Please pay attention, and try to remember\
                 as many word pairs as you can."
     showSlide("interventionStudyFraming");
-    $("#text").text(text);
+    $("#interventionStudyText").text(text);
   },
 
   // 20 items, View each item for 5 sec
@@ -141,7 +141,7 @@ var experiment = {
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
     showSlide("interventionStrategyFraming");
-    $("#text").text(text);
+    $("#interventionStrategyText").text(text);
   },
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
