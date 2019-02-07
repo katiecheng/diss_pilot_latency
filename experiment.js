@@ -119,12 +119,6 @@ var experiment = {
 
     showSlide("interventionStudy");
     // Display the configuration settings.
-    $("#numTrials").text(experiment.numTrials);
-    $("#condition").text(experiment.condition);
-    $("#myTrialOrder").text(experiment.myTrialOrder);
-    $("#interventionTrials").text(experiment.interventionTrials);
-    $("#assessmentTrials").text(experiment.assessmentTrials);
-    $("#currTrial").text(currTrial);
     $("#wordpair").text(swahili + " : " + english);
     // Wait 5 seconds before starting the next trial.
     setTimeout(experiment.interventionStudy, 5000);
