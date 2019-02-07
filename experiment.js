@@ -69,7 +69,7 @@ var experiment = {
     }
     
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var n = experiment.interventionTrials.shift();
+    var currTrial = experiment.interventionTrials.shift();
 
     showSlide("stage");
     // Display the configuration settings.
@@ -78,6 +78,8 @@ var experiment = {
     $("#myTrialOrder").text(experiment.myTrialOrder);
     $("#interventionTrials").text(experiment.interventionTrials);
     $("#assessmentTrials").text(experiment.assessmentTrials);
+    $("#currTrial").text(experiment.currTrial)
+    setTimeout(experiment.interventionStudy(), 5000);
   },
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
