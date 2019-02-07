@@ -60,5 +60,8 @@ var experiment = {
   // The work horse of the sequence - what to do on every trial.
   next: function() {
     showSlide("stage");
+    // Display the configuration settings.
+    $("#numTrials").text(numTrials);
+    $("#condition").text(condition);
   }
 }
