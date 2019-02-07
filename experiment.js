@@ -43,7 +43,6 @@ var numTrials = 40,
   assessmentTrials = myTrialOrder.slice((numTrials / 2), numTrials);
 
 
-
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
 
@@ -57,18 +56,21 @@ var experiment = {
   myTrialOrder: myTrialOrder,
   interventionTrials: interventionTrials,
   assessmentTrials: assessmentTrials,
+  
+  // An array to store the data that we're collecting.
+  data: [],
 
+  // 20 items, View each item for 5 sec
+  interventionStudy: function() {
+    // If the number of remaining trials is 0, we're done, so call the end function.
+    if (experiment.interventionTrials.length == 0) {
+      experiment.end();
+      return;
+    }
+    
+    // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
+    var n = experiment.interventionTrials.shift();
 
-  // The function that gets called when the sequence is finished.
-  end: function() {
-    // Show the finish slide.
-    showSlide("finished");
-    // Wait 1.5 seconds and then execute function
-    setTimeout(function() {}, 1500);
-  },
-
-  // The work horse of the sequence - what to do on every trial.
-  next: function() {
     showSlide("stage");
     // Display the configuration settings.
     $("#numTrials").text(experiment.numTrials);
@@ -76,5 +78,97 @@ var experiment = {
     $("#myTrialOrder").text(experiment.myTrialOrder);
     $("#interventionTrials").text(experiment.interventionTrials);
     $("#assessmentTrials").text(experiment.assessmentTrials);
+  },
+
+  //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
+  interventionStrategy: function() {
+
+  },
+
+  /* “For 10 of these Swahili-English word pairs, you used the review strategy--
+  you studied by reviewing the Swahili-English word pairs. Out of these 10, how 
+  many English translations do you think you’ll remember on the quiz?” ( __ / 10, and OE why?)
+  “For 10 of these Swahili-English word pairs, you used the recall strategy--you 
+  studied by trying to recall the English translation from memory. Out of these 10, 
+  how many English translations do you think you’ll remember on the quiz?” ( __ / 10, and OE why?)
+  */
+
+  interventionPredict: function() {
+
+  },
+
+  /*
+  “Now, you will be shown each Swahili word again. You’ll have 10 seconds to type the 
+  correct English translation.”
+  */
+  interventionTestIntro: function() {
+
+  },
+
+  /*
+  No strategy feedback: summative performance outcome
+  “You scored a __ / 20!”
+
+  Strategy feedback: Proof of utility
+  “You scored a __ / 20!
+  When using the recall strategy, you scored __ /10
+  When using the review strategy, you scored __ /10
+  */
+  interventionFeedback: function() {
+
+  },
+
+
+  // (All items rote for 10 sec, +/- feedback on each item)
+  interventionTest: function() {
+
+  },
+  /* “Now, you will see 20 new Swahili words paired with their English translations. 
+  Then, you will have 5 seconds to study each pair using whatever method you would like. 
+  Finally, you will be quizzed on all 20 Swahili-English word pairs.”*/
+  assessmentFraming: function() {
+
+  },
+
+  // 20 items, View each item for 5 sec
+  assessmentStudy: function() {
+    // If the number of remaining trials is 0, we're done, so call the end function.
+    if (experiment.assessmentTrials.length == 0) {
+      experiment.end();
+      return;
+    }
+    
+    // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
+    var n = experiment.assessmentTrials.shift();
+  },
+
+  /*
+  Study each item for 5 sec
+  adhama - _______
+  [See English definition]
+  (measure latency to click)
+  */
+  assessmentStrategy: function() {
+
+  },
+
+  /*
+  “Now, you will be shown each Swahili word again. You’ll have 10 seconds to type the 
+  correct English translation.”
+  */
+  assessmentTestIntro: function() {
+
+  },
+
+  // (All items rote for 10 sec, +/- feedback on each item)
+  assessmentTest: function() {
+
+  },
+  // The function that gets called when the sequence is finished.
+  end: function() {
+    // Show the finish slide.
+    showSlide("finished");
+    // Wait 1.5 seconds and then execute function
+    setTimeout(function() {}, 1500);
   }
 }

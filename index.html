@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<h1>check 1</h1>
+<h1>check 2</h1>
 <!-- The instructions slide. -->
 <div class="slide" id="instructions">
   <div style="width: 500px; margin: 0 auto; text-align: center; background-color: #8C1516; padding: 20px 15px 10px 10px">
@@ -19,7 +19,7 @@
     <p class="block-text"> In the following activity, you will see 20 Swahili words paired with their English translations. Then, you will be asked to study each pair either by (1) reviewing the Swahili-English word pair, or (2) trying to recall the English translation from memory. After you try both study strategies (review and recall), you will be asked to predict how well strategy worked for you. Finally, you will be quizzed on all 20 Swahili-English word pairs.
     </p>
     <!-- Button to start the experiment. <code>this.blur()</code> removes the focus from the button, if the user pressed the button by using the keyboard, rather than the mouse. -->
-    <button type="button" onclick="this.blur(); experiment.next()">Start</button>
+    <button type="button" onclick="this.blur(); experiment.interventionStudy()">Start</button>
     <!-- Legal blurb that we're required to show. -->
     <p class="block-text" id="legal">Legal information: By answering the
         following questions, you are participating in a study being performed by
@@ -45,7 +45,7 @@
 
 <!-- The finish slide. -->
 <div class="slide" id="finished">
-  You're finished - thanks for participating! Submitting to Mechanical Turk...
+  Thank you for your participation in this study! Submitting to Mechanical Turk...
 </div>
 
 <!-- Include the JavaScript file for the experiment. As written, that script immediately executes commands, so we include it here at the end of the HTML file to ensure that resources referenced by the script actually exist. For instance, one of the immediately executed commands is <code>showSlide("instructions")</code>. If we loaded experiment.js, say, in the <code>head</code> section, <code>showSlide("instructions")</code> would fail because the <code>instructions</code> slide doesn't exist yet. It is possible to load the script in <code>head</code> but you have to ensure that any immediately executed commands, if they rely on potentially uninitialized HTML elements, are _delayed_ until the page is ready, using either [window.onload][onload] or jQuery's more robust [$(document).ready()][domReady]  -->
