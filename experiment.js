@@ -36,7 +36,7 @@ function shuffle(array) {
 
 
 // ## Configuration settings
-var numTrials = 40,
+var numTrials = 4, //40
   condition = randomInteger(4),
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
   interventionTrials = myTrialOrder.slice(0,(numTrials / 2)),
@@ -110,6 +110,8 @@ var experiment = {
                 word pair for 5 seconds, and then the screen will automatically \
                 advance to the next pair. Please pay attention, and try to learn\
                 as many word pairs as you can."
+    showSlide("interventionStudyFraming");
+    $("#text").text(text);
   },
 
   // 20 items, View each item for 5 sec
@@ -137,6 +139,8 @@ var experiment = {
     var text =  "Now you will be asked to study each pair either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
+    showSlide("interventionStrategyFraming");
+    $("#text").text(text);
   },
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
