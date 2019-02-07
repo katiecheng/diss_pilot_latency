@@ -39,8 +39,8 @@ function shuffle(array) {
 var numTrials = 40,
   condition = randomInteger(4),
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
-  interventionTrials = myTrialOrder.splice(0,(numTrials / 2)),
-  assessmentTrials = myTrialOrder.splice((numTrials / 2), numTrials);
+  interventionTrials = myTrialOrder.slice(0,(numTrials / 2)),
+  assessmentTrials = myTrialOrder.slice((numTrials / 2), numTrials);
 
 
 
