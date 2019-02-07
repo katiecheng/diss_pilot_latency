@@ -98,7 +98,8 @@ var experiment = {
   myTrialOrder: myTrialOrder,
   interventionStudyTrials: interventionTrials,
   interventionStrategyTrials: shuffle(interventionTrials),
-  assessmentTrials: assessmentTrials,
+  assessmentStudyTrials: assessmentTrials,
+  assessmentStrategyTrials: shuffle(assessmentTrials),
   swahili_english_pairs: swahili_english_pairs,
   
   // An array to store the data that we're collecting.
@@ -149,6 +150,7 @@ var experiment = {
     // If the number of remaining trials is 0, we're done, so call the end function.
     alert('check1 triggered');
     if (experiment.interventionStrategyTrials.length == 0) {
+      alert(experiment.interventionStrategyTrials.length)
       experiment.end();
       return;
     }
