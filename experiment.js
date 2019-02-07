@@ -9,6 +9,14 @@ function showSlide(id) {
     $("#"+id).show();
 }
 
+function captureForm() {
+  // do some stuff with the values in the form
+  // stop form from being submitted
+  alert('captureForm triggered');
+  return false;
+}
+
+
 // Get a random integer less than n.
 function randomInteger(n) {
   return Math.floor(Math.random()*n);
