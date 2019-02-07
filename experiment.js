@@ -1,4 +1,6 @@
 
+// ## Helper functions
+
 // Shows slides. We're using jQuery here - the **$** is the jQuery selector function, which takes as input either a DOM element or a CSS selector string.
 function showSlide(id) {
   // Hide all slides
@@ -12,8 +14,7 @@ function randomInteger(n) {
   return Math.floor(Math.random()*n);
 }
 
-// Fisher-Yates (aka Knuth) Shuffle
-// https://github.com/coolaj86/knuth-shuffle
+// Fisher-Yates (aka Knuth) Shuffle (https://github.com/coolaj86/knuth-shuffle)
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -33,6 +34,12 @@ function shuffle(array) {
   return array;
 }
 
+
+// ## Configuration settings
+var numTrials = 40,
+  condition = randomInteger(5);
+
+  
 
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
