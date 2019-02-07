@@ -161,21 +161,25 @@ var experiment = {
     showSlide("interventionStrategy");
     $("#swahili").text(swahili + " : ");
     // Wait 5 seconds before starting the next trial.
+    /*
     setTimeout(
       function() {
         $("#generatedWord").submit();
         experiment.interventionStrategy();
       }, 5000
     );
+    */
   },
 
   captureWord: function() {
     // do some stuff with the values in the form
     alert('captureWord triggered');
     data = {
+      /*
       stimulus: n,
       accuracy: realParity == userParity ? 1 : 0,
       rt: endTime - startTime
+      */
     };
     experiment.data.push(data);
     // Temporarily clear the number.
