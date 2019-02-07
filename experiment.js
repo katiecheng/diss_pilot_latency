@@ -88,6 +88,7 @@ var numTrials = 2, //40
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
 
+alert("check 0");
 alert(interventionTrials);
 alert(assessmentTrials);
 
