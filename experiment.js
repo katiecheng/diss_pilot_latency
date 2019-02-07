@@ -114,8 +114,8 @@ var experiment = {
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currTrial = experiment.interventionTrials.shift();
 
-    swahili = swahili_english_pairs[currTrial][0]
-    english = swahili_english_pairs[currTrial][1]
+    var swahili = swahili_english_pairs[currTrial][0]
+    var english = swahili_english_pairs[currTrial][1]
 
     showSlide("interventionStudy");
     // Display the configuration settings.
@@ -128,6 +128,11 @@ var experiment = {
     $("#wordpair").text(swahili + " : " + english);
     // Wait 5 seconds before starting the next trial.
     setTimeout(experiment.interventionStudy, 5000);
+  },
+
+  //Intro to strategy
+  interventionStrategyFraming: function() {
+
   },
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
