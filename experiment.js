@@ -168,12 +168,12 @@ var experiment = {
       }, 5000);
   },
 
-  function captureWord() {
-  // do some stuff with the values in the form
-  // stop form from being submitted
-  alert('captureWord triggered');
-  return false;
-}
+  captureWord: function() {
+    // do some stuff with the values in the form
+    alert('captureWord triggered');
+    // stop form from being submitted
+    return false;
+  },
 
   /* “For 10 of these Swahili-English word pairs, you used the review strategy--
   you studied by reviewing the Swahili-English word pairs. Out of these 10, how 
