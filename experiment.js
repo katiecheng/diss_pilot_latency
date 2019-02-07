@@ -114,7 +114,8 @@ var experiment = {
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currTrial = experiment.interventionTrials.shift();
 
-    swahili, english = swahili_english_pairs[currTrial]
+    swahili = swahili_english_pairs[currTrial][0]
+    english = swahili_english_pairs[currTrial][1]
 
     showSlide("interventionStudy");
     // Display the configuration settings.
