@@ -147,18 +147,22 @@ var experiment = {
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
   interventionStrategy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
+    alert('check1 triggered');
     if (experiment.interventionStrategyTrials.length == 0) {
       experiment.end();
       return;
     }
-    
+    alert('check2 triggered');
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currTrial = experiment.interventionStrategyTrials.shift();
 
     var swahili = swahili_english_pairs[parseInt(currTrial)][0]
     var english = swahili_english_pairs[parseInt(currTrial)][1]
 
+    alert('check3 triggered');
     showSlide("interventionStrategy");
+
+    alert('check4 triggered');
     $("#swahili").text(swahili + " : ");
     // Wait 5 seconds before starting the next trial.
     /*
