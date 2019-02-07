@@ -96,7 +96,8 @@ var experiment = {
   numTrials: numTrials,
   condition: condition,
   myTrialOrder: myTrialOrder,
-  interventionTrials: interventionTrials,
+  interventionStudyTrials: interventionTrials,
+  interventionStrategyTrials: shuffle(interventionTrials),
   assessmentTrials: assessmentTrials,
   swahili_english_pairs: swahili_english_pairs,
   
@@ -117,13 +118,13 @@ var experiment = {
   // 20 items, View each item for 5 sec
   interventionStudy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
-    if (experiment.interventionTrials.length == 0) {
+    if (experiment.interventionStudyTrials.length == 0) {
       experiment.interventionStrategyFraming();
       return;
     }
     
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var currTrial = experiment.interventionTrials.shift();
+    var currTrial = experiment.interventionStudyTrials.shift();
 
     var swahili = swahili_english_pairs[parseInt(currTrial)][0]
     var english = swahili_english_pairs[parseInt(currTrial)][1]
@@ -145,7 +146,22 @@ var experiment = {
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
   interventionStrategy: function() {
+    // If the number of remaining trials is 0, we're done, so call the end function.
+    if (experiment.interventionStrategyTrials.length == 0) {
+      experiment.interventionStrategyFraming();
+      return;
+    }
+    
+    // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
+    var currTrial = experiment.interventionStrategyTrials.shift();
 
+    var swahili = swahili_english_pairs[parseInt(currTrial)][0]
+    var english = swahili_english_pairs[parseInt(currTrial)][1]
+
+    showSlide("interventionStrategy");
+    $("#swahili").text(swahili + " : ");
+    // Wait 5 seconds before starting the next trial.
+    setTimeout(experiment.interventionStudy, 5000);
   },
 
   /* “For 10 of these Swahili-English word pairs, you used the review strategy--
