@@ -109,7 +109,7 @@ var experiment = {
     var text =  "In a moment, you will be presented with 20 Swahili words paired\
                 with their English translations. You will see each Swahili-English\
                 word pair for 5 seconds, and then the screen will automatically \
-                advance to the next pair. Please pay attention, and try to learn\
+                advance to the next pair. Please pay attention, and try to remember\
                 as many word pairs as you can."
     showSlide("interventionStudyFraming");
     $("#text").text(text);
@@ -161,7 +161,11 @@ var experiment = {
     showSlide("interventionStrategy");
     $("#swahili").text(swahili + " : ");
     // Wait 5 seconds before starting the next trial.
-    setTimeout(experiment.interventionStudy, 5000);
+    setTimeout(
+      function() {
+        $("#generatedWord").submit();
+        experiment.interventionStrategy();
+      }, 5000);
   },
 
   /* “For 10 of these Swahili-English word pairs, you used the review strategy--
