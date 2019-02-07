@@ -37,7 +37,10 @@ function shuffle(array) {
 
 // ## Configuration settings
 var numTrials = 40,
-  condition = randomInteger(5);
+  condition = randomInteger(4),
+  myTrialOrder = shuffle([...Array(numTrials).keys()]);,
+  interventionTrials = myTrialOrder.splice(0,(numTrials / 2));,
+  assessmentTrials = myTrialOrder.splice((numTrials / 2), numTrials);
 
 
 
@@ -51,6 +54,7 @@ var experiment = {
   // Parameters
   numTrials: numTrials,
   condition: condition,
+
 
   // The function that gets called when the sequence is finished.
   end: function() {
