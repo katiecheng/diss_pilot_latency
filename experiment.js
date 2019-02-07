@@ -152,6 +152,7 @@ var experiment = {
     // If the number of remaining trials is 0, we're done, so call the end function.
     alert('check1 triggered');
     if (experiment.interventionStrategyTrials.length == 0) {
+      alert(experiment.interventionStudyTrials.length);
       alert(experiment.interventionStrategyTrials.length);
       experiment.end();
       return;
