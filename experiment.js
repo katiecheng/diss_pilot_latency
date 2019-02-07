@@ -103,11 +103,20 @@ var experiment = {
   // An array to store the data that we're collecting.
   data: [],
 
+  //Intro to strategy
+  interventionStudyFraming: function() {
+    var text =  "In a moment, you will be presented with 20 Swahili words paired\
+                with their English translations. You will see each Swahili-English\
+                word pair for 5 seconds, and then the screen will automatically \
+                advance to the next pair. Please pay attention, and try to learn\
+                as many word pairs as you can."
+  },
+
   // 20 items, View each item for 5 sec
   interventionStudy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
     if (experiment.interventionTrials.length == 0) {
-      experiment.end();
+      experiment.interventionStrategyFraming();
       return;
     }
     
@@ -118,7 +127,6 @@ var experiment = {
     var english = swahili_english_pairs[parseInt(currTrial)][1]
 
     showSlide("interventionStudy");
-    // Display the configuration settings.
     $("#wordpair").text(swahili + " : " + english);
     // Wait 5 seconds before starting the next trial.
     setTimeout(experiment.interventionStudy, 5000);
