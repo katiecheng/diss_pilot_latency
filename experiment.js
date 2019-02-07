@@ -71,7 +71,7 @@ var experiment = {
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currTrial = experiment.interventionTrials.shift();
 
-    showSlide("stage");
+    showSlide("interventionStudy");
     // Display the configuration settings.
     $("#numTrials").text(experiment.numTrials);
     $("#condition").text(experiment.condition);
@@ -79,7 +79,7 @@ var experiment = {
     $("#interventionTrials").text(experiment.interventionTrials);
     $("#assessmentTrials").text(experiment.assessmentTrials);
     $("#currTrial").text(experiment.currTrial)
-    setTimeout(experiment.interventionStudy(), 5000);
+    setTimeout(experiment.interventionStudy, 5000);
   },
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
@@ -169,7 +169,7 @@ var experiment = {
   // The function that gets called when the sequence is finished.
   end: function() {
     // Show the finish slide.
-    showSlide("finished");
+    showSlide("end");
     // Wait 1.5 seconds and then execute function
     setTimeout(function() {}, 1500);
   }
