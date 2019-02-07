@@ -88,9 +88,8 @@ var numTrials = 2, //40
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
 
-alert("check 0");
-alert(interventionTrials);
-alert(assessmentTrials);
+console.log(interventionTrials);
+console.log(assessmentTrials);
 
 // ## The main event
 // I implement the sequence as an object with properties and methods. The benefit of encapsulating everything in an object is that it's conceptually coherent (i.e. the <code>data</code> variable belongs to this particular sequence and not any other) and allows you to **compose** sequences to build more complicated experiments. For instance, if you wanted an experiment with, say, a survey, a reaction time test, and a memory test presented in a number of different orders, you could easily do so by creating three separate sequences and dynamically setting the <code>end()</code> function for each sequence so that it points to the next. **More practically, you should stick everything in an object and submit that whole object so that you don't lose data (e.g. randomization parameters, what condition the subject is in, etc). Don't worry about the fact that some of the object properties are functions -- mmturkey (the Turk submission library) will strip these out.**
@@ -152,24 +151,24 @@ var experiment = {
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
   interventionStrategy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
-    alert('check1 triggered');
+    console.log('check1 triggered');
     if (experiment.interventionStrategyTrials.length == 0) {
-      alert(experiment.interventionStudyTrials);
-      alert(experiment.interventionStrategyTrials);
+      console.log(experiment.interventionStudyTrials);
+      console.log(experiment.interventionStrategyTrials);
       experiment.end();
       return;
     }
-    alert('check2 triggered');
+    console.log('check2 triggered');
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currTrial = experiment.interventionStrategyTrials.shift();
 
     var swahili = swahili_english_pairs[parseInt(currTrial)][0]
     var english = swahili_english_pairs[parseInt(currTrial)][1]
 
-    alert('check3 triggered');
+    console.log('check3 triggered');
     showSlide("interventionStrategy");
 
-    alert('check4 triggered');
+    console.log('check4 triggered');
     $("#swahili").text(swahili + " : ");
     // Wait 5 seconds before starting the next trial.
     /*
@@ -184,7 +183,7 @@ var experiment = {
 
   captureWord: function() {
     // do some stuff with the values in the form
-    alert('captureWord triggered');
+    console.log('captureWord triggered');
     data = {
       /*
       stimulus: n,
