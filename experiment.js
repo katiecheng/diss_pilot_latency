@@ -73,5 +73,8 @@ var experiment = {
     // Display the configuration settings.
     $("#numTrials").text(experiment.numTrials);
     $("#condition").text(experiment.condition);
+    $("#myTrialOrder").text(experiment.myTrialOrder);
+    $("#interventionTrials").text(experiment.interventionTrials);
+    $("#assessmentTrials").text(experiment.assessmentTrials);
   }
 }
