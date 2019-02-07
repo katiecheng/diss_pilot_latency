@@ -125,14 +125,16 @@ var experiment = {
     $("#interventionTrials").text(experiment.interventionTrials);
     $("#assessmentTrials").text(experiment.assessmentTrials);
     $("#currTrial").text(currTrial);
-    $("#wordpair").text(swahili + " : " + english);
+    $("#wordpair").text(swahili);
     // Wait 5 seconds before starting the next trial.
     setTimeout(experiment.interventionStudy, 5000);
   },
 
   //Intro to strategy
   interventionStrategyFraming: function() {
-
+    var text =  "Now you will be asked to study each pair either by (1) \
+                reviewing the Swahili-English word pair, or (2) trying to \
+                recall the English translation from memory."
   },
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
