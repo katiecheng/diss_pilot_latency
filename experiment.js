@@ -40,7 +40,49 @@ var numTrials = 40,
   condition = randomInteger(4),
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
   interventionTrials = myTrialOrder.slice(0,(numTrials / 2)),
-  assessmentTrials = myTrialOrder.slice((numTrials / 2), numTrials);
+  assessmentTrials = myTrialOrder.slice((numTrials / 2), numTrials),
+  swahili_english_pairs = [
+    ["adhama", "honor"],
+    ["adui", "enemy"],
+    ["bustani", "garden"],
+    ["buu", "maggot"],
+    ["chakula", "food"],
+    ["dafina", "treasure"],
+    ["elimu", "science"],
+    ["embe", "mango"],
+    ["fagio", "broom"],
+    ["farasi", "horse"],
+    ["fununu", "rumour"],
+    ["godoro", "mattress"],
+    ["goti", "knee"],
+    ["hariri", "silk"],
+    ["kaa", "crab"],
+    ["kaburi", "grave"],
+    ["kaputula", "shorts"],
+    ["leso", "scarf"],
+    ["maiti", "corpse"],
+    ["malkia", "queen"],
+    ["mashua", "boat"],
+    ["ndoo", "bucket"],
+    ["nyanya", "tomato"],
+    ["pazia", "curtain"],
+    ["pipa", "barrel"],
+    ["pombe", "beer"],
+    ["punda", "donkey"],
+    ["rembo", "ornament"],
+    ["roho", "soul"],
+    ["sala", "prayer"],
+    ["sumu", "poison"],
+    ["tabibu", "doctor"],
+    ["theluji", "snow"],
+    ["tumbili", "monkey"],
+    ["usingizi", "sleep"],
+    ["vuke", "steam"],
+    ["yai", "egg"],
+    ["zeituni", "olives"],
+    ["ziwa", "lake"],
+    ["zulia", "carpet"]
+  ];
 
 
 // Show the instructions slide -- this is what we want subjects to see first.
@@ -56,6 +98,7 @@ var experiment = {
   myTrialOrder: myTrialOrder,
   interventionTrials: interventionTrials,
   assessmentTrials: assessmentTrials,
+  swahili_english_pairs: swahili_english_pairs,
   
   // An array to store the data that we're collecting.
   data: [],
@@ -71,6 +114,8 @@ var experiment = {
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currTrial = experiment.interventionTrials.shift();
 
+    swahili, english = swahili_english_pairs[currTrial]
+
     showSlide("interventionStudy");
     // Display the configuration settings.
     $("#numTrials").text(experiment.numTrials);
@@ -78,7 +123,9 @@ var experiment = {
     $("#myTrialOrder").text(experiment.myTrialOrder);
     $("#interventionTrials").text(experiment.interventionTrials);
     $("#assessmentTrials").text(experiment.assessmentTrials);
-    $("#currTrial").text(experiment.currTrial)
+    $("#currTrial").text(currTrial);
+    $("#wordpair").text(swahili + " : " + english);
+    // Wait 5 seconds before starting the next trial.
     setTimeout(experiment.interventionStudy, 5000);
   },
 
