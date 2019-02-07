@@ -34,14 +34,6 @@ function shuffle(array) {
 }
 
 
-// ## Configuration settings
-var numTrials = 40,
-  condition = randomInteger(5), 
-  myTrialOrder = shuffle([...Array(numTrials).keys()]);,
-  interventionTrials = myTrialOrder.splice(0,(numTrials / 2)),
-  assessmentTrials = myTrialOrder.splice((numTrials / 2), numTrials);
-
-
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
 
