@@ -54,6 +54,9 @@ var experiment = {
   // Parameters
   numTrials: numTrials,
   condition: condition,
+  myTrialOrder: myTrialOrder,
+  interventionTrials: interventionTrials,
+  assessmentTrials: assessmentTrials,
 
 
   // The function that gets called when the sequence is finished.
