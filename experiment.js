@@ -9,14 +9,6 @@ function showSlide(id) {
     $("#"+id).show();
 }
 
-function captureForm() {
-  // do some stuff with the values in the form
-  // stop form from being submitted
-  alert('captureForm triggered');
-  return false;
-}
-
-
 // Get a random integer less than n.
 function randomInteger(n) {
   return Math.floor(Math.random()*n);
@@ -175,6 +167,13 @@ var experiment = {
         experiment.interventionStrategy();
       }, 5000);
   },
+
+  function captureWord() {
+  // do some stuff with the values in the form
+  // stop form from being submitted
+  alert('captureWord triggered');
+  return false;
+}
 
   /* “For 10 of these Swahili-English word pairs, you used the review strategy--
   you studied by reviewing the Swahili-English word pairs. Out of these 10, how 
