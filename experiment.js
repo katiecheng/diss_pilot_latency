@@ -148,7 +148,7 @@ var experiment = {
   interventionStrategy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
     if (experiment.interventionStrategyTrials.length == 0) {
-      experiment.interventionStrategyFraming();
+      experiment.end();
       return;
     }
     
@@ -165,12 +165,23 @@ var experiment = {
       function() {
         $("#generatedWord").submit();
         experiment.interventionStrategy();
-      }, 5000);
+      }, 5000
+    );
   },
 
   captureWord: function() {
     // do some stuff with the values in the form
     alert('captureWord triggered');
+    data = {
+      stimulus: n,
+      accuracy: realParity == userParity ? 1 : 0,
+      rt: endTime - startTime
+    };
+    experiment.data.push(data);
+    // Temporarily clear the number.
+        $("#swahili").text("");
+        // Wait 500 milliseconds before starting the next trial.
+        setTimeout(experiment.interventionStrategy, 500);
     // stop form from being submitted
     return false;
   },
