@@ -83,13 +83,8 @@ var numTrials = 8, //40
     ["ziwa", "lake"],
     ["zulia", "carpet"]
   ];
-
+/*
 $("#interventionForm").submit(function(event){
-    if(event.keyCode == 13) {
-      console.log("in if");
-      event.preventDefault();
-      return false;
-    }
     console.log(event);
     // console.log(form.generatedWord.value);
     experiment.interventionStrategy();
@@ -103,7 +98,7 @@ $("#interventionForm").submit(function(event){
   // // stop form from being submitted
   // return false;
 });
-/*
+
 $(function() { //shorthand document.ready function
     $('#interventionForm').on('submit', function(event) { //use on if jQuery 1.7+
         event.preventDefault();  //prevent form from submitting
@@ -201,7 +196,16 @@ var experiment = {
     // debugger;
 
     // Wait 5 seconds before starting the next trial.
-    setTimeout(function() {$("#interventionForm").submit();}, 3000);
+    setTimeout((event)=>{$("#interventionForm").submit(experiment.captureWord(event);)}, 3000); 
+    /*setTimeout(function() {$("#interventionForm").submit(
+        function(event){
+          console.log(event);
+          // console.log(form.generatedWord.value);
+          experiment.interventionStrategy();
+          $("#generatedWord").val('');
+          return false;
+        }
+      );}, 3000);*/
     // setTimeout($("#interventionForm").submit, 3000);
     // setTimeout(document.interventionForm.submit, 3000);
     // setTimeout(function(){$("#interventionForm").submit()}, 3000); //did not auto-advance, POST not allowed
@@ -226,11 +230,12 @@ var experiment = {
         // Wait 500 milliseconds before starting the next trial.
         setTimeout(experiment.interventionStrategy, 500);
   */
-  captureWord: function(form) {
+  captureWord: function(event) {
     // capture generatedWord text input value
-    console.log(form);
-    console.log(form.generatedWord.value);
+    console.log(event);
+    // console.log(form.generatedWord.value);
     experiment.interventionStrategy();
+    console.log($("#generatedWord").val);
     $("#generatedWord").val('');
     // stop form from being submitted
     return false;
