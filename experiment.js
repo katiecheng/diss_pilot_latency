@@ -176,11 +176,10 @@ var experiment = {
       // document.interventionForm.submit();
       console.log("after submit");
     }, 3000);*/
-    window.onload=function(){
-      window.setTimeout('document.interventionForm.submit()', 500)
-    }
     // setTimeout(document.interventionForm.submit, 3000);
     // $("#interventionForm").submit();
+    setTimeout(function(){$("#interventionForm").submit()}, 3000);
+    // setTimeout(function(){document.interventionForm.submit()}, 3000);
   },
 
   /*
