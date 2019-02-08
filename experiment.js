@@ -200,7 +200,7 @@ var experiment = {
     // do some stuff with the values in the form
     
     console.log("captureWord triggered");
-    console.log($("#generatedWord").value)
+    console.log($("#generatedWord").value);
     console.log("captureWord triggered 2");
     experiment.interventionStrategy();
     // stop form from being submitted
