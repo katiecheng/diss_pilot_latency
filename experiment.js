@@ -180,14 +180,13 @@ var experiment = {
     console.log('check4 triggered');
     $("#swahili").text(swahili + " : ");
     // Wait 5 seconds before starting the next trial.
-    /*
     setTimeout(
       function() {
         $("#generatedWord").submit();
         experiment.interventionStrategy();
-      }, 5000
+      }, 1000
     );
-    */
+    
   },
 
   captureWord: function() {
