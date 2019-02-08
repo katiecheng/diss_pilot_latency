@@ -196,8 +196,8 @@ var experiment = {
     // debugger;
 
     // Wait 5 seconds before starting the next trial.
-    setTimeout(function(event){
-      $("#interventionForm").submit(experiment.captureWord(event))
+    setTimeout(function(){
+      $("#interventionForm").submit(function(event){experiment.captureWord(event)});
     }, 3000); 
     /*setTimeout(function() {$("#interventionForm").submit(
         function(event){
@@ -237,7 +237,7 @@ var experiment = {
     console.log("event: ", event);
     // console.log(form.generatedWord.value);
     experiment.interventionStrategy();
-    console.log("word: ", $("#generatedWord").val);
+    console.log("word: ", $("#generatedWord").val());
     $("#generatedWord").val('');
     // stop form from being submitted
     return false;
