@@ -196,11 +196,12 @@ var experiment = {
         // Wait 500 milliseconds before starting the next trial.
         setTimeout(experiment.interventionStrategy, 500);
   */
-  captureWord: function() {
+  captureWord: function(form) {
     // do some stuff with the values in the form
     
     console.log("captureWord triggered");
-    console.log($("#generatedWord").value);
+    // console.log($("#generatedWord").value);
+    console.log(form.generatedWord);
     console.log("captureWord triggered 2");
     experiment.interventionStrategy();
     // stop form from being submitted
