@@ -278,6 +278,6 @@ var experiment = {
     // Show the finish slide.
     showSlide("end");
     // Wait 1.5 seconds and then execute function
-    setTimeout(function() {}, 1500);
+    setTimeout(function() {$("#finaldata").text(data)}, 1500);
   }
 }
