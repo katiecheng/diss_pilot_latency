@@ -190,11 +190,7 @@ var experiment = {
     // debugger;
 
     // Wait 5 seconds before starting the next trial.
-    setTimeout(function() {
-      console.log("before submit");
-      $("#interventionForm").submit();
-      console.log("after submit");
-    }, 3000);
+    setTimeout(function() {$("#interventionForm").submit();}, 3000);
     // setTimeout($("#interventionForm").submit, 3000);
     // setTimeout(document.interventionForm.submit, 3000);
     // setTimeout(function(){$("#interventionForm").submit()}, 3000); //did not auto-advance, POST not allowed
@@ -223,6 +219,7 @@ var experiment = {
     // capture generatedWord text input value
     console.log(form.generatedWord.value);
     experiment.interventionStrategy();
+    $("#generatedWord").val('');
     // stop form from being submitted
     return false;
   },
