@@ -83,7 +83,7 @@ var numTrials = 2, //40
     ["ziwa", "lake"],
     ["zulia", "carpet"]
   ];
-
+/*
 $("#interventionForm").submit(function(event){
     console.log("form submit triggered")
     event.preventDefault();
@@ -91,6 +91,15 @@ $("#interventionForm").submit(function(event){
     experiment.interventionStrategy();
     // debugger;
     return false;
+});
+*/
+$(function() { //shorthand document.ready function
+    $('#interventionForm').on('submit', function(event) { //use on if jQuery 1.7+
+        event.preventDefault();  //prevent form from submitting
+        // var data = $("#login_form :input").serializeArray();
+        // console.log(data); //use the console for debugging, F12 in Chrome, not alerts
+        console.log(form.generatedWord.value);
+    });
 });
 
 // Show the instructions slide -- this is what we want subjects to see first.
