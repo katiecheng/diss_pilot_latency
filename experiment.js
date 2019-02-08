@@ -179,9 +179,9 @@ var experiment = {
     
   },
 
-  captureWord: function() {
+  captureWord: function(form) {
     // do some stuff with the values in the form
-    console.log('captureWord triggered');
+    console.log(form.generatedWord);
     data = {
       /*
       stimulus: n,
