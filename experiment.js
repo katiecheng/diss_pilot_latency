@@ -205,7 +205,7 @@ var experiment = {
     console.log("captureWord triggered");
 
     // stop form from being submitted
-    // return false;
+    return false;
   },
 
   /* “For 10 of these Swahili-English word pairs, you used the review strategy--
