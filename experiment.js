@@ -85,7 +85,7 @@ var numTrials = 8, //40
   ];
 
 $("#interventionForm").submit(function(event){
-    if(event.which == 13) {
+    if(event.keycode == 13) {
       console.log("in if");
       event.preventDefault();
       return false;
