@@ -99,7 +99,7 @@ var experiment = {
   numTrials: numTrials,
   condition: condition,
   myTrialOrder: myTrialOrder,
-  interventionStudyTrials: $.extend( {}, interventionTrials );,
+  interventionStudyTrials: $.extend( {}, interventionTrials ),
   interventionStrategyTrials: shuffle($.extend( {}, interventionTrials )),
   assessmentStudyTrials: $.extend( {}, assessmentTrials ),
   assessmentStrategyTrials: shuffle($.extend( {}, assessmentTrials )),
