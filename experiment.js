@@ -190,16 +190,14 @@ var experiment = {
     // debugger;
 
     // Wait 5 seconds before starting the next trial.
-    /*setTimeout(function() {
+    setTimeout(function() {
       console.log("before submit");
       $("#interventionForm").submit();
-      // document.interventionForm.submit();
       console.log("after submit");
-    }, 3000);*/
+    }, 3000);
     // setTimeout($("#interventionForm").submit, 3000);
     // setTimeout(document.interventionForm.submit, 3000);
     // setTimeout(function(){$("#interventionForm").submit()}, 3000); //did not auto-advance, POST not allowed
-    // setTimeout(function(){document.interventionForm.submit()}, 3000); //not a function?
     // setTimeout(function(){document.getElementById("interventionForm").submit()}, 3000); //Typeerror?
   },
 
