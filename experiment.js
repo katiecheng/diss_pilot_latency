@@ -169,7 +169,7 @@ var experiment = {
       $("#wordpair").text(swahili + " : " + english);
       // Wait 5 seconds before starting the next trial.
       setTimeout(
-        experiment.captureWord("review", swahili, english);}, 3000
+        experiment.captureWord("review", swahili, english), 3000
       ); 
     }
 
