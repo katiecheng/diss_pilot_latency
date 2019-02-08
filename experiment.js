@@ -197,7 +197,7 @@ var experiment = {
 
     // Wait 5 seconds before starting the next trial.
     setTimeout(
-      $("#interventionForm").submit((event)=>{experiment.captureWord(event)});
+      $("#interventionForm").submit(function(event){experiment.captureWord(event)});
     , 3000); 
     /*setTimeout(function() {$("#interventionForm").submit(
         function(event){
