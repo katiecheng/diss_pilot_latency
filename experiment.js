@@ -156,28 +156,18 @@ var experiment = {
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
   interventionStrategy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
-    console.log('check1c triggered');
-    console.log(experiment.myTrialOrder);
-    console.log(experiment.interventionStudyTrials);
-    console.log(experiment.interventionStrategyTrials);
-    console.log('check1d triggered');
     if (experiment.interventionStrategyTrials.length == 0) {
-      // console.log(experiment.interventionStudyTrials);
-      // console.log(experiment.interventionStrategyTrials);
       experiment.end();
       return;
     }
-    console.log('check2 triggered');
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currTrial = experiment.interventionStrategyTrials.shift();
 
     var swahili = swahili_english_pairs[parseInt(currTrial)][0]
     var english = swahili_english_pairs[parseInt(currTrial)][1]
 
-    console.log('check3 triggered');
     showSlide("interventionStrategy");
 
-    console.log('check4 triggered');
     $("#swahili").text(swahili + " : ");
     // Wait 5 seconds before starting the next trial.
     setTimeout(
