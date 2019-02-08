@@ -100,8 +100,7 @@ var experiment = {
   interventionStrategyTrials: shuffle(interventionTrials.slice(0)),
   assessmentStudyTrials: assessmentTrials.slice(0),
   assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
-  swahili_english_pairs: swahili_english_pairs,
-
+  
   // An array to store the data that we're collecting.
   data: [],
 
@@ -162,7 +161,7 @@ var experiment = {
 
       // Wait 5 seconds before starting the next trial.
       setTimeout(function(){$("#interventionForm").submit(
-        experiment.captureWord("generate", swahili, english));}, 3000
+        experiment.captureWord(currTrial, swahili, english));}, 3000
       ); 
     } else {
       showSlide("interventionStudy");
@@ -175,11 +174,11 @@ var experiment = {
   },
 
   // Capture and save trial
-  captureWord: function(strategy, swahili, english) {
+  captureWord: function(currTrial, swahili, english) {
     var generatedWord = $("#generatedWord").val().toLowerCase(),
 
       data = {
-        strategy: strategy,
+        trial: currTrial,
         swahili: swahili,
         english: english,
         generatedWord: generatedWord,
