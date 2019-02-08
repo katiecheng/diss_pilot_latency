@@ -152,8 +152,9 @@ var experiment = {
   interventionStrategy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
     console.log('check1 triggered');
-    console.log(experiment.interventionStudyTrials),
-    console.log(experiment.interventionStrategyTrials),
+    console.log(experiment.myTrialOrder);
+    console.log(experiment.interventionStudyTrials);
+    console.log(experiment.interventionStrategyTrials);
     if (experiment.interventionStrategyTrials.length == 0) {
       // console.log(experiment.interventionStudyTrials);
       // console.log(experiment.interventionStrategyTrials);
