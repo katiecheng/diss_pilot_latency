@@ -234,10 +234,10 @@ var experiment = {
   */
   captureWord: function(event) {
     // capture generatedWord text input value
-    console.log(event);
+    console.log("event: ", event);
     // console.log(form.generatedWord.value);
     experiment.interventionStrategy();
-    console.log($("#generatedWord").val);
+    console.log("word: ", $("#generatedWord").val);
     $("#generatedWord").val('');
     // stop form from being submitted
     return false;
