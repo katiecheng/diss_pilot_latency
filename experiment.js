@@ -187,9 +187,10 @@ var experiment = {
 
     experiment.data.push(data);
     // show next slide
-    experiment.interventionStrategy();
     $("#generatedWord").val('');
     $("#generatedWord").focus();
+    experiment.interventionStrategy();
+
     // stop form from being submitted
     return false;
   },
