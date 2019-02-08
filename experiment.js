@@ -94,8 +94,8 @@ var experiment = {
   numTrials: numTrials,
   condition: condition,
   myTrialOrder: myTrialOrder,
-  interventionStudyGenerate: interventionTrials.slice(0,(numTrials/4)),
-  interventionStudyReview: interventionTrials.slice((numTrials/4), numTrials/2),
+  interventionStrategyGenerate: interventionTrials.slice(0,(numTrials/4)),
+  interventionStrategyRestudy: interventionTrials.slice((numTrials/4), numTrials/2),
   interventionStudyTrials: shuffle(interventionTrials.slice(0)), // shallow copy
   interventionStrategyTrials: shuffle(interventionTrials.slice(0)),
   assessmentStudyTrials: assessmentTrials.slice(0),
@@ -156,7 +156,7 @@ var experiment = {
       swahili = swahili_english_pairs[parseInt(currTrial)][0],
       english = swahili_english_pairs[parseInt(currTrial)][1];
 
-    if ($.inArray(currTrial, interventionStudyGenerate) != -1) {
+    if ($.inArray(currTrial, interventionStrategyGenerate) != -1) {
       showSlide("interventionStrategyGenerate");
       $("#swahili").text(swahili + " : ");
 
@@ -169,7 +169,7 @@ var experiment = {
       $("#wordpair").text(swahili + " : " + english);
       // Wait 5 seconds before starting the next trial.
       setTimeout(
-        experiment.captureWord("review", swahili, english), 3000
+        experiment.captureWord("restudy", swahili, english), 3000
       ); 
     }
 
