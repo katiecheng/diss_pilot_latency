@@ -169,10 +169,13 @@ var experiment = {
     showSlide("interventionStrategy");
 
     $("#swahili").text(swahili + " : ");
-    debugger;
+    // debugger;
     $("#interventionForm").submit(function(event){
       console.log("form submit triggered")
       event.preventDefault();
+      console.log(form.generatedWord.value);
+      experiment.interventionStrategy();
+      return false;
     });
     // Wait 5 seconds before starting the next trial.
     /*setTimeout(function() {
