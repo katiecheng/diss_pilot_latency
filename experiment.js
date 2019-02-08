@@ -123,17 +123,17 @@ var experiment = {
   interventionStudy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
     console.log('check1 triggered');
-    console.log(this.myTrialOrder);
-    console.log(this.interventionStudyTrials);
-    console.log(this.interventionStrategyTrials);
+    console.log(experiment.myTrialOrder);
+    console.log(experiment.interventionStudyTrials);
+    console.log(experiment.interventionStrategyTrials);
     console.log('check1b triggered');
-    if (this.interventionStudyTrials.length == 0) {
-      this.interventionStrategyFraming();
+    if (experiment.interventionStudyTrials.length == 0) {
+      experiment.interventionStrategyFraming();
       return;
     }
     
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var currTrial = this.interventionStudyTrials.shift();
+    var currTrial = experiment.interventionStudyTrials.shift();
 
     var swahili = swahili_english_pairs[parseInt(currTrial)][0]
     var english = swahili_english_pairs[parseInt(currTrial)][1]
@@ -141,7 +141,7 @@ var experiment = {
     showSlide("interventionStudy");
     $("#wordpair").text(swahili + " : " + english);
     // Wait 5 seconds before starting the next trial.
-    setTimeout(this.interventionStudy, 1000);
+    setTimeout(experiment.interventionStudy, 1000);
   },
 
   //Intro to strategy
@@ -157,19 +157,19 @@ var experiment = {
   interventionStrategy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
     console.log('check1c triggered');
-    console.log(this.myTrialOrder);
-    console.log(this.interventionStudyTrials);
-    console.log(this.interventionStrategyTrials);
+    console.log(experiment.myTrialOrder);
+    console.log(experiment.interventionStudyTrials);
+    console.log(experiment.interventionStrategyTrials);
     console.log('check1d triggered');
-    if (this.interventionStrategyTrials.length == 0) {
-      // console.log(this.interventionStudyTrials);
-      // console.log(this.interventionStrategyTrials);
-      this.end();
+    if (experiment.interventionStrategyTrials.length == 0) {
+      // console.log(experiment.interventionStudyTrials);
+      // console.log(experiment.interventionStrategyTrials);
+      experiment.end();
       return;
     }
     console.log('check2 triggered');
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var currTrial = this.interventionStrategyTrials.shift();
+    var currTrial = experiment.interventionStrategyTrials.shift();
 
     var swahili = swahili_english_pairs[parseInt(currTrial)][0]
     var english = swahili_english_pairs[parseInt(currTrial)][1]
@@ -184,7 +184,7 @@ var experiment = {
     setTimeout(
       function() {
         $("#generatedWord").submit();
-        this.interventionStrategy();
+        experiment.interventionStrategy();
       }, 5000
     );
     */
@@ -200,11 +200,11 @@ var experiment = {
       rt: endTime - startTime
       */
     };
-    this.data.push(data);
+    experiment.data.push(data);
     // Temporarily clear the number.
         $("#swahili").text("");
         // Wait 500 milliseconds before starting the next trial.
-        setTimeout(this.interventionStrategy, 500);
+        setTimeout(experiment.interventionStrategy, 500);
     // stop form from being submitted
     return false;
   },
@@ -257,13 +257,13 @@ var experiment = {
   // 20 items, View each item for 5 sec
   assessmentStudy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
-    if (this.assessmentTrials.length == 0) {
-      this.end();
+    if (experiment.assessmentTrials.length == 0) {
+      experiment.end();
       return;
     }
     
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var n = this.assessmentTrials.shift();
+    var n = experiment.assessmentTrials.shift();
   },
 
   /*
