@@ -123,9 +123,9 @@ var experiment = {
     }
     
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var currTrial = experiment.interventionStudyTrials.shift();
-    var swahili = swahili_english_pairs[parseInt(currTrial)][0]
-    var english = swahili_english_pairs[parseInt(currTrial)][1]
+    var currTrial = experiment.interventionStudyTrials.shift(),
+      swahili = swahili_english_pairs[parseInt(currTrial)][0],
+      english = swahili_english_pairs[parseInt(currTrial)][1];
 
     showSlide("interventionStudy");
     $("#wordpair").text(swahili + " : " + english);
@@ -150,9 +150,9 @@ var experiment = {
       return;
     }
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var currTrial = experiment.interventionStrategyTrials.shift();
-    var swahili = swahili_english_pairs[parseInt(currTrial)][0]
-    var english = swahili_english_pairs[parseInt(currTrial)][1]
+    var currTrial = experiment.interventionStrategyTrials.shift(),
+      swahili = swahili_english_pairs[parseInt(currTrial)][0],
+      english = swahili_english_pairs[parseInt(currTrial)][1];
 
     showSlide("interventionStrategy");
     $("#swahili").text(swahili + " : ");
@@ -184,13 +184,13 @@ var experiment = {
   */
   captureWord: function(currTrial) {
     // capture generatedWord text input value
-    realWord = swahili_english_pairs[currTrial];
-
-    data = {
-      real: realWord,
-      swahili: $("#swahili").text(),
-      generatedWord: $("#generatedWord").val()
-    }
+    var realWord = swahili_english_pairs[currTrial],
+      data = {
+        trial: currTrial,
+        real: realWord,
+        swahili: $("#swahili").text(),
+        generatedWord: $("#generatedWord").val()
+      };
     console.log("word: ", data);
 
     // show next slide
