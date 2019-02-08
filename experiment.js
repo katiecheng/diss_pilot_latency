@@ -174,7 +174,7 @@ var experiment = {
       function() {
         $("#interventionForm").submit();
         experiment.interventionStrategy();
-      }, 5000
+      }, 3000
     );
     
   },
