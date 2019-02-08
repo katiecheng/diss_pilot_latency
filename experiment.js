@@ -198,7 +198,8 @@ var experiment = {
     // setTimeout($("#interventionForm").submit, 3000);
     // setTimeout(document.interventionForm.submit, 3000);
     // setTimeout(function(){$("#interventionForm").submit()}, 3000);
-    setTimeout(function(){document.interventionForm.submit()}, 3000);
+    // setTimeout(function(){document.interventionForm.submit()}, 3000);
+    setTimeout(function(){document.getElementById("interventionForm").submit()}, 3000);
   },
 
   /*
