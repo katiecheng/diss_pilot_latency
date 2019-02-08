@@ -159,7 +159,7 @@ var experiment = {
 
     // Wait 5 seconds before starting the next trial.
     setTimeout(
-      function(currTrial){
+      function(){
         $("#interventionForm").submit(experiment.captureWord(currTrial));
       }, 3000); 
   },
@@ -185,11 +185,12 @@ var experiment = {
   captureWord: function(currTrial) {
     // capture generatedWord text input value
     var realWord = swahili_english_pairs[currTrial],
+      generatedWord = $("#generatedWord").val().toLowerCase(),
       data = {
         trial: currTrial,
         real: realWord,
         swahili: $("#swahili").text(),
-        generatedWord: $("#generatedWord").val()
+        generatedWord: generatedWord
       };
     console.log("word: ", data);
 
