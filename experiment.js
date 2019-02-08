@@ -87,12 +87,8 @@ var numTrials = 8, //40
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
 
-console.log(interventionTrials);
-console.log(assessmentTrials);
-
 // ## The main event
-// I implement the sequence as an object with properties and methods. The benefit of encapsulating everything in an object is that it's conceptually coherent (i.e. the <code>data</code> variable belongs to this particular sequence and not any other) and allows you to **compose** sequences to build more complicated experiments. For instance, if you wanted an experiment with, say, a survey, a reaction time test, and a memory test presented in a number of different orders, you could easily do so by creating three separate sequences and dynamically setting the <code>end()</code> function for each sequence so that it points to the next. **More practically, you should stick everything in an object and submit that whole object so that you don't lose data (e.g. randomization parameters, what condition the subject is in, etc). Don't worry about the fact that some of the object properties are functions -- mmturkey (the Turk submission library) will strip these out.**
-
+/* I implement the sequence as an object with properties and methods. The benefit of encapsulating everything in an object is that it's conceptually coherent (i.e. the <code>data</code> variable belongs to this particular sequence and not any other) and allows you to **compose** sequences to build more complicated experiments. For instance, if you wanted an experiment with, say, a survey, a reaction time test, and a memory test presented in a number of different orders, you could easily do so by creating three separate sequences and dynamically setting the <code>end()</code> function for each sequence so that it points to the next. **More practically, you should stick everything in an object and submit that whole object so that you don't lose data (e.g. randomization parameters, what condition the subject is in, etc). Don't worry about the fact that some of the object properties are functions -- mmturkey (the Turk submission library) will strip these out.*/
 var experiment = {
   // Properties
   numTrials: numTrials,
@@ -121,11 +117,6 @@ var experiment = {
   // 20 items, View each item for 5 sec
   interventionStudy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
-    console.log('check1 triggered');
-    console.log(experiment.myTrialOrder);
-    console.log(experiment.interventionStudyTrials);
-    console.log(experiment.interventionStrategyTrials);
-    console.log('check1b triggered');
     if (experiment.interventionStudyTrials.length == 0) {
       experiment.interventionStrategyFraming();
       return;
@@ -168,8 +159,8 @@ var experiment = {
 
     // Wait 5 seconds before starting the next trial.
     setTimeout(
-      function(){
-        $("#interventionForm").submit(experiment.captureWord());
+      function(currTrial){
+        $("#interventionForm").submit(experiment.captureWord(currTrial));
       }, 3000); 
   },
 
@@ -191,11 +182,21 @@ var experiment = {
         // Wait 500 milliseconds before starting the next trial.
         setTimeout(experiment.interventionStrategy, 500);
   */
-  captureWord: function() {
-    experiment.interventionStrategy();
+  captureWord: function(currTrial) {
     // capture generatedWord text input value
-    console.log("word: ", $("#generatedWord").val());
+    realWord = swahili_english_pairs[currTrial];
+
+    data = {
+      real: realWord,
+      swahili: $("#swahili").text(),
+      generatedWord: $("#generatedWord").val()
+    }
+    console.log("word: ", data);
+
+    // show next slide
+    experiment.interventionStrategy();
     $("#generatedWord").val('');
+
     // stop form from being submitted
     return false;
   },
