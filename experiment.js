@@ -85,7 +85,10 @@ var numTrials = 8, //40
   ];
 
 $("#interventionForm").submit(function(event){
-    event.preventDefault();
+    if(event.which == 13) {
+      event.preventDefault();
+      return false;
+    }
     console.log(event);
     // console.log(form.generatedWord.value);
     experiment.interventionStrategy();
