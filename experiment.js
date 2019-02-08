@@ -223,7 +223,7 @@ var experiment = {
   */
   captureWord: function(form) {
     // capture generatedWord text input value
-    form.preventDefault();
+    // form.preventDefault();
     console.log(form.generatedWord.value);
     experiment.interventionStrategy();
     // stop form from being submitted
