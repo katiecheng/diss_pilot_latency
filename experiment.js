@@ -169,6 +169,7 @@ var experiment = {
     showSlide("interventionStrategy");
 
     $("#swahili").text(swahili + " : ");
+    debugger;
     $("#interventionForm").submit(function(event){
       console.log("form submit triggered")
       event.preventDefault();
