@@ -84,6 +84,14 @@ var numTrials = 2, //40
     ["zulia", "carpet"]
   ];
 
+$("#interventionForm").submit(function(event){
+    console.log("form submit triggered")
+    event.preventDefault();
+    console.log(form.generatedWord.value);
+    experiment.interventionStrategy();
+    // debugger;
+    return false;
+});
 
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
@@ -170,14 +178,7 @@ var experiment = {
 
     $("#swahili").text(swahili + " : ");
     // debugger;
-    $("#interventionForm").submit(function(event){
-      console.log("form submit triggered")
-      event.preventDefault();
-      console.log(form.generatedWord.value);
-      experiment.interventionStrategy();
-      debugger;
-      return false;
-    });
+
     // Wait 5 seconds before starting the next trial.
     /*setTimeout(function() {
       console.log("before submit");
