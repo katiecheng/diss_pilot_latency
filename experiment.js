@@ -155,6 +155,7 @@ var experiment = {
     console.log(experiment.myTrialOrder);
     console.log(experiment.interventionStudyTrials);
     console.log(experiment.interventionStrategyTrials);
+    console.log('check1b triggered');
     if (experiment.interventionStrategyTrials.length == 0) {
       // console.log(experiment.interventionStudyTrials);
       // console.log(experiment.interventionStrategyTrials);
