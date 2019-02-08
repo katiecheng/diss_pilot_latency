@@ -175,7 +175,6 @@ var experiment = {
         console.log("before submit");
         $("#interventionForm").submit();
         console.log("after submit");
-        experiment.interventionStrategy();
       }, 3000
     );
     
@@ -203,7 +202,7 @@ var experiment = {
     // do some stuff with the values in the form
     
     console.log("captureWord triggered");
-
+    experiment.interventionStrategy();
     // stop form from being submitted
     return false;
   },
