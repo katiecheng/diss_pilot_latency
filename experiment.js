@@ -189,6 +189,7 @@ var experiment = {
     // show next slide
     experiment.interventionStrategy();
     $("#generatedWord").val('');
+    $("#generatedWord").focus();
     // stop form from being submitted
     return false;
   },
