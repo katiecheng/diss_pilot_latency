@@ -83,31 +83,6 @@ var numTrials = 8, //40
     ["ziwa", "lake"],
     ["zulia", "carpet"]
   ];
-/*
-$("#interventionForm").submit(function(event){
-    console.log(event);
-    // console.log(form.generatedWord.value);
-    experiment.interventionStrategy();
-    $("#generatedWord").val('');
-    return false;
-
-  // console.log(form);
-  // console.log(form.generatedWord.value);
-  // experiment.interventionStrategy();
-  // $("#generatedWord").val('');
-  // // stop form from being submitted
-  // return false;
-});
-
-$(function() { //shorthand document.ready function
-    $('#interventionForm').on('submit', function(event) { //use on if jQuery 1.7+
-        event.preventDefault();  //prevent form from submitting
-        // var data = $("#login_form :input").serializeArray();
-        // console.log(data); //use the console for debugging, F12 in Chrome, not alerts
-        console.log(form.generatedWord.value);
-    });
-});
-*/
 
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
@@ -158,7 +133,6 @@ var experiment = {
     
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currTrial = experiment.interventionStudyTrials.shift();
-
     var swahili = swahili_english_pairs[parseInt(currTrial)][0]
     var english = swahili_english_pairs[parseInt(currTrial)][1]
 
@@ -186,33 +160,17 @@ var experiment = {
     }
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currTrial = experiment.interventionStrategyTrials.shift();
-
     var swahili = swahili_english_pairs[parseInt(currTrial)][0]
     var english = swahili_english_pairs[parseInt(currTrial)][1]
 
     showSlide("interventionStrategy");
-
     $("#swahili").text(swahili + " : ");
-    // debugger;
 
     // Wait 5 seconds before starting the next trial.
-    setTimeout(function(){
-      $("#interventionForm").submit(experiment.captureWord(event));
-    }
-    , 3000); 
-    /*setTimeout(function() {$("#interventionForm").submit(
-        function(event){
-          console.log(event);
-          // console.log(form.generatedWord.value);
-          experiment.interventionStrategy();
-          $("#generatedWord").val('');
-          return false;
-        }
-      );}, 3000);*/
-    // setTimeout($("#interventionForm").submit, 3000);
-    // setTimeout(document.interventionForm.submit, 3000);
-    // setTimeout(function(){$("#interventionForm").submit()}, 3000); //did not auto-advance, POST not allowed
-    // setTimeout(function(){document.getElementById("interventionForm").submit()}, 3000); //Typeerror?
+    setTimeout(
+      function(){
+        $("#interventionForm").submit(experiment.captureWord());
+      }, 3000); 
   },
 
   /*
@@ -233,11 +191,9 @@ var experiment = {
         // Wait 500 milliseconds before starting the next trial.
         setTimeout(experiment.interventionStrategy, 500);
   */
-  captureWord: function(event) {
-    // capture generatedWord text input value
-    console.log("event: ", event);
-    // console.log(form.generatedWord.value);
+  captureWord: function() {
     experiment.interventionStrategy();
+    // capture generatedWord text input value
     console.log("word: ", $("#generatedWord").val());
     $("#generatedWord").val('');
     // stop form from being submitted
