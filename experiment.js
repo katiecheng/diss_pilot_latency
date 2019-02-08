@@ -175,6 +175,7 @@ var experiment = {
       event.preventDefault();
       console.log(form.generatedWord.value);
       experiment.interventionStrategy();
+      debugger;
       return false;
     });
     // Wait 5 seconds before starting the next trial.
