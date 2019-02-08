@@ -86,7 +86,6 @@ var numTrials = 8, //40
 
 $("#interventionForm").submit(function(event){
     console.log(event);
-    console.log(event.generatedWord.value);
     // console.log(form.generatedWord.value);
     event.preventDefault();
     experiment.interventionStrategy();
