@@ -141,7 +141,7 @@ var experiment = {
     showSlide("interventionStudy");
     $("#wordpair").text(swahili + " : " + english);
     // Wait 5 seconds before starting the next trial.
-    setTimeout(experiment.interventionStudy, 5000);
+    setTimeout(experiment.interventionStudy, 1000);
   },
 
   //Intro to strategy
