@@ -156,11 +156,11 @@ var experiment = {
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
   interventionStrategy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
-    console.log('check1 triggered');
+    console.log('check1c triggered');
     console.log(experiment.myTrialOrder);
     console.log(experiment.interventionStudyTrials);
     console.log(experiment.interventionStrategyTrials);
-    console.log('check1b triggered');
+    console.log('check1d triggered');
     if (experiment.interventionStrategyTrials.length == 0) {
       // console.log(experiment.interventionStudyTrials);
       // console.log(experiment.interventionStrategyTrials);
