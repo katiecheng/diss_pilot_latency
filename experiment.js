@@ -169,6 +169,10 @@ var experiment = {
     showSlide("interventionStrategy");
 
     $("#swahili").text(swahili + " : ");
+    $("#interventionForm").submit(function(event){
+      console.log("form submit triggered")
+      event.preventDefault();
+    });
     // Wait 5 seconds before starting the next trial.
     /*setTimeout(function() {
       console.log("before submit");
