@@ -170,12 +170,13 @@ var experiment = {
 
     $("#swahili").text(swahili + " : ");
     // Wait 5 seconds before starting the next trial.
-    setTimeout(function() {
+    /*setTimeout(function() {
       console.log("before submit");
       $("#interventionForm").submit();
       // document.interventionForm.submit();
       console.log("after submit");
-    }, 3000);
+    }, 3000);*/
+    setTimeout(function() { $("#interventionForm").submit }, 3000);
   },
 
   /*
@@ -197,12 +198,8 @@ var experiment = {
         setTimeout(experiment.interventionStrategy, 500);
   */
   captureWord: function(form) {
-    // do some stuff with the values in the form
-    
-    console.log("captureWord triggered");
-    // console.log($("#generatedWord").value);
+    // capture generatedWord text input value
     console.log(form.generatedWord.value);
-    console.log("captureWord triggered 2");
     experiment.interventionStrategy();
     // stop form from being submitted
     return false;
