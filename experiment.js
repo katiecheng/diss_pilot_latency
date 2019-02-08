@@ -156,7 +156,7 @@ var experiment = {
       swahili = swahili_english_pairs[parseInt(currTrial)][0],
       english = swahili_english_pairs[parseInt(currTrial)][1];
 
-    if ($.inArray(currTrial, interventionStrategyGenerate) != -1) {
+    if ($.inArray(currTrial, experiment.interventionStrategyGenerate) != -1) {
       showSlide("interventionStrategyGenerate");
       $("#swahili").text(swahili + " : ");
 
