@@ -39,8 +39,8 @@ function shuffle(array) {
 var numTrials = 8, //40
   condition = randomInteger(4),
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
-  interventionTrials = myTrialOrder.slice(0,(numTrials / 2)),
-  assessmentTrials = myTrialOrder.slice((numTrials / 2), numTrials),
+  interventionTrials = myTrialOrder.slice(0,(numTrials/2)),
+  assessmentTrials = myTrialOrder.slice((numTrials/2), numTrials),
   swahili_english_pairs = [
     ["adhama", "honor"],
     ["adui", "enemy"],
@@ -94,7 +94,9 @@ var experiment = {
   numTrials: numTrials,
   condition: condition,
   myTrialOrder: myTrialOrder,
-  interventionStudyTrials: interventionTrials.slice(0), // shallow copy
+  interventionStudyGenerate: interventionTrials.slice(0,(numTrials/4)),
+  interventionStudyReview: interventionTrials.slice((numTrials/4), numTrials/2),
+  interventionStudyTrials: shuffle(interventionTrials.slice(0)), // shallow copy
   interventionStrategyTrials: shuffle(interventionTrials.slice(0)),
   assessmentStudyTrials: assessmentTrials.slice(0),
   assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
@@ -154,50 +156,42 @@ var experiment = {
       swahili = swahili_english_pairs[parseInt(currTrial)][0],
       english = swahili_english_pairs[parseInt(currTrial)][1];
 
-    showSlide("interventionStrategy");
-    $("#swahili").text(swahili + " : ");
+    if ($.inArray(currTrial, interventionStudyGenerate) != -1) {
+      showSlide("interventionStrategyGenerate");
+      $("#swahili").text(swahili + " : ");
 
-    // Wait 5 seconds before starting the next trial.
-    setTimeout(
-      function(){
-        $("#interventionForm").submit(experiment.captureWord(currTrial));
-      }, 3000); 
+      // Wait 5 seconds before starting the next trial.
+      setTimeout(function(){$("#interventionForm").submit(
+        experiment.captureWord("generate", swahili, english));}, 3000
+      ); 
+    } else {
+      showSlide("interventionStudy");
+      $("#wordpair").text(swahili + " : " + english);
+      // Wait 5 seconds before starting the next trial.
+      setTimeout(
+        experiment.captureWord("review", swahili, english);}, 3000
+      ); 
+    }
+
+
   },
 
-  /*
-  console.log(document.getElementById('generatedWord').value);
-    console.log(form.swahili);
-    console.log(form.generatedWord);
-    
-    data = {
-      
-      stimulus: n,
-      accuracy: realParity == userParity ? 1 : 0,
-      rt: endTime - startTime
-      
-    };
-    experiment.data.push(data);
-    // Temporarily clear the number.
-        $("#swahili").text("");
-        // Wait 500 milliseconds before starting the next trial.
-        setTimeout(experiment.interventionStrategy, 500);
-  */
-  captureWord: function(currTrial) {
-    // capture generatedWord text input value
-    var realWord = swahili_english_pairs[currTrial],
-      generatedWord = $("#generatedWord").val().toLowerCase(),
-      data = {
-        trial: currTrial,
-        real: realWord,
-        swahili: $("#swahili").text(),
-        generatedWord: generatedWord
-      };
-    console.log("word: ", data);
+  // Capture and save trial
+  captureWord: function(strategy, swahili, english) {
+    var generatedWord = $("#generatedWord").val().toLowerCase(),
 
+      data = {
+        strategy: strategy,
+        swahili: swahili,
+        english: english,
+        generatedWord: generatedWord,
+        accuracy: english == generatedWord ? 1 : 0
+      };
+
+    experiment.data.push(data);
     // show next slide
     experiment.interventionStrategy();
     $("#generatedWord").val('');
-
     // stop form from being submitted
     return false;
   },
