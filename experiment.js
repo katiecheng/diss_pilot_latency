@@ -178,8 +178,8 @@ var experiment = {
     }, 3000);*/
     // setTimeout(document.interventionForm.submit, 3000);
     // $("#interventionForm").submit();
-    setTimeout(function(){$("#interventionForm").submit()}, 3000);
-    // setTimeout(function(){document.interventionForm.submit()}, 3000);
+    // setTimeout(function(){$("#interventionForm").submit()}, 3000);
+    setTimeout(function(){document.interventionForm.submit()}, 3000);
   },
 
   /*
