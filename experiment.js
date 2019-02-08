@@ -217,6 +217,7 @@ var experiment = {
   */
   captureWord: function(form) {
     // capture generatedWord text input value
+    console.log(form);
     console.log(form.generatedWord.value);
     experiment.interventionStrategy();
     $("#generatedWord").val('');
