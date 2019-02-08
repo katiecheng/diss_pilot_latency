@@ -181,6 +181,7 @@ var experiment = {
 
   captureWord: function(form) {
     // do some stuff with the values in the form
+    console.log(form.swahili);
     console.log(form.generatedWord);
     data = {
       /*
