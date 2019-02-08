@@ -83,16 +83,24 @@ var numTrials = 8, //40
     ["ziwa", "lake"],
     ["zulia", "carpet"]
   ];
-/*
-$("#interventionForm").submit(function(event){
-    console.log("form submit triggered")
-    event.preventDefault();
-    console.log(form.generatedWord.value);
-    experiment.interventionStrategy();
-    // debugger;
-    return false;
-});
 
+$("#interventionForm").submit(function(event){
+    console.log(event);
+    console.log(event.generatedWord.value);
+    // console.log(form.generatedWord.value);
+    event.preventDefault();
+    experiment.interventionStrategy();
+    $("#generatedWord").val('');
+    return false;
+
+  // console.log(form);
+  // console.log(form.generatedWord.value);
+  // experiment.interventionStrategy();
+  // $("#generatedWord").val('');
+  // // stop form from being submitted
+  // return false;
+});
+/*
 $(function() { //shorthand document.ready function
     $('#interventionForm').on('submit', function(event) { //use on if jQuery 1.7+
         event.preventDefault();  //prevent form from submitting
