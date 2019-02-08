@@ -102,6 +102,7 @@ $(function() { //shorthand document.ready function
     });
 });
 */
+
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
 
