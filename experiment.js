@@ -104,9 +104,6 @@ var experiment = {
   assessmentStudyTrials: assessmentTrials,
   assessmentStrategyTrials: shuffle(assessmentTrials),
   swahili_english_pairs: swahili_english_pairs,
-  
-  console.log(this.interventionStudyTrials),
-  console.log(this.interventionStrategyTrials),
 
   // An array to store the data that we're collecting.
   data: [],
@@ -155,9 +152,11 @@ var experiment = {
   interventionStrategy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
     console.log('check1 triggered');
+    console.log(experiment.interventionStudyTrials),
+    console.log(experiment.interventionStrategyTrials),
     if (experiment.interventionStrategyTrials.length == 0) {
-      console.log(experiment.interventionStudyTrials);
-      console.log(experiment.interventionStrategyTrials);
+      // console.log(experiment.interventionStudyTrials);
+      // console.log(experiment.interventionStrategyTrials);
       experiment.end();
       return;
     }
