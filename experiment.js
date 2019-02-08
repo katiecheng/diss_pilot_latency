@@ -36,7 +36,7 @@ function shuffle(array) {
 
 
 // ## Configuration settings
-var numTrials = 2, //40
+var numTrials = 8, //40
   condition = randomInteger(4),
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
   interventionTrials = myTrialOrder.slice(0,(numTrials / 2)),
@@ -223,7 +223,6 @@ var experiment = {
   */
   captureWord: function(form) {
     // capture generatedWord text input value
-    // form.preventDefault();
     console.log(form.generatedWord.value);
     experiment.interventionStrategy();
     // stop form from being submitted
