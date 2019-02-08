@@ -172,7 +172,9 @@ var experiment = {
     // Wait 5 seconds before starting the next trial.
     setTimeout(
       function() {
+        console.log("before submit");
         $("#interventionForm").submit();
+        console.log("after submit");
         experiment.interventionStrategy();
       }, 3000
     );
