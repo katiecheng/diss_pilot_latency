@@ -172,9 +172,9 @@ var experiment = {
     // Wait 5 seconds before starting the next trial.
     setTimeout(
       function() {
-        $("#generatedWord").submit();
+        $("#interventionForm").submit();
         experiment.interventionStrategy();
-      }, 2500
+      }, 5000
     );
     
   },
