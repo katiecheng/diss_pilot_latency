@@ -122,6 +122,11 @@ var experiment = {
   // 20 items, View each item for 5 sec
   interventionStudy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
+    console.log('check1 triggered');
+    console.log(experiment.myTrialOrder);
+    console.log(experiment.interventionStudyTrials);
+    console.log(experiment.interventionStrategyTrials);
+    console.log('check1b triggered');
     if (experiment.interventionStudyTrials.length == 0) {
       experiment.interventionStrategyFraming();
       return;
