@@ -181,9 +181,11 @@ var experiment = {
 
   captureWord: function(form) {
     // do some stuff with the values in the form
+    console.log(document.getElementById('generatedWord').value);
     console.log("captureWord triggered");
     console.log(form.swahili);
     console.log(form.generatedWord);
+    
     data = {
       /*
       stimulus: n,
