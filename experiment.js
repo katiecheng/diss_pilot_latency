@@ -99,10 +99,10 @@ var experiment = {
   numTrials: numTrials,
   condition: condition,
   myTrialOrder: myTrialOrder,
-  interventionStudyTrials: $.extend( {}, interventionTrials ),
-  interventionStrategyTrials: shuffle($.extend( {}, interventionTrials )),
-  assessmentStudyTrials: $.extend( {}, assessmentTrials ),
-  assessmentStrategyTrials: shuffle($.extend( {}, assessmentTrials )),
+  interventionStudyTrials: interventionTrials.slice(0), // shallow copy
+  interventionStrategyTrials: shuffle(interventionTrials.slice(0)),
+  assessmentStudyTrials: assessmentTrials.slice(0),
+  assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
   swahili_english_pairs: swahili_english_pairs,
 
   // An array to store the data that we're collecting.
