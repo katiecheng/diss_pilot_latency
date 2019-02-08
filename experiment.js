@@ -92,7 +92,7 @@ $("#interventionForm").submit(function(event){
     // debugger;
     return false;
 });
-*/
+
 $(function() { //shorthand document.ready function
     $('#interventionForm').on('submit', function(event) { //use on if jQuery 1.7+
         event.preventDefault();  //prevent form from submitting
@@ -101,7 +101,7 @@ $(function() { //shorthand document.ready function
         console.log(form.generatedWord.value);
     });
 });
-
+*/
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
 
@@ -196,7 +196,7 @@ var experiment = {
       console.log("after submit");
     }, 3000);*/
     // setTimeout($("#interventionForm").submit, 3000);
-    setTimeout(document.interventionForm.submit, 3000);
+    // setTimeout(document.interventionForm.submit, 3000);
     // setTimeout(function(){$("#interventionForm").submit()}, 3000); //did not auto-advance, POST not allowed
     // setTimeout(function(){document.interventionForm.submit()}, 3000); //not a function?
     // setTimeout(function(){document.getElementById("interventionForm").submit()}, 3000); //Typeerror?
