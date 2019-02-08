@@ -179,13 +179,31 @@ var experiment = {
     
   },
 
+  /*
+  console.log(document.getElementById('generatedWord').value);
+    console.log(form.swahili);
+    console.log(form.generatedWord);
+    
+    data = {
+      
+      stimulus: n,
+      accuracy: realParity == userParity ? 1 : 0,
+      rt: endTime - startTime
+      
+    };
+    experiment.data.push(data);
+    // Temporarily clear the number.
+        $("#swahili").text("");
+        // Wait 500 milliseconds before starting the next trial.
+        setTimeout(experiment.interventionStrategy, 500);
+  */
   captureWord: function(form) {
     // do some stuff with the values in the form
     
     console.log("captureWord triggered");
-    
+
     // stop form from being submitted
-    return false;
+    // return false;
   },
 
   /* “For 10 of these Swahili-English word pairs, you used the review strategy--
