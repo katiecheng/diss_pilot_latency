@@ -176,7 +176,7 @@ var experiment = {
       // document.interventionForm.submit();
       console.log("after submit");
     }, 3000);*/
-    setTimeout(function() { $("#interventionForm").submit }, 3000);
+    setTimeout($("#interventionForm").submit, 3000);
   },
 
   /*
