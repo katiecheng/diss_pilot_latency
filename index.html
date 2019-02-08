@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<h1>check k</h1>
+<h1>check l</h1>
 <!-- The instructions slide. -->
 <div class="slide" id="instructions">
   <div style="width: 500px; margin: 0 auto; text-align: center; background-color: #8C1516; padding: 20px 15px 10px 10px">
@@ -20,7 +20,7 @@
     instructions along the way.
     </p>
     <!-- Button to start the experiment. <code>this.blur()</code> removes the focus from the button, if the user pressed the button by using the keyboard, rather than the mouse. -->
-    <button type="button" onclick="this.blur(); experiment.interventionStudyFraming()">Start</button>
+    <button type="button" onclick="this.blur(); experiment.interventionStudyFraming();">Start</button>
     <!-- Legal blurb that we're required to show. -->
     <p class="block-text" id="legal">Legal information: By answering the
         following questions, you are participating in a study being performed by
@@ -38,7 +38,7 @@
 <!-- The interventionStudyFraming slide. -->
 <div class="slide" id="interventionStudyFraming">
   <p class="block-text" id="interventionStudyText">{{}}</p>
-  <button type="button" onclick="this.blur(); experiment.interventionStudy()">Next</button>
+  <button type="button" onclick="this.blur(); experiment.interventionStudy();">Next</button>
 </div>
 
 <!-- The interventionStudy slide -->
@@ -51,13 +51,13 @@
 <!-- The interventionStrategyFraming slide. -->
 <div class="slide" id="interventionStrategyFraming">
   <p class="block-text" id="interventionStrategyText">{{}}</p>
-  <button type="button" onclick="this.blur(); experiment.interventionStrategy()">Next</button>
+  <button type="button" onclick="this.blur(); experiment.interventionStrategy();">Next</button>
 </div>
 
 <!-- The interventionStrategy slide -->
 <div class="slide" id="interventionStrategy">
   <div style="text-align: center">
-    <form name="interventionForm" onsubmit="return experiment.captureWord(this);">
+    <form name="interventionForm" onsubmit="experiment.captureWord(this);">
       <h1 style="display: inline-block" id="swahili" name="swahili">{{}}</h1>
       <input style="margin-left: 10px" name="generatedWord">
     </form>
