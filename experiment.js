@@ -161,7 +161,7 @@ var experiment = {
 
       // Wait 5 seconds before starting the next trial.
       setTimeout(function(){$("#interventionForm").submit(
-        experiment.captureWord(currItem, swahili, english));}, 2000
+        experiment.captureWord(currItem, swahili, english));}, 1000
       ); 
     } else {
       showSlide("interventionStudy");
@@ -175,11 +175,9 @@ var experiment = {
 
   // Capture and save trial
   captureWord: function(currItem, swahili, english) {
-    var generatedWord = $("#generatedWord").val().toLowerCase();
-    $("#generatedWord").val('');
-    $("#generatedWord").focus();
+    var generatedWord = $("#generatedWord").val().toLowerCase(),
 
-    var data = {
+      data = {
         item: currItem,
         swahili: swahili,
         english: english,
@@ -189,7 +187,11 @@ var experiment = {
 
     experiment.data.push(data);
     // show next slide
-
+    $("#generatedWord").val('');
+    $("#generatedWord").focus();
+    $("#generatedWord").onblur= function() {
+      setTimeout(function() {$("#generatedWord").focus();}, 0);
+    };
     // $("#generatedWord").autofocus = true;
     // document.getElementById("generatedWord").autofocus = true;
     experiment.interventionStrategy();
