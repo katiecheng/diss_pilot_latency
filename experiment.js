@@ -36,7 +36,7 @@ function shuffle(array) {
 
 
 // ## Configuration settings
-var numTrials = 8, //40
+var numTrials = 12, //40
   condition = randomInteger(4),
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
   interventionTrials = myTrialOrder.slice(0,(numTrials/2)),
