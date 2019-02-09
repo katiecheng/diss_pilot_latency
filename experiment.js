@@ -188,7 +188,8 @@ var experiment = {
     experiment.data.push(data);
     // show next slide
     $("#generatedWord").val('');
-    $("#generatedWord").autofocus = true;
+    // $("#generatedWord").autofocus = true;
+    document.getElementById("generatedWord").autofocus = true;
     experiment.interventionStrategy();
     // stop form from being submitted
     return false;
