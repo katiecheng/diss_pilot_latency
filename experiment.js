@@ -124,9 +124,9 @@ var experiment = {
     }
     
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var currTrial = experiment.interventionStudyTrials.shift(),
-      swahili = swahili_english_pairs[parseInt(currTrial)][0],
-      english = swahili_english_pairs[parseInt(currTrial)][1];
+    var currItem = experiment.interventionStudyTrials.shift(),
+      swahili = swahili_english_pairs[parseInt(currItem)][0],
+      english = swahili_english_pairs[parseInt(currItem)][1];
 
     showSlide("interventionStudy");
     $("#wordpair").text(swahili + " : " + english);
@@ -151,17 +151,17 @@ var experiment = {
       return;
     }
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var currTrial = experiment.interventionStrategyTrials.shift(),
-      swahili = swahili_english_pairs[parseInt(currTrial)][0],
-      english = swahili_english_pairs[parseInt(currTrial)][1];
+    var currItem = experiment.interventionStrategyTrials.shift(),
+      swahili = swahili_english_pairs[parseInt(currItem)][0],
+      english = swahili_english_pairs[parseInt(currItem)][1];
 
-    if ($.inArray(currTrial, experiment.interventionStrategyGenerate) != -1) {
+    if ($.inArray(currItem, experiment.interventionStrategyGenerate) != -1) {
       showSlide("interventionStrategyGenerate");
       $("#swahili").text(swahili + " : ");
 
       // Wait 5 seconds before starting the next trial.
       setTimeout(function(){$("#interventionForm").submit(
-        experiment.captureWord(currTrial, swahili, english));}, 3000
+        experiment.captureWord(currItem, swahili, english));}, 3000
       ); 
     } else {
       showSlide("interventionStudy");
@@ -174,11 +174,11 @@ var experiment = {
   },
 
   // Capture and save trial
-  captureWord: function(currTrial, swahili, english) {
+  captureWord: function(currItem, swahili, english) {
     var generatedWord = $("#generatedWord").val().toLowerCase(),
 
       data = {
-        trial: currTrial,
+        item: currItem,
         swahili: swahili,
         english: english,
         generatedWord: generatedWord,
@@ -188,10 +188,8 @@ var experiment = {
     experiment.data.push(data);
     // show next slide
     $("#generatedWord").val('');
-    // $("#generatedWord").focus();
     $("#generatedWord").autofocus = true;
     experiment.interventionStrategy();
-
     // stop form from being submitted
     return false;
   },
