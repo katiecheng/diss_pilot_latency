@@ -175,11 +175,11 @@ var experiment = {
 
   // Capture and save trial
   captureWord: function(currItem, swahili, english) {
-    var generatedWord = $("#generatedWord").val().toLowerCase(),
+    var generatedWord = $("#generatedWord").val().toLowerCase();
     $("#generatedWord").val('');
     $("#generatedWord").focus();
-    
-      data = {
+
+    var data = {
         item: currItem,
         swahili: swahili,
         english: english,
