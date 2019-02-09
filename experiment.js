@@ -161,7 +161,7 @@ var experiment = {
 
       // Wait 5 seconds before starting the next trial.
       setTimeout(function(){$("#interventionForm").submit(
-        experiment.captureWord(currItem, swahili, english));}, 1000
+        experiment.captureWord(currItem, swahili, english));}, 2000
       ); 
     } else {
       showSlide("interventionStudy");
