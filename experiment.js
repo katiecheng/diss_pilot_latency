@@ -94,9 +94,9 @@ var experiment = {
   numTrials: numTrials,
   condition: condition,
   myTrialOrder: myTrialOrder,
+  interventionStudyTrials: shuffle(interventionTrials.slice(0)), // shallow copy
   interventionStrategyGenerate: interventionTrials.slice(0,(numTrials/4)),
   interventionStrategyRestudy: interventionTrials.slice((numTrials/4), numTrials/2),
-  interventionStudyTrials: shuffle(interventionTrials.slice(0)), // shallow copy
   interventionStrategyTrials: shuffle(interventionTrials.slice(0)),
   assessmentStudyTrials: assessmentTrials.slice(0),
   assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
@@ -161,13 +161,13 @@ var experiment = {
 
       // Wait 5 seconds before starting the next trial.
       setTimeout(function(){$("#interventionForm").submit(
-        experiment.captureWord(currItem, swahili, english));}, 3000
+        experiment.captureWord(currItem, swahili, english));}, 1000
       ); 
     } else {
       showSlide("interventionStudy");
       $("#wordpair").text(swahili + " : " + english);
       // Wait 5 seconds before starting the next trial.
-      setTimeout(experiment.interventionStrategy, 3000); 
+      setTimeout(experiment.interventionStrategy, 1000); 
     }
 
 
