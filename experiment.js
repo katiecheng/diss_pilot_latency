@@ -160,10 +160,6 @@ var experiment = {
       $("#swahili").text(swahili + " : ");
       $("#generatedWord").val('');
       $("#generatedWord").focus();
-      // $("#generatedWord").onblur= function(){
-      //   setTimeout(function(){$("#generatedWord").focus();}, 0);
-      // };
-      
 
       // Wait 5 seconds before starting the next trial.
       setTimeout(function(){$("#interventionForm").submit(
