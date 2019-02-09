@@ -176,7 +176,9 @@ var experiment = {
   // Capture and save trial
   captureWord: function(currItem, swahili, english) {
     var generatedWord = $("#generatedWord").val().toLowerCase(),
-
+    $("#generatedWord").val('');
+    $("#generatedWord").focus();
+    
       data = {
         item: currItem,
         swahili: swahili,
@@ -187,8 +189,7 @@ var experiment = {
 
     experiment.data.push(data);
     // show next slide
-    $("#generatedWord").val('');
-    $("#generatedWord").focus();
+
     // $("#generatedWord").autofocus = true;
     // document.getElementById("generatedWord").autofocus = true;
     experiment.interventionStrategy();
