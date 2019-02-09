@@ -158,6 +158,12 @@ var experiment = {
     if ($.inArray(currItem, experiment.interventionStrategyGenerate) != -1) {
       showSlide("interventionStrategyGenerate");
       $("#swahili").text(swahili + " : ");
+      $("#generatedWord").val('');
+      $("#generatedWord").focus();
+      $("#generatedWord").onblur= function(){
+        setTimeout(function(){$("#generatedWord").focus();}, 0);
+      };
+      
 
       // Wait 5 seconds before starting the next trial.
       setTimeout(function(){$("#interventionForm").submit(
@@ -188,11 +194,7 @@ var experiment = {
     experiment.data.push(data);
     // show next slide
     experiment.interventionStrategy();
-    $("#generatedWord").val('');
-    $("#generatedWord").focus();
-    $("#generatedWord").onblur= function(){
-      setTimeout(function(){$("#generatedWord").focus();}, 0);
-    };
+
     // $("#generatedWord").autofocus = true;
     // document.getElementById("generatedWord").autofocus = true;
     
