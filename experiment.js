@@ -187,14 +187,15 @@ var experiment = {
 
     experiment.data.push(data);
     // show next slide
+    experiment.interventionStrategy();
     $("#generatedWord").val('');
     $("#generatedWord").focus();
-    $("#generatedWord").onblur= function() {
-      setTimeout(function() {$("#generatedWord").focus();}, 0);
+    $("#generatedWord").onblur= function(){
+      setTimeout(function(){$("#generatedWord").focus();}, 0);
     };
     // $("#generatedWord").autofocus = true;
     // document.getElementById("generatedWord").autofocus = true;
-    experiment.interventionStrategy();
+    
     // stop form from being submitted
     return false;
   },
