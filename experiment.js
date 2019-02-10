@@ -181,7 +181,7 @@ var experiment = {
   // Capture and save trial
   captureWord: function(studyPhase, currItem, swahili, english) {
     var generatedWord = $("#generatedWord").val().toLowerCase(),
-    var accuracy = english == generatedWord ? 1 : 0,
+      accuracy = english == generatedWord ? 1 : 0,
       data = {
         studyPhase: studyPhase,
         item: currItem,
