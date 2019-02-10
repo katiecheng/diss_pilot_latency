@@ -152,6 +152,7 @@ var experiment = {
     // If the number of remaining trials is 0, we're done, so call the end function.
     if (experiment.interventionStrategyTrials.length == 0) {
       experiment.interventionPredict();
+      return;
     }
     console.log(experiment.interventionStrategyTrials);
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
