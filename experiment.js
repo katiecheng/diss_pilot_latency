@@ -95,9 +95,13 @@ var experiment = {
   condition: condition,
   myTrialOrder: myTrialOrder,
   interventionStudyTrials: shuffle(interventionTrials.slice(0)), // shallow copy
-  interventionStrategyGenerate: interventionTrials.slice(0,(numTrials/4)),
-  interventionStrategyRestudy: interventionTrials.slice((numTrials/4), numTrials/2),
+  interventionGenerateTrials: interventionTrials.slice(0,(numTrials/4)),
+  interventionRestudyTrials: interventionTrials.slice((numTrials/4), numTrials/2),
+  interventionGenerateStudyScore: 0,
+  interventionGenerateTestScore: 0,
+  interventionRestudyTestScore: 0,
   interventionStrategyTrials: shuffle(interventionTrials.slice(0)),
+  interventionTestTrials: shuffle(interventionTrials.slice(0)),
   assessmentStudyTrials: assessmentTrials.slice(0),
   assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
   
@@ -147,23 +151,22 @@ var experiment = {
   interventionStrategy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
     if (experiment.interventionStrategyTrials.length == 0) {
-      experiment.end();
-      return;
+      experiment.interventionPredict();
     }
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currItem = experiment.interventionStrategyTrials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1];
 
-    if ($.inArray(currItem, experiment.interventionStrategyGenerate) != -1) {
-      showSlide("interventionStrategyGenerate");
+    if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1) {
+      showSlide("interventionGenerate");
       $("#swahili").text(swahili + " : ");
       $("#generatedWord").val('');
       $("#generatedWord").focus();
 
       // Wait 5 seconds before starting the next trial.
       setTimeout(function(){$("#interventionForm").submit(
-        experiment.captureWord(currItem, swahili, english));}, 1000
+        experiment.captureWord("interventionStudy", currItem, swahili, english));}, 1000
       ); 
     } else {
       showSlide("interventionStudy");
@@ -176,24 +179,31 @@ var experiment = {
   },
 
   // Capture and save trial
-  captureWord: function(currItem, swahili, english) {
+  captureWord: function(studyPhase, currItem, swahili, english) {
     var generatedWord = $("#generatedWord").val().toLowerCase(),
-
+    var accuracy = english == generatedWord ? 1 : 0,
       data = {
+        studyPhase: studyPhase,
         item: currItem,
         swahili: swahili,
         english: english,
         generatedWord: generatedWord,
-        accuracy: english == generatedWord ? 1 : 0
+        accuracy: accuracy
       };
+
+    if (studyPhase == "interventionStudy"){
+      interventionGenerateStudyScore += accuracy;
+    } else if (studyPhase == "interventionTest"){
+      if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1){
+        interventionGenerateTestScore += accuracy;
+      } else {
+        interventionRestudyTestScore += accuracy;
+      }
+    } 
 
     experiment.data.push(data);
     // show next slide
     experiment.interventionStrategy();
-
-    // $("#generatedWord").autofocus = true;
-    // document.getElementById("generatedWord").autofocus = true;
-    
     // stop form from being submitted
     return false;
   },
@@ -207,7 +217,7 @@ var experiment = {
   */
 
   interventionPredict: function() {
-
+    experiment.interventionTestIntro()
   },
 
   /*
@@ -215,7 +225,30 @@ var experiment = {
   correct English translation.”
   */
   interventionTestIntro: function() {
+    experiment.interventionTest()
+  },
 
+
+  // (All items rote for 10 sec, +/- feedback on each item)
+  interventionTest: function() {
+    // If the number of remaining trials is 0, we're done, so call the end function.
+    if (experiment.interventionTestTrials.length == 0) {
+      experiment.end();
+    }
+    // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
+    var currItem = experiment.interventionTestTrials.shift(),
+      swahili = swahili_english_pairs[parseInt(currItem)][0],
+      english = swahili_english_pairs[parseInt(currItem)][1];
+
+    showSlide("interventionGenerate");
+    $("#swahili").text(swahili + " : ");
+    $("#generatedWord").val('');
+    $("#generatedWord").focus();
+
+    // Wait 5 seconds before starting the next trial.
+    setTimeout(function(){$("#interventionForm").submit(
+      experiment.captureWord("interventionTest", currItem, swahili, english));}, 1000
+    ); 
   },
 
   /*
@@ -231,11 +264,6 @@ var experiment = {
 
   },
 
-
-  // (All items rote for 10 sec, +/- feedback on each item)
-  interventionTest: function() {
-
-  },
   /* “Now, you will see 20 new Swahili words paired with their English translations. 
   Then, you will have 5 seconds to study each pair using whatever method you would like. 
   Finally, you will be quizzed on all 20 Swahili-English word pairs.”*/
@@ -282,6 +310,16 @@ var experiment = {
     // Show the finish slide.
     showSlide("end");
     // Wait 1.5 seconds and then execute function
-    setTimeout(function() { turk.submit(experiment) }, 1500);
+    setTimeout(function() { 
+      turk.submit(experiment);
+      var form = document.createElement(form);
+      document.body.appendChild(form);
+      addFormData(form, "data", JSON.stringify(experiment));
+      // submit the form
+      form.action = turk.turkSubmitTo + "/mturk/externalSubmit";
+      form.method = "POST";
+      form.submit();
+
+    }, 1500);
   }
 }
