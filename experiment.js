@@ -192,12 +192,12 @@ var experiment = {
       };
 
     if (studyPhase == "interventionStudy"){
-      interventionGenerateStudyScore += accuracy;
+      experiment.interventionGenerateStudyScore += accuracy;
     } else if (studyPhase == "interventionTest"){
       if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1){
-        interventionGenerateTestScore += accuracy;
+        experiment.interventionGenerateTestScore += accuracy;
       } else {
-        interventionRestudyTestScore += accuracy;
+        experiment.interventionRestudyTestScore += accuracy;
       }
     } 
 
