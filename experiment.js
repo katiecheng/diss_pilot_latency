@@ -95,13 +95,13 @@ var experiment = {
   condition: condition,
   myTrialOrder: myTrialOrder,
   interventionStudyTrials: shuffle(interventionTrials.slice(0)), // shallow copy
+  interventionStrategyTrials: shuffle(interventionTrials.slice(0)),
   interventionGenerateTrials: interventionTrials.slice(0,(numTrials/4)),
   interventionRestudyTrials: interventionTrials.slice((numTrials/4), numTrials/2),
-  interventionGenerateStudyScore: 0,
+  interventionGenerateStrategyScore: 0,
+  interventionTestTrials: shuffle(interventionTrials.slice(0)),
   interventionGenerateTestScore: 0,
   interventionRestudyTestScore: 0,
-  interventionStrategyTrials: shuffle(interventionTrials.slice(0)),
-  interventionTestTrials: shuffle(interventionTrials.slice(0)),
   assessmentStudyTrials: assessmentTrials.slice(0),
   assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
   
@@ -153,6 +153,7 @@ var experiment = {
     if (experiment.interventionStrategyTrials.length == 0) {
       experiment.interventionPredict();
     }
+    console.log(experiment.interventionStrategyTrials);
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currItem = experiment.interventionStrategyTrials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
@@ -192,7 +193,7 @@ var experiment = {
       };
 
     if (studyPhase == "interventionStudy"){
-      experiment.interventionGenerateStudyScore += accuracy;
+      experiment.interventionGenerateStrategyScore += accuracy;
     } else if (studyPhase == "interventionTest"){
       if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1){
         experiment.interventionGenerateTestScore += accuracy;
