@@ -148,9 +148,11 @@ var experiment = {
 
   // 20 items, View each item for 5 sec
   interventionStudy: function() {
+    console.log("interventionStudyTrials1: ", interventionStudyTrials1);
+    console.log("interventionStudyTrials2: ", interventionStudyTrials2);
     // If the number of remaining trials is 0, we're done, so call the end function.
     if (experiment.interventionStudyTrials2.length == 0) {
-      experiment.interventionStrategyFraming();
+      experiment.interventionStrategyFraming1();
       return;
     } else if (experiment.interventionStudyTrials1.length == 0) {
       // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
@@ -192,6 +194,8 @@ var experiment = {
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
   interventionStrategy: function() {
+    console.log("interventionStrategyTrials1: ", interventionStrategyTrials1);
+    console.log("interventionStrategyTrials2: ", interventionStrategyTrials2);
     if (experiment.interventionStrategyTrials2.length == 0) {
       experiment.interventionPredict();
       return;
