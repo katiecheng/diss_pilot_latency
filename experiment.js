@@ -154,8 +154,8 @@ var experiment = {
       return;
     } else if (experiment.interventionStudyTrials1.length == 0) {
       // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-      if (startStudy2) {
-        startStudy2 = false;
+      if (experiment.startStudy2) {
+        experiment.startStudy2 = false;
         experiment.interventionStudyFraming2();
       }
       var currItem = experiment.interventionStudyTrials2.shift();
@@ -196,8 +196,8 @@ var experiment = {
       experiment.interventionPredict();
       return;
     } else if (experiment.interventionStrategyTrials1.length == 0) {
-      if (startStrategy2) {
-        startStrategy2 = false;
+      if (experiment.startStrategy2) {
+        experiment.startStrategy2 = false;
         experiment.interventionStrategyFraming2();
       }
       var currItem = experiment.interventionStrategyTrials2.shift();
