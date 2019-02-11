@@ -148,8 +148,8 @@ var experiment = {
 
   // 20 items, View each item for 5 sec
   interventionStudy: function() {
-    console.log("interventionStudyTrials1: ", interventionStudyTrials1);
-    console.log("interventionStudyTrials2: ", interventionStudyTrials2);
+    console.log("interventionStudyTrials1: ", experiment.interventionStudyTrials1);
+    console.log("interventionStudyTrials2: ", experiment.interventionStudyTrials2);
     // If the number of remaining trials is 0, we're done, so call the end function.
     if (experiment.interventionStudyTrials2.length == 0) {
       experiment.interventionStrategyFraming1();
@@ -194,8 +194,8 @@ var experiment = {
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
   interventionStrategy: function() {
-    console.log("interventionStrategyTrials1: ", interventionStrategyTrials1);
-    console.log("interventionStrategyTrials2: ", interventionStrategyTrials2);
+    console.log("interventionStrategyTrials1: ", experiment.interventionStrategyTrials1);
+    console.log("interventionStrategyTrials2: ", experiment.interventionStrategyTrials2);
     if (experiment.interventionStrategyTrials2.length == 0) {
       experiment.interventionPredict();
       return;
