@@ -39,51 +39,29 @@
         participation will not receive any personal information about you.</p>
 </div>
 
-<!-- The interventionStudyFraming slide. -->
-<div class="slide" id="interventionStudyFraming">
-  <p class="block-text" id="interventionStudyText">{{}}</p>
-  <button type="button" onclick="this.blur(); experiment.interventionStudy();">Next</button>
-</div>
-
-<!-- The interventionStudy slide -->
-<div class="slide" id="interventionStudy">
-  <div style="text-align: center">
-    <h1 id="wordpair">{{}}</h1>
-  </div>
-</div>
-
-<!-- The interventionStrategyFraming slide. -->
-<div class="slide" id="interventionStrategyFraming">
-  <p class="block-text" id="interventionStrategyText">{{}}</p>
-  <button type="button" onclick="this.blur(); experiment.interventionStrategy();">Next</button>
-</div>
-
-<!-- The interventionStrategy slide -->
-<div class="slide" id="interventionGenerate">
-  <div style="text-align: center">
-    <form id="interventionForm" name="interventionForm" autocomplete="off" 
-      onkeypress="return event.keyCode != 13;">
-      <h1 style="display: inline-block" id="swahili" name="swahili">{{}}</h1>
-      <input style="margin-left: 10px" id="generatedWord" name="generatedWord">
-    </form>
-  </div>
-</div>
-
-
-
 <!-- The generic slide for text instructions with a Next button. -->
 <div class="slide" id="textNext">
   <p class="block-text" id="textInstructions">{{}}</p>
   <button id="nextButton" type="button">Next</button>
 </div>
 
-<!-- The generic slide for section header with a Start button. -->
-<div class="slide" id="headerStart">
-  <h1>id="sectionHeader">{{}}</h1>
-  <button id="startButton" type="button">Start</button>
+<!-- The study slide -->
+<div class="slide" id="study">
+  <div style="text-align: center">
+    <h1 id="wordpair">{{}}</h1>
+  </div>
 </div>
 
-
+<!-- The generate slide -->
+<div class="slide" id="generate">
+  <div style="text-align: center">
+    <form id="generatedForm" name="generatedForm" autocomplete="off" 
+      onkeypress="return event.keyCode != 13;">
+      <h1 style="display: inline-block" id="swahili" name="swahili">{{}}</h1>
+      <input style="margin-left: 10px" id="generatedWord" name="generatedWord">
+    </form>
+  </div>
+</div>
 
 <!-- The finish slide. -->
 <div class="slide" id="end">

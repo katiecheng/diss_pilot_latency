@@ -193,7 +193,7 @@ var experiment = {
       swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1];
 
-    showSlide("interventionStudy");
+    showSlide("study");
     $("#wordpair").text(swahili + " : " + english);
     setTimeout(function(){experiment.interventionStudy(round)}, 1000);
   },
@@ -267,7 +267,7 @@ var experiment = {
     console.log("interventionStrategyTrials2: ", experiment.interventionStrategyTrials2);
     if (round == 1) {
       var trials = experiment.interventionStrategyTrials1;
-      if (trials.length == 0) {experiment.interventionStudy(2); return;} 
+      if (trials.length == 0) {experiment.interventionStudyFraming(2); return;} 
     } else if (round == 2) {
       var trials = experiment.interventionStrategyTrials2;
       if (trials.length == 0) {experiment.interventionPredict(); return;} 
@@ -277,15 +277,15 @@ var experiment = {
       english = swahili_english_pairs[parseInt(currItem)][1];
 
     if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1) { // generate
-      showSlide("interventionGenerate");
+      showSlide("generate");
       $("#swahili").text(swahili + " : ");
       $("#generatedWord").val('');
       $("#generatedWord").focus();
-      setTimeout(function(){$("#interventionForm").submit(
+      setTimeout(function(){$("#generatedForm").submit(
         experiment.captureWord("interventionStudy", currItem, swahili, english));}, 2000); 
         experiment.interventionStrategy(round);
     } else { // restudy
-      showSlide("interventionStudy");
+      showSlide("study");
       $("#wordpair").text(swahili + " : " + english);
       setTimeout(function(){experiment.interventionStrategy(round)}, 2000); 
     }
@@ -351,13 +351,13 @@ var experiment = {
       swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1];
 
-    showSlide("interventionGenerate");
+    showSlide("generate");
     $("#swahili").text(swahili + " : ");
     $("#generatedWord").val('');
     $("#generatedWord").focus();
 
     // Wait 5 seconds before starting the next trial.
-    setTimeout(function(){$("#interventionForm").submit(
+    setTimeout(function(){$("#generatedForm").submit(
       experiment.captureWord("interventionTest", currItem, swahili, english));}, 2000
     ); 
   },
