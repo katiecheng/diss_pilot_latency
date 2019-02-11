@@ -128,7 +128,7 @@ var experiment = {
   interventionStudyFraming1: function() { 
     showSlide("textNext");
     $("#textInstructions").text(
-      "In a moment, you will be presented with 20 Swahili words paired with \
+      "STUDY FRAMING 1: In a moment, you will be presented with 20 Swahili words paired with \
       their English translations. You will see each Swahili-English word pair \
       for 5 seconds, and then the screen will automatically advance to the \
       next pair. Please pay attention, and try to remember as many word pairs \
@@ -141,7 +141,7 @@ var experiment = {
   interventionStudyFraming2: function() { 
     showSlide("textNext");
     $("#textInstructions").text(
-      "Now, you will be presented with the same 20 Swahili-English \
+      "STUDY FRAMING 2: Now, you will be presented with the same 20 Swahili-English \
       word pairs again. You will see each Swahili-English\
       word pair for 5 seconds, and then the screen will automatically \
       advance to the next pair. Again, please pay attention, and try to remember\
@@ -206,7 +206,7 @@ var experiment = {
 
   //Intro to strategy
   interventionStrategyFraming1: function() {
-    var text =  "Now you will be asked to study each pair either by (1) \
+    var text =  "STRATEGY FRAMING 1: Now you will be asked to study each pair either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
     showSlide("interventionStrategyFraming");
@@ -215,7 +215,7 @@ var experiment = {
 
   //Intro to strategy
   interventionStrategyFraming2: function() {
-    var text =  "Round 2: Now, you will be asked to study each pair again, \
+    var text =  "STRATEGY FRAMING 2: Now, you will be asked to study each pair again, \
                 either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
