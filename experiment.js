@@ -93,15 +93,17 @@ var experiment = {
   // Properties
   numTrials: numTrials,
   condition: condition,
-  myTrialOrder: myTrialOrder,
-  interventionStudyTrials: shuffle(interventionTrials.slice(0)), // shallow copy
-  interventionStrategyTrials: shuffle(interventionTrials.slice(0)),
-  interventionGenerateTrials: interventionTrials.slice(0,(numTrials/4)),
-  interventionRestudyTrials: interventionTrials.slice((numTrials/4), numTrials/2),
+  myTrialOrder: myTrialOrder, // already shuffled
+  // interventionTrials is the first half of myTrialOrder
+  interventionStudyTrials: shuffle(interventionTrials.slice(0)), // study order
+  interventionStrategyTrials: shuffle(interventionTrials.slice(0)), // strategy order
+  interventionGenerateTrials: interventionTrials.slice(0,(numTrials/4)), // 1st half generate
+  interventionRestudyTrials: interventionTrials.slice((numTrials/4), numTrials/2), // 2nd half restudy
   interventionGenerateStrategyScore: 0,
-  interventionTestTrials: shuffle(interventionTrials.slice(0)),
+  interventionTestTrials: shuffle(interventionTrials.slice(0)), // test order
   interventionGenerateTestScore: 0,
   interventionRestudyTestScore: 0,
+  //assessmentTrials is the second half of myTrialOrder
   assessmentStudyTrials: assessmentTrials.slice(0),
   assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
   
@@ -236,6 +238,7 @@ var experiment = {
     // If the number of remaining trials is 0, we're done, so call the end function.
     if (experiment.interventionTestTrials.length == 0) {
       experiment.end();
+      return;
     }
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currItem = experiment.interventionTestTrials.shift(),
