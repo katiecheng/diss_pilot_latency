@@ -96,6 +96,14 @@ var numTrials = 12, //40
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
 
+/*
+showSlide("instructions");
+experiment.interventionStudyFraming(1)
+experiment.interventionStudy(1)
+interventionStrategyFraming(1)
+experiment.interventionStrategy(1)
+*/
+
 // ## The main event
 /* I implement the sequence as an object with properties and methods. The benefit of encapsulating everything in an object is that it's conceptually coherent (i.e. the <code>data</code> variable belongs to this particular sequence and not any other) and allows you to **compose** sequences to build more complicated experiments. For instance, if you wanted an experiment with, say, a survey, a reaction time test, and a memory test presented in a number of different orders, you could easily do so by creating three separate sequences and dynamically setting the <code>end()</code> function for each sequence so that it points to the next. **More practically, you should stick everything in an object and submit that whole object so that you don't lose data (e.g. randomization parameters, what condition the subject is in, etc). Don't worry about the fact that some of the object properties are functions -- mmturkey (the Turk submission library) will strip these out.*/
 var experiment = {
@@ -236,6 +244,7 @@ var experiment = {
                 recall the English translation from memory."
     }
     $("#textInstructions").text(text);
+    console.log("in strategy framing", $("#textInstructions").text());
     $("#nextButton").click(function(round){$(this).blur(); experiment.interventionStrategy(round)});
     showSlide("textNext");
   },
@@ -262,20 +271,13 @@ var experiment = {
   interventionStrategy: function(round) {
     console.log("interventionStrategyTrials1: ", experiment.interventionStrategyTrials1);
     console.log("interventionStrategyTrials2: ", experiment.interventionStrategyTrials2);
-    if (experiment.interventionStrategyTrials2.length == 0) {
+    var trials = round == 1 ? experiment.interventionStrategyTrials1 : experiment.interventionStrategyTrials2;
+    if (trials == 0) {
       experiment.interventionPredict();
       return;
-    } else if (experiment.interventionStrategyTrials1.length == 0) {
-      if (experiment.startStrategy2) {
-        experiment.startStrategy2 = false;
-        experiment.interventionStrategyFraming2();
-      }
-      var currItem = experiment.interventionStrategyTrials2.shift();
-    } else {
-      var currItem = experiment.interventionStrategyTrials1.shift();
-    }
-    
-    var swahili = swahili_english_pairs[parseInt(currItem)][0],
+    } 
+    var currItem = trials.shift(),
+      swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1];
 
     if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1) { // generate
@@ -288,7 +290,7 @@ var experiment = {
     } else { // restudy
       showSlide("interventionStudy");
       $("#wordpair").text(swahili + " : " + english);
-      setTimeout(experiment.interventionStrategy, 2000); 
+      setTimeout(function(){experiment.interventionStrategy(round)}, 2000); 
     }
   },
 
