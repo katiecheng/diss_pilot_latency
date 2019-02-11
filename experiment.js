@@ -235,9 +235,9 @@ var experiment = {
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
     }
-    showSlide("textNext");
     $("#textInstructions").text(text);
-    $("#nextButton").click(function(round){$(this).blur(); experiment.interventionStudy(round)});
+    $("#nextButton").click(function(round){$(this).blur(); experiment.interventionStrategy(round)});
+    showSlide("textNext");
   },
 
   /*interventionStrategyFraming1: function() {
@@ -259,7 +259,7 @@ var experiment = {
   },*/
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
-  interventionStrategy: function() {
+  interventionStrategy: function(round) {
     console.log("interventionStrategyTrials1: ", experiment.interventionStrategyTrials1);
     console.log("interventionStrategyTrials2: ", experiment.interventionStrategyTrials2);
     if (experiment.interventionStrategyTrials2.length == 0) {
