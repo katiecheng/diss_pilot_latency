@@ -186,7 +186,6 @@ var experiment = {
     console.log("interventionStudyTrials2: ", experiment.interventionStudyTrials2);
     var trials = round == 1 ? experiment.interventionStudyTrials1 : experiment.interventionStudyTrials2;
     if (trials.length == 0) {
-      console.log(round);
       experiment.interventionStrategyFraming(round);
       return;
     }
@@ -268,10 +267,10 @@ var experiment = {
     console.log("interventionStrategyTrials2: ", experiment.interventionStrategyTrials2);
     if (round == 1) {
       var trials = experiment.interventionStrategyTrials1;
-      if (trials == 0) {experiment.interventionStudy(2); return;} 
+      if (trials.length == 0) {experiment.interventionStudy(2); return;} 
     } else if (round == 2) {
       var trials = experiment.interventionStrategyTrials2;
-      if (trials == 0) {experiment.interventionPredict(); return;} 
+      if (trials.length == 0) {experiment.interventionPredict(); return;} 
     }
     var currItem = trials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
@@ -284,6 +283,7 @@ var experiment = {
       $("#generatedWord").focus();
       setTimeout(function(){$("#interventionForm").submit(
         experiment.captureWord("interventionStudy", currItem, swahili, english));}, 2000); 
+        experiment.interventionStrategy(round);
     } else { // restudy
       showSlide("interventionStudy");
       $("#wordpair").text(swahili + " : " + english);
@@ -315,10 +315,7 @@ var experiment = {
     };
 
     experiment.data.push(data);
-    // show next slide
-    experiment.interventionStrategy();
-    // stop form from being submitted
-    return false;
+    return false; // stop form from being submitted
   },
 
   /* “For 10 of these Swahili-English word pairs, you used the review strategy--
