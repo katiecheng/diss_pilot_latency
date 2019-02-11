@@ -132,7 +132,7 @@ var experiment = {
       for 5 seconds, and then the screen will automatically advance to the \
       next pair. Please pay attention, and try to remember as many word pairs \
       as you can."
-    } else {
+    } else if (round == 2) {
       var text = "STUDY FRAMING 2: Now, you will be presented with the same 20 Swahili-English \
       word pairs again. You will see each Swahili-English\
       word pair for 5 seconds, and then the screen will automatically \
@@ -185,7 +185,7 @@ var experiment = {
     console.log("interventionStudyTrials2: ", experiment.interventionStudyTrials2);
     var trials = round == 1 ? experiment.interventionStudyTrials1 : experiment.interventionStudyTrials2;
     if (trials.length == 0) {
-      round == 1 ? experiment.interventionStrategyFraming1() : experiment.interventionStrategyFraming2();
+      experiment.interventionStrategyFraming1(round);
       return;
     }
     var currItem = trials.shift(),    
@@ -224,7 +224,22 @@ var experiment = {
   },*/
 
   //Intro to strategy
-  interventionStrategyFraming1: function() {
+  interventionStrategyFraming: function(round) {
+    if (round == 1) {
+      var text = "STRATEGY FRAMING 1: Now you will be asked to study each pair either by (1) \
+                reviewing the Swahili-English word pair, or (2) trying to \
+                recall the English translation from memory."
+    } else if (round == 2) {
+      var text = "STRATEGY FRAMING 2: Now, you will be asked to study each pair again, \
+                either by (1) \
+                reviewing the Swahili-English word pair, or (2) trying to \
+                recall the English translation from memory."
+    }
+    showSlide("interventionStrategyFraming");
+    $("#interventionStrategyText").text(text);
+  },
+
+  /*interventionStrategyFraming1: function() {
     var text =  "STRATEGY FRAMING 1: Now you will be asked to study each pair either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
@@ -240,7 +255,7 @@ var experiment = {
                 recall the English translation from memory."
     showSlide("interventionStrategyFraming");
     $("#interventionStrategyText").text(text);
-  },
+  },*/
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
   interventionStrategy: function() {
