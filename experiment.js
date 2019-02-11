@@ -194,7 +194,7 @@ var experiment = {
 
     showSlide("interventionStudy");
     $("#wordpair").text(swahili + " : " + english);
-    setTimeout(experiment.interventionStudy(round), 1000);
+    setTimeout(function(){experiment.interventionStudy(round)}, 1000);
   },
 
   /*interventionStudy: function() {
