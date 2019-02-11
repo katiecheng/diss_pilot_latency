@@ -185,7 +185,7 @@ var experiment = {
     console.log("interventionStudyTrials2: ", experiment.interventionStudyTrials2);
     var trials = round == 1 ? experiment.interventionStudyTrials1 : experiment.interventionStudyTrials2;
     if (trials.length == 0) {
-      experiment.interventionStrategyFraming1(round);
+      experiment.interventionStrategyFraming(round);
       return;
     }
     var currItem = trials.shift(),    
