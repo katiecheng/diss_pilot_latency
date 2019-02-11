@@ -125,7 +125,7 @@ var experiment = {
   data: [],
 
   //Intro to strategy
-  interventionStudyFraming: function() {
+  /*interventionStudyFraming: function() {
     var text =  "In a moment, you will be presented with 20 Swahili words paired\
                 with their English translations. You will see each Swahili-English\
                 word pair for 5 seconds, and then the screen will automatically \
@@ -133,6 +133,19 @@ var experiment = {
                 as many word pairs as you can."
     showSlide("interventionStudyFraming");
     $("#interventionStudyText").text(text);
+  },*/
+  interventionStudyFraming: function() {
+    var text =  "In a moment, you will be presented with 20 Swahili words paired\
+                with their English translations. You will see each Swahili-English\
+                word pair for 5 seconds, and then the screen will automatically \
+                advance to the next pair. Please pay attention, and try to remember\
+                as many word pairs as you can."
+    showSlide("textNext");
+    $("#textInstructions").text(text);
+    $("#nextButton").onclick(function(this){
+      this.blur(); 
+      experiment.interventionStudy();
+    });
   },
 
   //Intro to strategy
