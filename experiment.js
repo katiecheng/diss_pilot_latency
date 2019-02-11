@@ -125,31 +125,32 @@ var experiment = {
   data: [],
 
   //Intro to strategy
-  /*interventionStudyFraming: function() {
-    var text =  "In a moment, you will be presented with 20 Swahili words paired\
-                with their English translations. You will see each Swahili-English\
-                word pair for 5 seconds, and then the screen will automatically \
-                advance to the next pair. Please pay attention, and try to remember\
-                as many word pairs as you can."
-    showSlide("interventionStudyFraming");
-    $("#interventionStudyText").text(text);
-  },*/
-  interventionStudyFraming: function() {
-    var text =  "In a moment, you will be presented with 20 Swahili words paired\
-                with their English translations. You will see each Swahili-English\
-                word pair for 5 seconds, and then the screen will automatically \
-                advance to the next pair. Please pay attention, and try to remember\
-                as many word pairs as you can."
+  interventionStudyFraming1: function() { 
     showSlide("textNext");
-    $("#textInstructions").text(text);
-    $("#nextButton").click(function(){
-      $(this).blur(); 
-      experiment.interventionStudy();
-    });
+    $("#textInstructions").text(
+      "In a moment, you will be presented with 20 Swahili words paired with \
+      their English translations. You will see each Swahili-English word pair \
+      for 5 seconds, and then the screen will automatically advance to the \
+      next pair. Please pay attention, and try to remember as many word pairs \
+      as you can."
+    );
+    $("#nextButton").click(function(){$(this).blur(); experiment.interventionStudy(1)});
   },
 
   //Intro to strategy
-  interventionStudyFraming2: function() {
+  interventionStudyFraming2: function() { 
+    showSlide("textNext");
+    $("#textInstructions").text(
+      "Now, you will be presented with the same 20 Swahili-English \
+      word pairs again. You will see each Swahili-English\
+      word pair for 5 seconds, and then the screen will automatically \
+      advance to the next pair. Again, please pay attention, and try to remember\
+      as many word pairs as you can."
+    );
+    $("#nextButton").click(function(){$(this).blur(); experiment.interventionStudy(2)});
+  },
+
+  /*interventionStudyFraming2: function() {
     var text =  "Round 2: Now, you will be presented with the same 20 Swahili-English \
                 word pairs again. You will see each Swahili-English\
                 word pair for 5 seconds, and then the screen will automatically \
@@ -157,10 +158,27 @@ var experiment = {
                 as many word pairs as you can."
     showSlide("interventionStrategyFraming");
     $("#interventionStrategyText").text(text);
-  },
+  },*/
 
   // 20 items, View each item for 5 sec
-  interventionStudy: function() {
+  interventionStudy: function(round) {
+    console.log("interventionStudyTrials1: ", experiment.interventionStudyTrials1);
+    console.log("interventionStudyTrials2: ", experiment.interventionStudyTrials2);
+    var trials = round == 1 ? experiment.interventionStudyTrials1 : experiment.interventionStudyTrials2;
+    if (trials.length == 0) {
+      round == 1 ? experiment.interventionStrategyFraming1() : experiment.interventionStrategyFraming2();
+      return;
+    }
+    var currItem = trials.shift(),    
+      swahili = swahili_english_pairs[parseInt(currItem)][0],
+      english = swahili_english_pairs[parseInt(currItem)][1];
+
+    showSlide("interventionStudy");
+    $("#wordpair").text(swahili + " : " + english);
+    setTimeout(experiment.interventionStudy, 1000);
+  },
+
+  /*interventionStudy: function() {
     console.log("interventionStudyTrials1: ", experiment.interventionStudyTrials1);
     console.log("interventionStudyTrials2: ", experiment.interventionStudyTrials2);
     // If the number of remaining trials is 0, we're done, so call the end function.
@@ -184,7 +202,7 @@ var experiment = {
     showSlide("interventionStudy");
     $("#wordpair").text(swahili + " : " + english);
     setTimeout(experiment.interventionStudy, 1000);
-  },
+  },*/
 
   //Intro to strategy
   interventionStrategyFraming1: function() {
