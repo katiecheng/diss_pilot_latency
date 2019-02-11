@@ -1,4 +1,12 @@
 
+/*
+TODO
+- change the trial order to be experiment specific?
+Once I'm done testing
+- change the hardcoded trial durations to the variable
+- make a slide for instructions, and just update the text on it
+*/
+
 // ## Helper functions
 
 // Shows slides. We're using jQuery here - the **$** is the jQuery selector function, which takes as input either a DOM element or a CSS selector string.
@@ -37,6 +45,7 @@ function shuffle(array) {
 
 // ## Configuration settings
 var numTrials = 12, //40
+  trialDuration = 5000,
   condition = randomInteger(4),
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
   interventionTrials = myTrialOrder.slice(0,(numTrials/2)),
@@ -94,11 +103,16 @@ var experiment = {
   numTrials: numTrials,
   condition: condition,
   myTrialOrder: myTrialOrder, // already shuffled
+  trialDuration: trialDuration,
+  startStudy2: true,
+  startStrategy2: true,
   // interventionTrials is the first half of myTrialOrder
-  interventionStudyTrials: shuffle(interventionTrials.slice(0)), // study order
-  interventionStrategyTrials: shuffle(interventionTrials.slice(0)), // strategy order
-  interventionGenerateTrials: interventionTrials.slice(0,(numTrials/4)), // 1st half generate
-  interventionRestudyTrials: interventionTrials.slice((numTrials/4), numTrials/2), // 2nd half restudy
+  interventionStudyTrials1: shuffle(interventionTrials.slice(0)), // study order 1
+  interventionStrategyTrials1: shuffle(interventionTrials.slice(0)), // strategy order 1
+  interventionStudyTrials2: shuffle(interventionTrials.slice(0)), // study order 2
+  interventionStrategyTrials2: shuffle(interventionTrials.slice(0)), // strategy order 2
+  interventionGenerateTrials: interventionTrials.slice(0,(numTrials/4)),
+  interventionRestudyTrials: interventionTrials.slice((numTrials/4), numTrials/2),
   interventionGenerateStrategyScore: 0,
   interventionTestTrials: shuffle(interventionTrials.slice(0)), // test order
   interventionGenerateTestScore: 0,
@@ -121,28 +135,55 @@ var experiment = {
     $("#interventionStudyText").text(text);
   },
 
+  //Intro to strategy
+  interventionStudyFraming2: function() {
+    var text =  "Round 2: Now, you will be presented with the same 20 Swahili-English \
+                word pairs again. You will see each Swahili-English\
+                word pair for 5 seconds, and then the screen will automatically \
+                advance to the next pair. Again, please pay attention, and try to remember\
+                as many word pairs as you can."
+    showSlide("interventionStrategyFraming");
+    $("#interventionStrategyText").text(text);
+  },
+
   // 20 items, View each item for 5 sec
   interventionStudy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
-    if (experiment.interventionStudyTrials.length == 0) {
+    if (experiment.interventionStudyTrials2.length == 0) {
       experiment.interventionStrategyFraming();
       return;
+    } else if (experiment.interventionStudyTrials1.length == 0) {
+      // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
+      if (startStudy2) {
+        startStudy2 = false;
+        experiment.interventionStudyFraming2();
+      }
+      var currItem = experiment.interventionStudyTrials2.shift();
+    } else {
+      var currItem = experiment.interventionStudyTrials1.shift();
     }
     
-    // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var currItem = experiment.interventionStudyTrials.shift(),
-      swahili = swahili_english_pairs[parseInt(currItem)][0],
+    var swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1];
 
     showSlide("interventionStudy");
     $("#wordpair").text(swahili + " : " + english);
-    // Wait 5 seconds before starting the next trial.
     setTimeout(experiment.interventionStudy, 1000);
   },
 
   //Intro to strategy
-  interventionStrategyFraming: function() {
+  interventionStrategyFraming1: function() {
     var text =  "Now you will be asked to study each pair either by (1) \
+                reviewing the Swahili-English word pair, or (2) trying to \
+                recall the English translation from memory."
+    showSlide("interventionStrategyFraming");
+    $("#interventionStrategyText").text(text);
+  },
+
+  //Intro to strategy
+  interventionStrategyFraming2: function() {
+    var text =  "Round 2: Now, you will be asked to study each pair again, \
+                either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
     showSlide("interventionStrategyFraming");
@@ -151,35 +192,34 @@ var experiment = {
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
   interventionStrategy: function() {
-    // If the number of remaining trials is 0, we're done, so call the end function.
-    if (experiment.interventionStrategyTrials.length == 0) {
+    if (experiment.interventionStrategyTrials2.length == 0) {
       experiment.interventionPredict();
       return;
+    } else if (experiment.interventionStrategyTrials1.length == 0) {
+      if (startStrategy2) {
+        startStrategy2 = false;
+        experiment.interventionStrategyFraming2();
+      }
+      var currItem = experiment.interventionStrategyTrials2.shift();
+    } else {
+      var currItem = experiment.interventionStrategyTrials1.shift();
     }
-    console.log(experiment.interventionStrategyTrials);
-    // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var currItem = experiment.interventionStrategyTrials.shift(),
-      swahili = swahili_english_pairs[parseInt(currItem)][0],
+    
+    var swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1];
 
-    if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1) {
+    if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1) { // generate
       showSlide("interventionGenerate");
       $("#swahili").text(swahili + " : ");
       $("#generatedWord").val('');
       $("#generatedWord").focus();
-
-      // Wait 5 seconds before starting the next trial.
       setTimeout(function(){$("#interventionForm").submit(
-        experiment.captureWord("interventionStudy", currItem, swahili, english));}, 1000
-      ); 
-    } else {
+        experiment.captureWord("interventionStudy", currItem, swahili, english));}, 2000); 
+    } else { // restudy
       showSlide("interventionStudy");
       $("#wordpair").text(swahili + " : " + english);
-      // Wait 5 seconds before starting the next trial.
-      setTimeout(experiment.interventionStrategy, 1000); 
+      setTimeout(experiment.interventionStrategy, 2000); 
     }
-
-
   },
 
   // Capture and save trial
@@ -202,8 +242,8 @@ var experiment = {
         experiment.interventionGenerateTestScore += accuracy;
       } else {
         experiment.interventionRestudyTestScore += accuracy;
-      }
-    } 
+      };
+    };
 
     experiment.data.push(data);
     // show next slide
@@ -252,7 +292,7 @@ var experiment = {
 
     // Wait 5 seconds before starting the next trial.
     setTimeout(function(){$("#interventionForm").submit(
-      experiment.captureWord("interventionTest", currItem, swahili, english));}, 1000
+      experiment.captureWord("interventionTest", currItem, swahili, english));}, 2000
     ); 
   },
 
@@ -319,11 +359,11 @@ var experiment = {
       turk.submit(experiment);
       var form = document.createElement(form);
       document.body.appendChild(form);
-      addFormData(form, "data", JSON.stringify(experiment));
+      // addFormData(form, "data", JSON.stringify(experiment));
       // submit the form
-      form.action = turk.turkSubmitTo + "/mturk/externalSubmit";
-      form.method = "POST";
-      form.submit();
+      // form.action = turk.turkSubmitTo + "/mturk/externalSubmit";
+      // form.method = "POST";
+      // form.submit();
 
     }, 1500);
   }
