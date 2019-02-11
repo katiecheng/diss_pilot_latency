@@ -44,7 +44,7 @@ function shuffle(array) {
 
 
 // ## Configuration settings
-var numTrials = 12, //40
+var numTrials = 8, //40
   trialDuration = 5000,
   condition = randomInteger(4),
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
@@ -195,7 +195,7 @@ var experiment = {
 
     showSlide("study");
     $("#wordpair").text(swahili + " : " + english);
-    setTimeout(function(){experiment.interventionStudy(round)}, 1000);
+    setTimeout(function(){experiment.interventionStudy(round)}, trialDuration);
   },
 
   /*interventionStudy: function() {
@@ -284,11 +284,11 @@ var experiment = {
       setTimeout(function(){
         $("#generatedForm").submit(experiment.captureWord("interventionStudy", currItem, swahili, english));
         experiment.interventionStrategy(round);
-      }, 2000); 
+      }, trialDuration); 
     } else { // restudy
       showSlide("study");
       $("#wordpair").text(swahili + " : " + english);
-      setTimeout(function(){experiment.interventionStrategy(round)}, 2000); 
+      setTimeout(function(){experiment.interventionStrategy(round)}, trialDuration); 
     }
   },
 
@@ -359,8 +359,9 @@ var experiment = {
 
     // Wait 5 seconds before starting the next trial.
     setTimeout(function(){$("#generatedForm").submit(
-      experiment.captureWord("interventionTest", currItem, swahili, english));}, 2000
-    ); 
+      experiment.captureWord("interventionTest", currItem, swahili, english));
+      experiment.interventionTest();
+    }, trialDuration); 
   },
 
   /*
