@@ -235,8 +235,9 @@ var experiment = {
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
     }
-    showSlide("interventionStrategyFraming");
-    $("#interventionStrategyText").text(text);
+    showSlide("textNext");
+    $("#textInstructions").text(text);
+    $("#nextButton").click(function(round){$(this).blur(); experiment.interventionStudy(round)});
   },
 
   /*interventionStrategyFraming1: function() {
