@@ -281,9 +281,10 @@ var experiment = {
       $("#swahili").text(swahili + " : ");
       $("#generatedWord").val('');
       $("#generatedWord").focus();
-      setTimeout(function(){$("#generatedForm").submit(
-        experiment.captureWord("interventionStudy", currItem, swahili, english));}, 2000); 
+      setTimeout(function(){
+        $("#generatedForm").submit(experiment.captureWord("interventionStudy", currItem, swahili, english));
         experiment.interventionStrategy(round);
+      }, 2000); 
     } else { // restudy
       showSlide("study");
       $("#wordpair").text(swahili + " : " + english);
