@@ -141,7 +141,7 @@ var experiment = {
     }
     showSlide("textNext");
     $("#textInstructions").text(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.interventionStudy(round)});
+    $("#nextButton").click(function(round){$(this).blur(); experiment.interventionStudy(round)});
   },
 
   /*interventionStudyFraming1: function() { 
