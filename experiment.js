@@ -243,10 +243,11 @@ var experiment = {
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
     }
+    showSlide("textNext");
     $("#textInstructions").text(text);
     console.log("in strategy framing", $("#textInstructions").text());
     $("#nextButton").click(function(round){$(this).blur(); experiment.interventionStrategy(round)});
-    showSlide("textNext");
+    setTimeout(function(){}, 0);
   },
 
   /*interventionStrategyFraming1: function() {
