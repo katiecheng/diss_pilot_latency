@@ -142,7 +142,7 @@ var experiment = {
                 as many word pairs as you can."
     showSlide("textNext");
     $("#textInstructions").text(text);
-    $("#nextButton").onclick(function(){
+    $("#nextButton").click(function(){
       $(this).blur(); 
       experiment.interventionStudy();
     });
