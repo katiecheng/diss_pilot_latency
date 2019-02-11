@@ -175,7 +175,11 @@ var experiment = {
 
     showSlide("interventionStudy");
     $("#wordpair").text(swahili + " : " + english);
-    setTimeout(experiment.interventionStudy, 1000);
+    if (round == 1) {
+      setTimeout(experiment.interventionStudy(1), 1000);
+    } else {
+      setTimeout(experiment.interventionStudy(2), 1000);
+    }
   },
 
   /*interventionStudy: function() {
