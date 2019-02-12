@@ -48,7 +48,7 @@ var numTrials = 8, //40
   trialDuration = 500,
   // condition = randomInteger(4),
   condition = 3,
-  myTrialOrder = shuffle([...Array(numTrials).keys()]),
+  myTrialOrder = shuffle([...Array(40).keys()]).slice(0, numTrials),
   interventionTrials = myTrialOrder.slice(0,(numTrials/2)),
   assessmentTrials = myTrialOrder.slice((numTrials/2), numTrials),
   swahili_english_pairs = [
@@ -323,10 +323,10 @@ var experiment = {
   When using the review strategy, you scored __ /10
   */
   interventionFeedback: function() {
-    var text = `You scored <b>${experiment.interventionGenerateTestScore + experiment.interventionRestudyTestScore} / 20</b>. 
-    On the items that you studied by <u>reviewing</u> the Swahili-English word pair, you scored 
-    <b>${experiment.interventionRestudyTestScore} /10</b>. On the items that you studied by tring to <u>recall</u> the 
-    English translation from memory, you scored <b>${experiment.interventionGenerateTestScore} /10</b>.`
+    var text = `You scored ${experiment.interventionGenerateTestScore + experiment.interventionRestudyTestScore} / 20. 
+    On the items that you studied by reviewing the Swahili-English word pair, you scored 
+    ${experiment.interventionRestudyTestScore} /10. On the items that you studied by tring to recall the 
+    English translation from memory, you scored ${experiment.interventionGenerateTestScore} /10.`
     showSlide("feedbackNext");
     $("#feedbackText").text(text);
     // TOGGLE THIS TO GO TO ASSESSMENT/END
