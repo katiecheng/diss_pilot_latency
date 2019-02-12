@@ -185,7 +185,7 @@ var experiment = {
       var header = "Study - Round 1";
       var text = "Now you will be asked to study each pair either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
-                recall the English translation from memory. After 5 seconds,\ 
+                recall the English translation from memory. After 5 seconds,\
                 the screen will automatically advance and save your input.";
     } else if (round == 2) {
       var header = "Study - Round 2";
