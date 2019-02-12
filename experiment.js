@@ -140,19 +140,19 @@ var experiment = {
   //Intro to study
   interventionStudyFraming: function(round) { 
     if (round == 1) {
-      var header = "Word Pairs - Round 1"
+      var header = "Word Pairs - Round 1";
       var text = "In a moment, you will be presented with 20 Swahili words paired with \
       their English translations. You will see each Swahili-English word pair \
       for 5 seconds, and then the screen will automatically advance to the \
       next pair. Please pay attention, and try to remember as many word pairs \
-      as you can."
+      as you can.";
     } else if (round == 2) {
-      var header = "Word Pairs - Round 2"
+      var header = "Word Pairs - Round 2";
       var text = "Now, you will be presented with the same 20 Swahili-English \
       word pairs again. You will see each Swahili-English\
       word pair for 5 seconds, and then the screen will automatically \
       advance to the next pair. Again, please pay attention, and try to remember\
-      as many word pairs as you can."
+      as many word pairs as you can.";
     }
     showSlide("textNext");
     $("#instructionsHeader").text(header);
@@ -182,18 +182,18 @@ var experiment = {
   //Intro to strategy
   interventionStrategyFraming: function(round) {
     if (round == 1) {
-      var header = "Study - Round 1"
+      var header = "Study - Round 1";
       var text = "Now you will be asked to study each pair either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory. After 5 seconds,\ 
-                the screen will automatically advance and save your input."
+                the screen will automatically advance and save your input.";
     } else if (round == 2) {
-      var header = "Study - Round 2"
+      var header = "Study - Round 2";
       var text = "Now, you will be asked to study each pair again, \
                 either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory. After 5 seconds,\ 
-                the screen will automatically advance and save your input."
+                the screen will automatically advance and save your input.";
     }
     showSlide("textNext");
     $("#instructionsHeader").text(header);
