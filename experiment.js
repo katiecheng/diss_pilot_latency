@@ -44,8 +44,8 @@ function shuffle(array) {
 
 
 // ## Configuration settings
-var numTrials = 8, //40
-  trialDuration = 500,
+var numTrials = 40, //40
+  trialDuration = 5000,
   // condition = randomInteger(4),
   condition = 3,
   myTrialOrder = shuffle([...Array(40).keys()]).slice(0, numTrials),
