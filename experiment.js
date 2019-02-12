@@ -45,7 +45,7 @@ function shuffle(array) {
 
 // ## Configuration settings
 var numTrials = 8, //40
-  trialDuration = 5000,
+  trialDuration = 500,
   // condition = randomInteger(4),
   condition = 3,
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
@@ -325,9 +325,9 @@ var experiment = {
   interventionFeedback: function() {
     var text = "You scored ${experiment.interventionGenerateTestScore + experiment.interventionRestudyTestScore} / 20! <br><br>\
       On the items that you studied by reviewing the Swahili-English word pair, you scored ${interventionRestudyTestScore} /10 <br>\
-      On the items that you studied by tring to remember the English word in the pair, you scored ${experiment.interventionGenerateTestScore} /10 <br>"
-    showSlide("feedbackNext")
-    $("#feedbackText").text(text)
+      On the items that you studied by tring to recall the English translation from memory, you scored ${experiment.interventionGenerateTestScore} /10 <br>"
+    showSlide("feedbackNext");
+    $("#feedbackText").text(text);
     // TOGGLE THIS TO GO TO ASSESSMENT/END
     // $("#feedbackNextButton").click(function(){$(this).blur(); experiment.assessmentFraming()});
     $("#feedbackNextButton").click(function(){$(this).blur(); experiment.end()});
