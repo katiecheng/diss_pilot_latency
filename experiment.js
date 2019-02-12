@@ -5,6 +5,8 @@ TODO
 Once I'm done testing
 - update conditions!
 - collect individual word accuracy data during study and test
+- add 5 little dots that countdown so people know it's working?
+- giving credit for plural
 */
 
 // ## Helper functions
@@ -175,13 +177,15 @@ var experiment = {
       var header = "Study - Round 1"
       var text = "Now you will be asked to study each pair either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
-                recall the English translation from memory."
+                recall the English translation from memory. After 5 seconds,\ 
+                the screen will automatically advance and save your input."
     } else if (round == 2) {
       var header = "Study - Round 2"
       var text = "Now, you will be asked to study each pair again, \
                 either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
-                recall the English translation from memory."
+                recall the English translation from memory. After 5 seconds,\ 
+                the screen will automatically advance and save your input."
     }
     showSlide("textNext");
     $("#instructionsHeader").text(header);
@@ -269,10 +273,8 @@ var experiment = {
   interventionTestFraming: function() {
     
     var header = "Quiz"
-    var text = "Now, you will be asked to study each pair again, \
-              either by (1) \
-              reviewing the Swahili-English word pair, or (2) trying to \
-              recall the English translation from memory."
+    var text = "Let's see what you learned! Next, you will be shown each Swahili word again.\
+     You’ll have 5 seconds to type the correct English translation."
     showSlide("textNext");
     $("#instructionsHeader").text(header);
     $("#instructionsText").text(text);
