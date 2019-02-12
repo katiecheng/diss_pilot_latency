@@ -3,8 +3,7 @@
 TODO
 - change the trial order to be experiment specific?
 Once I'm done testing
-- change the hardcoded trial durations to the variable
-- make a slide for instructions, and just update the text on it
+- update conditions!
 - collect individual word accuracy data during study and test
 */
 
@@ -47,7 +46,8 @@ function shuffle(array) {
 // ## Configuration settings
 var numTrials = 8, //40
   trialDuration = 5000,
-  condition = randomInteger(4),
+  // condition = randomInteger(4),
+  condition = 3,
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
   interventionTrials = myTrialOrder.slice(0,(numTrials/2)),
   assessmentTrials = myTrialOrder.slice((numTrials/2), numTrials),
@@ -122,6 +122,7 @@ var experiment = {
   assessmentStudyTrials: shuffle(assessmentTrials.slice(0)),
   assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
   assessmentTestTrials: shuffle(assessmentTrials.slice(0)),
+  assessmentTestScore: 0,
   
   // An array to store the data that we're collecting.
   data: [],
@@ -240,8 +241,10 @@ var experiment = {
         experiment.interventionGenerateTestScore += accuracy;
       } else {
         experiment.interventionRestudyTestScore += accuracy;
-      };
-    };
+      }
+    } else if (studyPhase == "assessmentTest"){
+      experiment.assessmentTestScore += accuracy;
+    }
 
     experiment.data.push(data);
     return false; // stop form from being submitted
@@ -265,7 +268,7 @@ var experiment = {
   */
   interventionTestFraming: function() {
     
-    var header = "Study - Round 2"
+    var header = "Quiz"
     var text = "Now, you will be asked to study each pair again, \
               either by (1) \
               reviewing the Swahili-English word pair, or (2) trying to \
@@ -273,7 +276,7 @@ var experiment = {
     showSlide("textNext");
     $("#instructionsHeader").text(header);
     $("#instructionsText").text(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.test(1);});
+    $("#nextButton").click(function(){$(this).blur(); experiment.test("interventionTest");});
     console.log($("#instructionsText").text());
 
   },
@@ -281,10 +284,10 @@ var experiment = {
 
   // (All items rote for 10 sec, +/- feedback on each item)
   test: function(round) {
-    if (round == 1) {
+    if (round == "interventionTest") {
       var trials = experiment.interventionTestTrials;
       if (trials.length == 0) {experiment.interventionFeedback(); return;} 
-    } else if (round == 2) {
+    } else if (round == "assessmentTest") {
       var trials = experiment.assessmentTestTrials;
       if (trials.length == 0) {experiment.end(); return;} 
     }
@@ -305,8 +308,8 @@ var experiment = {
 
     // Wait 5 seconds before starting the next trial.
     setTimeout(function(){$("#generatedForm").submit(
-      experiment.captureWord("interventionTest", currItem, swahili, english));
-      experiment.interventionTest();
+      experiment.captureWord(round, currItem, swahili, english));
+      experiment.test(round);
     }, trialDuration); 
   },
 
