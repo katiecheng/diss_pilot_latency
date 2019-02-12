@@ -5,6 +5,7 @@ TODO
 Once I'm done testing
 - change the hardcoded trial durations to the variable
 - make a slide for instructions, and just update the text on it
+- collect individual word accuracy data during study and test
 */
 
 // ## Helper functions
@@ -127,22 +128,25 @@ var experiment = {
   //Intro to strategy
   interventionStudyFraming: function(round) { 
     if (round == 1) {
-      var text = "STUDY FRAMING 1: In a moment, you will be presented with 20 Swahili words paired with \
+      var header = "Round 1: Study"
+      var text = "In a moment, you will be presented with 20 Swahili words paired with \
       their English translations. You will see each Swahili-English word pair \
       for 5 seconds, and then the screen will automatically advance to the \
       next pair. Please pay attention, and try to remember as many word pairs \
       as you can."
     } else if (round == 2) {
-      var text = "STUDY FRAMING 2: Now, you will be presented with the same 20 Swahili-English \
+      var header = "Round 2: Study"
+      var text = "Now, you will be presented with the same 20 Swahili-English \
       word pairs again. You will see each Swahili-English\
       word pair for 5 seconds, and then the screen will automatically \
       advance to the next pair. Again, please pay attention, and try to remember\
       as many word pairs as you can."
     }
     showSlide("textNext");
-    $("#textInstructions").text(text);
+    $("#instructionsHeader").text(header);
+    $("#instructionsText").text(text);
     $("#nextButton").click(function(){$(this).blur(); experiment.interventionStudy(round); console.log("round: ", round);});
-    console.log($("#textInstructions").text());
+    console.log($("#instructionsText").text());
   },
 
   /*interventionStudyFraming1: function() { 
@@ -227,19 +231,22 @@ var experiment = {
   //Intro to strategy
   interventionStrategyFraming: function(round) {
     if (round == 1) {
+      var header = "Round 1: Practice"
       var text = "STRATEGY FRAMING 1: Now you will be asked to study each pair either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
     } else if (round == 2) {
+      var header = "Round 2: Practice"
       var text = "STRATEGY FRAMING 2: Now, you will be asked to study each pair again, \
                 either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
     }
     showSlide("textNext");
-    $("#textInstructions").text(text);
+    $("#instructionsHeader").text(header);
+    $("#instructionsText").text(text);
     $("#nextButton").click(function(){$(this).blur(); experiment.interventionStrategy(round); console.log("round: ", round);});
-    console.log($("#textInstructions").text());
+    console.log($("#instructionsText").text());
     // setTimeout(function(){}, 0);
   },
 
