@@ -1,12 +1,15 @@
 
 /*
 TODO
-- change the trial order to be experiment specific?
 Once I'm done testing
-- update conditions!
+- collect start/end times for duration
 - collect individual word accuracy data during study and test
+- update conditions!
 - add 5 little dots that countdown so people know it's working?
+- progress bar for each round of 20 words
 - giving credit for plural
+- change the trial order to be experiment specific?
+- decide trial duration (study vs. strategy vs. test)
 */
 
 // ## Helper functions
@@ -50,9 +53,14 @@ var numTrials = 40, //40
   trialDuration = 5000,
   // condition = randomInteger(4),
   condition = 3,
-  myTrialOrder = shuffle([...Array(40).keys()]).slice(0, numTrials),
-  interventionTrials = myTrialOrder.slice(0,(numTrials/2)),
-  assessmentTrials = myTrialOrder.slice((numTrials/2), numTrials),
+  //test intervention with first 20 items, in case need to re-test people
+  myTrialOrder = shuffle([...Array(20).keys()]),
+  interventionTrials = myTrialOrder.slice(0),
+  assessmentTrials = [],
+  // all 40
+  // myTrialOrder = shuffle([...Array(40).keys()]).slice(0, numTrials),
+  // interventionTrials = myTrialOrder.slice(0,(numTrials/2)),
+  // assessmentTrials = myTrialOrder.slice((numTrials/2), numTrials),
   swahili_english_pairs = [
     ["adhama", "honor"],
     ["adui", "enemy"],
