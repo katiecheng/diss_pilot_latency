@@ -323,9 +323,9 @@ var experiment = {
   When using the review strategy, you scored __ /10
   */
   interventionFeedback: function() {
-    var text = `You scored ${experiment.interventionGenerateTestScore + experiment.interventionRestudyTestScore} / 20! 
+    var text = `You scored ${experiment.interventionGenerateTestScore + experiment.interventionRestudyTestScore} / 20! <br>
 
-      On the items that you studied by reviewing the Swahili-English word pair, you scored ${experiment.interventionRestudyTestScore} /10
+      On the items that you studied by reviewing the Swahili-English word pair, you scored ${experiment.interventionRestudyTestScore} /10 <br>
       On the items that you studied by tring to recall the English translation from memory, you scored ${experiment.interventionGenerateTestScore} /10`
     showSlide("feedbackNext");
     $("#feedbackText").text(text);
