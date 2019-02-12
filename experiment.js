@@ -48,16 +48,48 @@ function shuffle(array) {
   return array;
 }
 
+/*
+I have a list of items in shuffled order
+I have a list of objects (in shuffled order) - interventionStrategyTrials
+I need to be able to run through things a bunch of times...
+
+- study
+- test (split into +/-)
+
+- study
+- test (remove from -, add to +)
+
+- study
+- test (remove from -, add to +)
+
+- study
+- test (remove from -, add to +)
+
+For half, restudy every time, don't test again
+For half, retest every time, don't study again
+
+*/
 
 // ## Configuration settings
-var numTrials = 40, //40
-  trialDuration = 5000,
-  // condition = randomInteger(4),
-  condition = 3,
-  //test intervention with first 20 items, in case need to re-test people
-  myTrialOrder = shuffle([...Array(20).keys()]),
+var numTrials = 6, //40
+  trialDuration = 1000,
+  allConditions = [...Array(4).keys()],
+  // myCondition = randomElement(allConditions),
+  myCondition = 3,
+  // trials as objects
+  // test intervention with first numTrials items, in case need to re-test people
+  allTrials = [...Array(numTrials).keys()],
+  myTrialOrder = shuffle(allTrials.slice(0)),
   interventionTrials = myTrialOrder.slice(0),
   assessmentTrials = [],
+  interventionGenerateTrials = interventionTrials.slice(0, interventionTrials.length/2),
+  interventionRestudyTrials = interventionTrials.slice(interventionTrials.length/2, interventionTrials.length),
+  interventionStrategyTrials = interventionGenerateTrials.map(
+      function(item){return{item: item, strategy:"generate"};}
+    ).concat(interventionRestudyTrials.map(
+      function(item){return{item: item, strategy:"restudy"};}
+    )),
+  
   // all 40
   // myTrialOrder = shuffle([...Array(40).keys()]).slice(0, numTrials),
   // interventionTrials = myTrialOrder.slice(0,(numTrials/2)),
@@ -113,22 +145,21 @@ showSlide("instructions");
 var experiment = {
   // Properties
   numTrials: numTrials,
-  condition: condition,
-  myTrialOrder: myTrialOrder, // already shuffled
   trialDuration: trialDuration,
+  condition: myCondition,
   startStudy2: true,
   startStrategy2: true,
   // interventionTrials is the first half of myTrialOrder
-  interventionStudyTrials1: shuffle(interventionTrials.slice(0)), // study order 1
-  interventionStrategyTrials1: shuffle(interventionTrials.slice(0)), // strategy order 1
-  interventionStudyTrials2: shuffle(interventionTrials.slice(0)), // study order 2
-  interventionStrategyTrials2: shuffle(interventionTrials.slice(0)), // strategy order 2
-  interventionGenerateTrials: interventionTrials.slice(0,(numTrials/4)),
-  interventionRestudyTrials: interventionTrials.slice((numTrials/4), numTrials/2),
-  interventionGenerateStrategyScore: 0,
-  interventionTestTrials: shuffle(interventionTrials.slice(0)), // test order
-  interventionGenerateTestScore: 0,
-  interventionRestudyTestScore: 0,
+  interventionStudyTrials: [shuffle(interventionTrials.slice(0))],
+  // interventionStudyTrials1: shuffle(interventionTrials.slice(0)), // study order 1
+  // interventionStudyTrials2: shuffle(interventionTrials.slice(0)), // study order 2
+  interventionStrategyTrials: [shuffle(interventionStrategyTrials.slice(0))],
+  // interventionStrategyTrials1: shuffle(interventionTrials.slice(0)), // strategy order 1
+  // interventionStrategyTrials2: shuffle(interventionTrials.slice(0)), // strategy order 2
+  // interventionGenerateStrategyScore: 0,
+  interventionTestTrials: [shuffle(interventionTrials.slice(0))], // test order
+  interventionGenerateTestScore: Array(4).fill(0),
+  interventionRestudyTestScore: Array(4).fill(0),
   //assessmentTrials is the second half of myTrialOrder
   assessmentStudyTrials: shuffle(assessmentTrials.slice(0)),
   assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
@@ -164,9 +195,11 @@ var experiment = {
 
   // 20 items, View each item for 5 sec
   interventionStudy: function(round) {
-    console.log("interventionStudyTrials1: ", experiment.interventionStudyTrials1);
-    console.log("interventionStudyTrials2: ", experiment.interventionStudyTrials2);
-    var trials = round == 1 ? experiment.interventionStudyTrials1 : experiment.interventionStudyTrials2;
+    console.log("interventionStudyTrials: ", experiment.interventionStudyTrials);
+    // console.log("interventionStudyTrials1: ", experiment.interventionStudyTrials1);
+    // console.log("interventionStudyTrials2: ", experiment.interventionStudyTrials2);
+    // var trials = round == 1 ? experiment.interventionStudyTrials1 : experiment.interventionStudyTrials2;
+    var trials = experiment.interventionStudyTrials[round-1];
     if (trials.length == 0) {
       experiment.interventionStrategyFraming(round);
       return;
@@ -205,29 +238,32 @@ var experiment = {
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
   interventionStrategy: function(round) {
-    console.log("interventionStrategyTrials1: ", experiment.interventionStrategyTrials1);
-    console.log("interventionStrategyTrials2: ", experiment.interventionStrategyTrials2);
-    if (round == 1) {
-      var trials = experiment.interventionStrategyTrials1;
-      if (trials.length == 0) {experiment.interventionStudyFraming(2); return;} 
+    console.log("interventionStrategyTrials: ", experiment.interventionStrategyTrials);
+    // console.log("interventionStrategyTrials1: ", experiment.interventionStrategyTrials1);
+    // console.log("interventionStrategyTrials2: ", experiment.interventionStrategyTrials2);
+    var trials = experiment.interventionStrategyTrials[round-1];
+    if (round < 2) {
+      // var trials = experiment.interventionStrategyTrials1;
+      if (trials.length == 0) {experiment.interventionStudyFraming(round+1); return;} 
     } else if (round == 2) {
-      var trials = experiment.interventionStrategyTrials2;
-      if (trials.length == 0) {experiment.interventionPredict(); return;} 
+      // var trials = experiment.interventionStrategyTrials2;
+      if (trials.length == 0) {experiment.interventionPredict(round); return;} 
     }
     var currItem = trials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1];
 
-    if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1) { // generate
+    // if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1) { // generate
+    if (currItem.strategy == "generate"){
       showSlide("generate");
       $("#swahili").text(swahili + " : ");
       $("#generatedWord").val('');
       $("#generatedWord").focus();
       setTimeout(function(){
-        $("#generatedForm").submit(experiment.captureWord("interventionStudy", currItem, swahili, english));
+        $("#generatedForm").submit(experiment.captureWord("interventionStudy", round, currItem, swahili, english));
         experiment.interventionStrategy(round);
       }, trialDuration); 
-    } else { // restudy
+    } else if (currItem.strategy == "restudy"){ // restudy
       showSlide("study");
       $("#wordpair").text(swahili + " : " + english);
       setTimeout(function(){experiment.interventionStrategy(round)}, trialDuration); 
@@ -235,10 +271,11 @@ var experiment = {
   },
 
   // Capture and save trial
-  captureWord: function(studyPhase, currItem, swahili, english) {
+  captureWord: function(studyPhase, round, currItem, swahili, english) {
     var generatedWord = $("#generatedWord").val().toLowerCase(),
       accuracy = english == generatedWord ? 1 : 0,
       data = {
+        round: round,
         studyPhase: studyPhase,
         item: currItem,
         swahili: swahili,
@@ -248,12 +285,13 @@ var experiment = {
       };
 
     if (studyPhase == "interventionStudy"){
-      experiment.interventionGenerateStrategyScore += accuracy;
+      // experiment.interventionGenerateStrategyScore += accuracy;
     } else if (studyPhase == "interventionTest"){
-      if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1){
-        experiment.interventionGenerateTestScore += accuracy;
-      } else {
-        experiment.interventionRestudyTestScore += accuracy;
+      // if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1){ 
+      if (currItem.strategy == "generate"){
+        experiment.interventionGenerateTestScore[round-1] += accuracy;
+      } else if (currItem.strategy == "restudy"){
+        experiment.interventionRestudyTestScore[round-1] += accuracy;
       }
     } else if (studyPhase == "assessmentTest"){
       experiment.assessmentTestScore += accuracy;
@@ -271,15 +309,15 @@ var experiment = {
   how many English translations do you think you’ll remember on the quiz?” ( __ / 10, and OE why?)
   */
 
-  interventionPredict: function() {
-    experiment.interventionTestFraming()
+  interventionPredict: function(round) {
+    experiment.interventionTestFraming(round)
   },
 
   /*
   “Now, you will be shown each Swahili word again. You’ll have 10 seconds to type the 
   correct English translation.”
   */
-  interventionTestFraming: function() {
+  interventionTestFraming: function(round) {
     
     var header = "Quiz"
     var text = "Let's see what you learned! Next, you will be shown each Swahili word again.\
@@ -287,26 +325,25 @@ var experiment = {
     showSlide("textNext");
     $("#instructionsHeader").text(header);
     $("#instructionsText").text(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.test("interventionTest");});
+    $("#nextButton").click(function(){$(this).blur(); experiment.test("interventionTest", round);});
     console.log($("#instructionsText").text());
 
   },
 
 
   // (All items rote for 10 sec, +/- feedback on each item)
-  test: function(round) {
-    if (round == "interventionTest") {
-      var trials = experiment.interventionTestTrials;
-      if (trials.length == 0) {experiment.interventionFeedback(); return;} 
-    } else if (round == "assessmentTest") {
+  test: function(studyPhase, round) {
+    if (studyPhase == "interventionTest") {
+      var trials = experiment.interventionTestTrials[round-1];
+      if (trials.length == 0) {
+        if (round < 2){ experiment.interventionStudyFraming(round+1); 
+        } else if (round == 2) {experiment.interventionFeedback(); return;
+        } 
+    } else if (studyPhase == "assessmentTest") {
       var trials = experiment.assessmentTestTrials;
       if (trials.length == 0) {experiment.end(); return;} 
     }
-    // If the number of remaining trials is 0, we're done, so call the end function.
-    if (experiment.interventionTestTrials.length == 0) {
-      experiment.end();
-      return;
-    }
+
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currItem = experiment.interventionTestTrials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
@@ -319,8 +356,8 @@ var experiment = {
 
     // Wait 5 seconds before starting the next trial.
     setTimeout(function(){$("#generatedForm").submit(
-      experiment.captureWord(round, currItem, swahili, english));
-      experiment.test(round);
+      experiment.captureWord(studyPhase, round, currItem, swahili, english));
+      experiment.test(studyPhase, round);
     }, trialDuration); 
   },
 
