@@ -119,23 +119,24 @@ var experiment = {
   interventionGenerateTestScore: 0,
   interventionRestudyTestScore: 0,
   //assessmentTrials is the second half of myTrialOrder
-  assessmentStudyTrials: assessmentTrials.slice(0),
+  assessmentStudyTrials: shuffle(assessmentTrials.slice(0)),
   assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
+  assessmentTestTrials: shuffle(assessmentTrials.slice(0)),
   
   // An array to store the data that we're collecting.
   data: [],
 
-  //Intro to strategy
+  //Intro to study
   interventionStudyFraming: function(round) { 
     if (round == 1) {
-      var header = "Round 1: Study"
+      var header = "Word Pairs - Round 1"
       var text = "In a moment, you will be presented with 20 Swahili words paired with \
       their English translations. You will see each Swahili-English word pair \
       for 5 seconds, and then the screen will automatically advance to the \
       next pair. Please pay attention, and try to remember as many word pairs \
       as you can."
     } else if (round == 2) {
-      var header = "Round 2: Study"
+      var header = "Word Pairs - Round 2"
       var text = "Now, you will be presented with the same 20 Swahili-English \
       word pairs again. You will see each Swahili-English\
       word pair for 5 seconds, and then the screen will automatically \
@@ -145,44 +146,9 @@ var experiment = {
     showSlide("textNext");
     $("#instructionsHeader").text(header);
     $("#instructionsText").text(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.interventionStudy(round); console.log("round: ", round);});
+    $("#nextButton").click(function(){$(this).blur(); experiment.interventionStudy(round);});
     console.log($("#instructionsText").text());
   },
-
-  /*interventionStudyFraming1: function() { 
-    showSlide("textNext");
-    $("#textInstructions").text(
-      "STUDY FRAMING 1: In a moment, you will be presented with 20 Swahili words paired with \
-      their English translations. You will see each Swahili-English word pair \
-      for 5 seconds, and then the screen will automatically advance to the \
-      next pair. Please pay attention, and try to remember as many word pairs \
-      as you can."
-    );
-    $("#nextButton").click(function(){$(this).blur(); experiment.interventionStudy(1)});
-  },
-
-  //Intro to strategy
-  interventionStudyFraming2: function() { 
-    showSlide("textNext");
-    $("#textInstructions").text(
-      "STUDY FRAMING 2: Now, you will be presented with the same 20 Swahili-English \
-      word pairs again. You will see each Swahili-English\
-      word pair for 5 seconds, and then the screen will automatically \
-      advance to the next pair. Again, please pay attention, and try to remember\
-      as many word pairs as you can."
-    );
-    $("#nextButton").click(function(){$(this).blur(); experiment.interventionStudy(2)});
-  },
-
-  interventionStudyFraming2: function() {
-    var text =  "Round 2: Now, you will be presented with the same 20 Swahili-English \
-                word pairs again. You will see each Swahili-English\
-                word pair for 5 seconds, and then the screen will automatically \
-                advance to the next pair. Again, please pay attention, and try to remember\
-                as many word pairs as you can."
-    showSlide("interventionStrategyFraming");
-    $("#interventionStrategyText").text(text);
-  },*/
 
   // 20 items, View each item for 5 sec
   interventionStudy: function(round) {
@@ -202,42 +168,16 @@ var experiment = {
     setTimeout(function(){experiment.interventionStudy(round)}, trialDuration);
   },
 
-  /*interventionStudy: function() {
-    console.log("interventionStudyTrials1: ", experiment.interventionStudyTrials1);
-    console.log("interventionStudyTrials2: ", experiment.interventionStudyTrials2);
-    // If the number of remaining trials is 0, we're done, so call the end function.
-    if (experiment.interventionStudyTrials2.length == 0) {
-      experiment.interventionStrategyFraming1();
-      return;
-    } else if (experiment.interventionStudyTrials1.length == 0) {
-      // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-      if (experiment.startStudy2) {
-        experiment.startStudy2 = false;
-        experiment.interventionStudyFraming2();
-      }
-      var currItem = experiment.interventionStudyTrials2.shift();
-    } else {
-      var currItem = experiment.interventionStudyTrials1.shift();
-    }
-    
-    var swahili = swahili_english_pairs[parseInt(currItem)][0],
-      english = swahili_english_pairs[parseInt(currItem)][1];
-
-    showSlide("interventionStudy");
-    $("#wordpair").text(swahili + " : " + english);
-    setTimeout(experiment.interventionStudy, 1000);
-  },*/
-
   //Intro to strategy
   interventionStrategyFraming: function(round) {
     if (round == 1) {
-      var header = "Round 1: Practice"
-      var text = "STRATEGY FRAMING 1: Now you will be asked to study each pair either by (1) \
+      var header = "Study - Round 1"
+      var text = "Now you will be asked to study each pair either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
     } else if (round == 2) {
-      var header = "Round 2: Practice"
-      var text = "STRATEGY FRAMING 2: Now, you will be asked to study each pair again, \
+      var header = "Study - Round 2"
+      var text = "Now, you will be asked to study each pair again, \
                 either by (1) \
                 reviewing the Swahili-English word pair, or (2) trying to \
                 recall the English translation from memory."
@@ -245,28 +185,9 @@ var experiment = {
     showSlide("textNext");
     $("#instructionsHeader").text(header);
     $("#instructionsText").text(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.interventionStrategy(round); console.log("round: ", round);});
+    $("#nextButton").click(function(){$(this).blur(); experiment.interventionStrategy(round);});
     console.log($("#instructionsText").text());
-    // setTimeout(function(){}, 0);
   },
-
-  /*interventionStrategyFraming1: function() {
-    var text =  "STRATEGY FRAMING 1: Now you will be asked to study each pair either by (1) \
-                reviewing the Swahili-English word pair, or (2) trying to \
-                recall the English translation from memory."
-    showSlide("interventionStrategyFraming");
-    $("#interventionStrategyText").text(text);
-  },
-
-  //Intro to strategy
-  interventionStrategyFraming2: function() {
-    var text =  "STRATEGY FRAMING 2: Now, you will be asked to study each pair again, \
-                either by (1) \
-                reviewing the Swahili-English word pair, or (2) trying to \
-                recall the English translation from memory."
-    showSlide("interventionStrategyFraming");
-    $("#interventionStrategyText").text(text);
-  },*/
 
   //Apply strategy to each item for 5 sec 1/2 copy 1/2 generate (randomize)
   interventionStrategy: function(round) {
@@ -335,20 +256,38 @@ var experiment = {
   */
 
   interventionPredict: function() {
-    experiment.interventionTestIntro()
+    experiment.interventionTestFraming()
   },
 
   /*
   “Now, you will be shown each Swahili word again. You’ll have 10 seconds to type the 
   correct English translation.”
   */
-  interventionTestIntro: function() {
-    experiment.interventionTest()
+  interventionTestFraming: function() {
+    
+    var header = "Study - Round 2"
+    var text = "Now, you will be asked to study each pair again, \
+              either by (1) \
+              reviewing the Swahili-English word pair, or (2) trying to \
+              recall the English translation from memory."
+    showSlide("textNext");
+    $("#instructionsHeader").text(header);
+    $("#instructionsText").text(text);
+    $("#nextButton").click(function(){$(this).blur(); experiment.test(1);});
+    console.log($("#instructionsText").text());
+
   },
 
 
   // (All items rote for 10 sec, +/- feedback on each item)
-  interventionTest: function() {
+  test: function(round) {
+    if (round == 1) {
+      var trials = experiment.interventionTestTrials;
+      if (trials.length == 0) {experiment.interventionFeedback(); return;} 
+    } else if (round == 2) {
+      var trials = experiment.assessmentTestTrials;
+      if (trials.length == 0) {experiment.end(); return;} 
+    }
     // If the number of remaining trials is 0, we're done, so call the end function.
     if (experiment.interventionTestTrials.length == 0) {
       experiment.end();
@@ -381,26 +320,38 @@ var experiment = {
   When using the review strategy, you scored __ /10
   */
   interventionFeedback: function() {
-
+    var text = "You scored ${experiment.interventionGenerateTestScore + experiment.interventionRestudyTestScore} / 20! <br><br>\
+      On the items that you studied by reviewing the Swahili-English word pair, you scored ${interventionRestudyTestScore} /10 <br>\
+      On the items that you studied by tring to remember the English word in the pair, you scored ${experiment.interventionGenerateTestScore} /10 <br>"
+    showSlide("feedbackNext")
+    $("#feedbackText").text(text)
+    // TOGGLE THIS TO GO TO ASSESSMENT/END
+    // $("#feedbackNextButton").click(function(){$(this).blur(); experiment.assessmentFraming()});
+    $("#feedbackNextButton").click(function(){$(this).blur(); experiment.end()});
   },
 
   /* “Now, you will see 20 new Swahili words paired with their English translations. 
   Then, you will have 5 seconds to study each pair using whatever method you would like. 
   Finally, you will be quizzed on all 20 Swahili-English word pairs.”*/
-  assessmentFraming: function() {
-
+  assessmentStudyFraming: function() {
+    experiment.assessmentStudy();
   },
 
   // 20 items, View each item for 5 sec
   assessmentStudy: function() {
     // If the number of remaining trials is 0, we're done, so call the end function.
     if (experiment.assessmentTrials.length == 0) {
-      experiment.end();
+      experiment.assessmentStrategyFraming();
       return;
     }
     
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var n = experiment.assessmentTrials.shift();
+  },
+
+  /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
+  assessmentStrategyFraming: function() {
+    experiment.assessmentStrategy();
   },
 
   /*
@@ -410,21 +361,17 @@ var experiment = {
   (measure latency to click)
   */
   assessmentStrategy: function() {
-
+    experiment.assessmentTestFraming();
   },
 
   /*
   “Now, you will be shown each Swahili word again. You’ll have 10 seconds to type the 
   correct English translation.”
   */
-  assessmentTestIntro: function() {
-
+  assessmentTestFraming: function() {
+    experiment.test(2);
   },
 
-  // (All items rote for 10 sec, +/- feedback on each item)
-  assessmentTest: function() {
-
-  },
   // The function that gets called when the sequence is finished.
   end: function() {
     // Show the finish slide.
