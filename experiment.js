@@ -176,15 +176,15 @@ var experiment = {
       var text = "In a moment, you will be presented with 20 Swahili words paired with \
       their English translations. You will see each Swahili-English word pair \
       for 5 seconds, and then the screen will automatically advance to the \
-      next pair. Please pay attention, and study the pair so you can recall \
-      the English word given the Swahili word.";
+      next pair. Please pay attention, and study the pair so you can type \
+      the English translation given the Swahili word.";
     } else if (round == 2) {
       var header = "Word Pairs - Round 2";
       var text = "Now, you will be presented with the same 20 Swahili-English \
       word pairs again. You will see each Swahili-English word pair \
       for 5 seconds, and then the screen will automatically advance to the \
-      next pair. Please pay attention, and study the pair so you can recall \
-      the English word given the Swahili word.";
+      next pair. Please pay attention, and study the pair so you can type \
+      the English translation given the Swahili word.";
     }
     showSlide("textNext");
     $("#instructionsHeader").text(header);
