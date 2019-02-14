@@ -215,7 +215,8 @@ var experiment = {
     console.log("interventionStrategyTrials2: ", experiment.interventionStrategyTrials2);
     if (round == 1) {
       var trials = experiment.interventionStrategyTrials1;
-      if (trials.length == 0) {experiment.interventionStudyFraming(2); return;} 
+      if (trials.length == 0) {experiment.interventionStrategyFraming(2); return;} 
+      // if (trials.length == 0) {experiment.interventionStudyFraming(2); return;} 
     } else if (round == 2) {
       var trials = experiment.interventionStrategyTrials2;
       if (trials.length == 0) {experiment.interventionPredict(); return;} 
