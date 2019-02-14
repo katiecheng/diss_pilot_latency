@@ -265,7 +265,7 @@ var experiment = {
 
     if (studyPhase == "interventionStudy"){
       experiment.interventionGenerateStrategyScore += accuracy;
-      experiment.interventionGenerateFeedback(round, swahili, english, accuracy);
+      // experiment.interventionGenerateFeedback(round, swahili, english, accuracy);
     } else if (studyPhase == "interventionTest"){
       if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1){
         experiment.interventionGenerateTestScore += accuracy;
