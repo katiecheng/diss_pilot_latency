@@ -122,9 +122,8 @@ var experiment = {
   startStudy2: true,
   startStrategy2: true,
   // interventionTrials is the first half of myTrialOrder
-  interventionStudyTrials1: shuffle(interventionTrials.slice(0)), // study order 1
+  interventionStudyTrials: shuffle(interventionTrials.slice(0)), // study order
   interventionStrategyTrials1: shuffle(interventionTrials.slice(0)), // strategy order 1
-  interventionStudyTrials2: shuffle(interventionTrials.slice(0)), // study order 2
   interventionStrategyTrials2: shuffle(interventionTrials.slice(0)), // strategy order 2
   // interventionGenerateTrials: interventionTrials.slice(0,(numTrials/4)),
   // interventionRestudyTrials: interventionTrials.slice((numTrials/4), numTrials/2),
@@ -145,36 +144,25 @@ var experiment = {
   data: [],
 
   //Intro to study
-  interventionStudyFraming: function(round) { 
-    if (round == 1) {
-      var header = "Word Pairs - Round 1";
-      var text = "In a moment, you will be presented with 20 Swahili words paired with \
-      their English translations. You will see each Swahili-English word pair \
-      for 5 seconds, and then the screen will automatically advance to the \
-      next pair. Please pay attention, and study the pair so you can type \
-      the English translation given the Swahili word.";
-    } else if (round == 2) {
-      var header = "Word Pairs - Round 2";
-      var text = "Now, you will be presented with the same 20 Swahili-English \
-      word pairs again. You will see each Swahili-English word pair \
-      for 5 seconds, and then the screen will automatically advance to the \
-      next pair. Please pay attention, and study the pair so you can type \
-      the English translation given the Swahili word.";
-    }
+  interventionStudyFraming: function() { 
+    var header = "Word Pairs - Round 1";
+    var text = "In a moment, you will be presented with 20 Swahili words paired with \
+    their English translations. You will see each Swahili-English word pair \
+    for 5 seconds, and then the screen will automatically advance to the \
+    next pair. Please pay attention, and study the pair so you can type \
+    the English translation given the Swahili word.";
     showSlide("textNext");
     $("#instructionsHeader").text(header);
     $("#instructionsText").text(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.interventionStudy(round);});
+    $("#nextButton").click(function(){$(this).blur(); experiment.interventionStudy();});
     console.log($("#instructionsText").text());
   },
 
   // 20 items, View each item for 5 sec
-  interventionStudy: function(round) {
-    console.log("interventionStudyTrials1: ", experiment.interventionStudyTrials1);
-    console.log("interventionStudyTrials2: ", experiment.interventionStudyTrials2);
-    var trials = round == 1 ? experiment.interventionStudyTrials1 : experiment.interventionStudyTrials2;
+  interventionStudy: function() {
+    var trials = experiment.interventionStudyTrials;
     if (trials.length == 0) {
-      experiment.interventionStrategyFraming(round);
+      experiment.interventionStrategyFraming(1);
       return;
     }
     var currItem = trials.shift(),    
@@ -183,7 +171,7 @@ var experiment = {
 
     showSlide("study");
     $("#wordpair").text(swahili + " : " + english);
-    setTimeout(function(){experiment.interventionStudy(round)}, trialDuration);
+    setTimeout(function(){experiment.interventionStudy()}, trialDuration);
   },
 
   //Intro to strategy
@@ -216,7 +204,6 @@ var experiment = {
     if (round == 1) {
       var trials = experiment.interventionStrategyTrials1;
       if (trials.length == 0) {experiment.interventionStrategyFraming(2); return;} 
-      // if (trials.length == 0) {experiment.interventionStudyFraming(2); return;} 
     } else if (round == 2) {
       var trials = experiment.interventionStrategyTrials2;
       if (trials.length == 0) {experiment.interventionPredict(); return;} 
