@@ -117,12 +117,11 @@ showSlide("instructions");
 var experiment = {
   // Properties
   numTrials: numTrials,
+  numStrategyRounds: numStrategyRounds,
   condition: condition,
   myTrialOrder: myTrialOrder, // already shuffled
   trialDuration: trialDuration,
   feedbackDuration: feedbackDuration,
-  startStudy2: true,
-  startStrategy2: true,
   // interventionTrials is the first half of myTrialOrder
   interventionStudyTrials: shuffle(interventionTrials.slice(0)), // study order
   interventionStrategyTrials1: shuffle(interventionTrials.slice(0)), // strategy order 1
@@ -263,14 +262,17 @@ var experiment = {
       restudyItem = ($.inArray(currItem, experiment.interventionRestudyTrials) != -1);
 
     if (generateItem){
-      var userInput = generatedWord;
+      var userInput = generatedWord,
+      strategy = "generate";
     } else if (restudyItem) {
-      var userInput = restudiedWord;
+      var userInput = restudiedWord,
+      strategy = "restudy";
     }
 
     var accuracy = english == userInput ? 1 : 0,
       data = {
         exptPhase: exptPhase,
+        strategy: strategy,
         item: currItem,
         swahili: swahili,
         english: english,
