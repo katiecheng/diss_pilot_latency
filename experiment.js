@@ -241,14 +241,14 @@ var experiment = {
     $("#feedback").show();
     $("#feedback").text(swahili + " : " + english);
     if (accuracy == 1){
-      // $("#feedback").css("color", "green");
+      $("#feedback").css("color", "green");
     } else {
-      // $("#feedback").css("color", "red");
+      $("#feedback").css("color", "red");
     }
     setTimeout(function(){
       $("#feedback").hide();
       experiment.interventionStrategy(round);}, feedbackDuration); 
-  }
+  },
 
   // Capture and save trial
   captureWord: function(studyPhase, currItem, swahili, english) {
@@ -265,7 +265,7 @@ var experiment = {
 
     if (studyPhase == "interventionStudy"){
       experiment.interventionGenerateStrategyScore += accuracy;
-      // experiment.interventionGenerateFeedback(round, swahili, english, accuracy);
+      experiment.interventionGenerateFeedback(round, swahili, english, accuracy);
     } else if (studyPhase == "interventionTest"){
       if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1){
         experiment.interventionGenerateTestScore += accuracy;
