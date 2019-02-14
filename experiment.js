@@ -58,7 +58,7 @@ var numTrials = 40, //40
   //test intervention with first numTrials items, in case need to re-test people
   numTrials = 4, // testing
   //toggle test 1 or 2 strategy rounds
-  numStrategyRounds = 1;
+  numStrategyRounds = 2;
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
   interventionTrials = myTrialOrder.slice(0),
   assessmentTrials = [],
