@@ -262,11 +262,19 @@ var experiment = {
       restudyItem = ($.inArray(currItem, experiment.interventionRestudyTrials) != -1);
 
     if (generateItem){
-      var userInput = generatedWord,
       strategy = "generate";
-    } else if (restudyItem) {
-      var userInput = restudiedWord,
+    } else if (restudyItem){
       strategy = "restudy";
+    }
+
+    if (exptPhase == "interventionStrategy"){
+      if (restudyItem){
+        var userInput = restudiedWord;
+      } else if (generateItem) {
+        var userInput = generatedWord;
+      }
+    } else {
+      var userInput = generatedWord;
     }
 
     var accuracy = english == userInput ? 1 : 0,
@@ -341,11 +349,7 @@ var experiment = {
       var trials = experiment.assessmentTestTrials;
       if (trials.length == 0) {experiment.end(); return;} 
     }
-    // If the number of remaining trials is 0, we're done, so call the end function.
-    if (experiment.interventionTestTrials.length == 0) {
-      experiment.end();
-      return;
-    }
+
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var currItem = experiment.interventionTestTrials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
