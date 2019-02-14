@@ -50,8 +50,8 @@ function shuffle(array) {
 
 // ## Configuration settings
 var numTrials = 40, //40
-  trialDuration = 1500,
-  feedbackDuration = 500, 
+  trialDuration = 5000,
+  feedbackDuration = 2000, 
   // condition = randomInteger(4), // 2x2
   // condition = randomInteger(2), // expt vs. control
   condition = 2,
