@@ -117,6 +117,7 @@ var experiment = {
   condition: condition,
   myTrialOrder: myTrialOrder, // already shuffled
   trialDuration: trialDuration,
+  feedbackDuration: feedbackDuration,
   startStudy2: true,
   startStrategy2: true,
   // interventionTrials is the first half of myTrialOrder
@@ -246,7 +247,7 @@ var experiment = {
     }
     setTimeout(function(){
       $("#feedback").hide();
-      experiment.interventionStrategy(round);}, feedbackDuration); 
+      experiment.interventionStrategy(round);}, experiment.feedbackDuration); 
   }
 
   // Capture and save trial
