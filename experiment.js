@@ -237,17 +237,17 @@ var experiment = {
   },
 
   //show feedback
-  interventionGenerateFeedback: function(round, swahili, english, accuracy){
+  interventionGenerateFeedback: function(round, swahili, english, accuracy) {
     $("#feedback").show();
     $("#feedback").text(swahili + " : " + english);
     if (accuracy == 1){
-      $("#feedback").css("color", "green");
+      // $("#feedback").css("color", "green");
     } else {
-      $("#feedback").css("color", "red");
+      // $("#feedback").css("color", "red");
     }
     setTimeout(function(){
       $("#feedback").hide();
-      experiment.interventionStrategy(round);}, experiment.feedbackDuration); 
+      experiment.interventionStrategy(round);}, feedbackDuration); 
   }
 
   // Capture and save trial
