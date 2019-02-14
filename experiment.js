@@ -50,7 +50,7 @@ function shuffle(array) {
 
 // ## Configuration settings
 var numTrials = 40, //40
-  trialDuration = 5000,
+  trialDuration = 4000,
   feedbackDuration = 2000, 
   // condition = randomInteger(4), // 2x2
   // condition = randomInteger(2), // expt vs. control
@@ -132,7 +132,8 @@ var experiment = {
   // for testing intervention only
   interventionGenerateTrials: interventionTrials.slice(0,(numTrials/2)),
   interventionRestudyTrials: interventionTrials.slice((numTrials/2), numTrials),
-  interventionGenerateStrategyScore: 0,
+  interventionGenerateStrategyScore: Array(numStrategyRounds).fill(0),
+  interventionRestudyStrategyScore: Array(numStrategyRounds).fill(0),
   interventionTestTrials: shuffle(interventionTrials.slice(0)), // test order
   interventionGenerateTestScore: 0,
   interventionRestudyTestScore: 0,
@@ -224,13 +225,19 @@ var experiment = {
       $("#generatedWord").val('');
       $("#generatedWord").focus();
       setTimeout(function(){
-        $("#generatedForm").submit(experiment.captureWord("interventionStudy", round, currItem, swahili, english));
+        $("#generatedForm").submit(experiment.captureWord("interventionStrategyGenerate", round, currItem, swahili, english));
         // experiment.interventionStrategy(round);
       }, trialDuration-feedbackDuration); 
     } else { // restudy
-      showSlide("study");
-      $("#wordpair").text(swahili + " : " + english);
-      setTimeout(function(){experiment.interventionStrategy(round)}, trialDuration); 
+      showSlide("restudy");
+      $("#restudyWordpair").text(swahili + " : " + english);
+      $("#restudySwahili").text(swahili + " : ");
+      $("#restudiedWord").val('');
+      $("#restudiedWord").focus();
+      setTimeout(function(){
+        $("#generatedForm").submit(experiment.captureWord("interventionStrategyRestudy", round, currItem, swahili, english));
+        experiment.interventionStrategy(round)
+      }, trialDuration); 
     }
   },
 
@@ -261,9 +268,11 @@ var experiment = {
         accuracy: accuracy
       };
 
-    if (studyPhase == "interventionStudy"){
-      experiment.interventionGenerateStrategyScore += accuracy;
+    if (studyPhase == "interventionStrategyGenerate"){
+      experiment.interventionGenerateStrategyScore[round-1] += accuracy;
       experiment.interventionGenerateFeedback(round, swahili, english, accuracy);
+    } else if (studyPhase == "interventionStrategyRestudy"){
+      experiment.interventionRestudyStrategyScore[round-1] += accuracy;
     } else if (studyPhase == "interventionTest"){
       if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1){
         experiment.interventionGenerateTestScore += accuracy;
