@@ -217,26 +217,26 @@ var experiment = {
     }
     var currItem = trials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
-      english = swahili_english_pairs[parseInt(currItem)][1];
+      english = swahili_english_pairs[parseInt(currItem)][1],
+      generateTrial = ($.inArray(currItem, experiment.interventionGenerateTrials) != -1),
+      restudyTrial = ($.inArray(currItem, experiment.interventionRestudyTrials) != -1);
 
-    if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1) { // generate
+    if (generateTrial) {
       showSlide("generate");
       $("#swahili").text(swahili + " : ");
       $("#generatedWord").val('');
       $("#generatedWord").focus();
       setTimeout(function(){
-        $("#generatedForm").submit(experiment.captureWord("interventionStrategyGenerate", round, currItem, swahili, english));
-        // experiment.interventionStrategy(round);
+        $("#generatedForm").submit(experiment.captureWord("interventionStrategy", round, currItem, swahili, english));
       }, trialDuration-feedbackDuration); 
-    } else { // restudy
+    } else if (restudyTrial) {
       showSlide("restudy");
       $("#restudyWordpair").text(swahili + " : " + english);
       $("#restudySwahili").text(swahili + " : ");
       $("#restudiedWord").val('');
       $("#restudiedWord").focus();
       setTimeout(function(){
-        $("#generatedForm").submit(experiment.captureWord("interventionStrategyRestudy", round, currItem, swahili, english));
-        experiment.interventionStrategy(round)
+        $("#generatedForm").submit(experiment.captureWord("interventionStrategy", round, currItem, swahili, english));
       }, trialDuration); 
     }
   },
@@ -256,31 +256,46 @@ var experiment = {
   },
 
   // Capture and save trial
-  captureWord: function(studyPhase, round, currItem, swahili, english) {
+  captureWord: function(exptPhase, round, currItem, swahili, english) {
     var generatedWord = $("#generatedWord").val().toLowerCase(),
-      accuracy = english == generatedWord ? 1 : 0,
+      restudiedWord = $("#restudiedWord").val().toLowerCase(),
+      generateTrial = ($.inArray(currItem, experiment.interventionGenerateTrials) != -1),
+      restudyTrial = ($.inArray(currItem, experiment.interventionRestudyTrials) != -1);
+
+    if (generateTrial){
+      var userInput = generatedWord;
+    } else if (restudyTrial) {
+      var userInput = restudiedWord;
+    }
+
+    var accuracy = english == userInput ? 1 : 0,
       data = {
-        studyPhase: studyPhase,
+        exptPhase: exptPhase,
         item: currItem,
         swahili: swahili,
         english: english,
-        generatedWord: generatedWord,
+        userInput: userInput,
         accuracy: accuracy
       };
-
-    if (studyPhase == "interventionStrategyGenerate"){
-      experiment.interventionGenerateStrategyScore[round-1] += accuracy;
-      experiment.interventionGenerateFeedback(round, swahili, english, accuracy);
-    } else if (studyPhase == "interventionStrategyRestudy"){
-      experiment.interventionRestudyStrategyScore[round-1] += accuracy;
-    } else if (studyPhase == "interventionTest"){
-      if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1){
+      
+    if (exptPhase == "interventionStrategy"){
+      if (generateTrial){
+        experiment.interventionGenerateStrategyScore[round-1] += accuracy;
+        experiment.interventionGenerateFeedback(round, swahili, english, accuracy);
+      } else if (restudyTrial){
+        experiment.interventionRestudyStrategyScore[round-1] += accuracy;
+        experiment.interventionStrategy(round);
+      } 
+    } else if (exptPhase == "interventionTest"){
+      if (generateTrial){
         experiment.interventionGenerateTestScore += accuracy;
-      } else {
+      } else if (restudyTrial){
         experiment.interventionRestudyTestScore += accuracy;
-      }
-    } else if (studyPhase == "assessmentTest"){
+      } 
+      experiment.test(exptPhase);
+    } else if (exptPhase == "assessmentTest"){
       experiment.assessmentTestScore += accuracy;
+      experiment.test(exptPhase);
     }
 
     experiment.data.push(data);
@@ -304,7 +319,6 @@ var experiment = {
   correct English translation.”
   */
   interventionTestFraming: function() {
-    
     var header = "Quiz"
     var text = "Let's see what you learned! Next, you will be shown each Swahili word again.\
      You’ll have 5 seconds to type the correct English translation."
@@ -313,16 +327,15 @@ var experiment = {
     $("#instructionsText").text(text);
     $("#nextButton").click(function(){$(this).blur(); experiment.test("interventionTest");});
     console.log($("#instructionsText").text());
-
   },
 
 
   // (All items rote for 10 sec, +/- feedback on each item)
-  test: function(testPhase) {
-    if (testPhase == "interventionTest") {
+  test: function(exptPhase) {
+    if (exptPhase == "interventionTest") {
       var trials = experiment.interventionTestTrials;
       if (trials.length == 0) {experiment.interventionFeedback(); return;} 
-    } else if (testPhase == "assessmentTest") {
+    } else if (exptPhase == "assessmentTest") {
       var trials = experiment.assessmentTestTrials;
       if (trials.length == 0) {experiment.end(); return;} 
     }
@@ -343,8 +356,7 @@ var experiment = {
 
     // Wait 5 seconds before starting the next trial.
     setTimeout(function(){$("#generatedForm").submit(
-      experiment.captureWord(testPhase, 0, currItem, swahili, english));
-      experiment.test(testPhase);
+      experiment.captureWord(exptPhase, 0, currItem, swahili, english));
     }, trialDuration); 
   },
 
