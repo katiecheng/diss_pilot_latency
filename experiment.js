@@ -50,9 +50,11 @@ function shuffle(array) {
 
 // ## Configuration settings
 var numTrials = 40, //40
-  trialDuration = 5000,
-  // condition = randomInteger(4),
-  condition = 3,
+  trialDuration = 1500,
+  feedbackDuration = 500, 
+  // condition = randomInteger(4), // 2x2
+  // condition = randomInteger(2), // expt vs. control
+  condition = 2,
   //test intervention with first 20 items, in case need to re-test people
   myTrialOrder = shuffle([...Array(20).keys()]),
   interventionTrials = myTrialOrder.slice(0),
@@ -224,14 +226,28 @@ var experiment = {
       $("#generatedWord").focus();
       setTimeout(function(){
         $("#generatedForm").submit(experiment.captureWord("interventionStudy", currItem, swahili, english));
-        experiment.interventionStrategy(round);
-      }, trialDuration); 
+        // experiment.interventionStrategy(round);
+      }, trialDuration-feedbackDuration); 
     } else { // restudy
       showSlide("study");
       $("#wordpair").text(swahili + " : " + english);
       setTimeout(function(){experiment.interventionStrategy(round)}, trialDuration); 
     }
   },
+
+  //show feedback
+  interventionGenerateFeedback: function(round, swahili, english, accuracy){
+    $("feedback").show();
+    $("#feedback").text(swahili + " : " + english);
+    if (accuracy==1) {
+      $("feedback").css('color' : 'green');
+    } else {
+      $("feedback").css('color' : 'red');
+    }
+    setTimeout(function(){
+      $("feedback").hide();
+      experiment.interventionStrategy(round);}, feedbackDuration); 
+  }
 
   // Capture and save trial
   captureWord: function(studyPhase, currItem, swahili, english) {
@@ -248,6 +264,7 @@ var experiment = {
 
     if (studyPhase == "interventionStudy"){
       experiment.interventionGenerateStrategyScore += accuracy;
+      experiment.interventionGenerateFeedback(swahili, english, accuracy);
     } else if (studyPhase == "interventionTest"){
       if ($.inArray(currItem, experiment.interventionGenerateTrials) != -1){
         experiment.interventionGenerateTestScore += accuracy;
