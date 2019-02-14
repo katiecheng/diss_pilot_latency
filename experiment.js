@@ -227,7 +227,7 @@ var experiment = {
       $("#generatedWord").val('');
       $("#generatedWord").focus();
       setTimeout(function(){
-        $("#generatedForm").submit(experiment.captureWord("interventionStudy", currItem, swahili, english));
+        $("#generatedForm").submit(experiment.captureWord("interventionStudy", round, currItem, swahili, english));
         // experiment.interventionStrategy(round);
       }, trialDuration-feedbackDuration); 
     } else { // restudy
@@ -252,7 +252,7 @@ var experiment = {
   },
 
   // Capture and save trial
-  captureWord: function(studyPhase, currItem, swahili, english) {
+  captureWord: function(studyPhase, round, currItem, swahili, english) {
     var generatedWord = $("#generatedWord").val().toLowerCase(),
       accuracy = english == generatedWord ? 1 : 0,
       data = {
@@ -312,11 +312,11 @@ var experiment = {
 
 
   // (All items rote for 10 sec, +/- feedback on each item)
-  test: function(round) {
-    if (round == "interventionTest") {
+  test: function(testPhase) {
+    if (testPhase == "interventionTest") {
       var trials = experiment.interventionTestTrials;
       if (trials.length == 0) {experiment.interventionFeedback(); return;} 
-    } else if (round == "assessmentTest") {
+    } else if (testPhase == "assessmentTest") {
       var trials = experiment.assessmentTestTrials;
       if (trials.length == 0) {experiment.end(); return;} 
     }
@@ -337,8 +337,8 @@ var experiment = {
 
     // Wait 5 seconds before starting the next trial.
     setTimeout(function(){$("#generatedForm").submit(
-      experiment.captureWord(round, currItem, swahili, english));
-      experiment.test(round);
+      experiment.captureWord(testPhase, 0, currItem, swahili, english));
+      experiment.test(testPhase);
     }, trialDuration); 
   },
 
