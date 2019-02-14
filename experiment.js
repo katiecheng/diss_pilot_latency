@@ -218,10 +218,10 @@ var experiment = {
     var currItem = trials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1],
-      generateTrial = ($.inArray(currItem, experiment.interventionGenerateTrials) != -1),
-      restudyTrial = ($.inArray(currItem, experiment.interventionRestudyTrials) != -1);
+      generateItem = ($.inArray(currItem, experiment.interventionGenerateTrials) != -1),
+      restudyItem = ($.inArray(currItem, experiment.interventionRestudyTrials) != -1);
 
-    if (generateTrial) {
+    if (generateItem) {
       showSlide("generate");
       $("#swahili").text(swahili + " : ");
       $("#generatedWord").val('');
@@ -229,7 +229,7 @@ var experiment = {
       setTimeout(function(){
         $("#generatedForm").submit(experiment.captureWord("interventionStrategy", round, currItem, swahili, english));
       }, trialDuration-feedbackDuration); 
-    } else if (restudyTrial) {
+    } else if (restudyItem) {
       showSlide("restudy");
       $("#restudyWordpair").text(swahili + " : " + english);
       $("#restudySwahili").text(swahili + " : ");
@@ -259,12 +259,12 @@ var experiment = {
   captureWord: function(exptPhase, round, currItem, swahili, english) {
     var generatedWord = $("#generatedWord").val().toLowerCase(),
       restudiedWord = $("#restudiedWord").val().toLowerCase(),
-      generateTrial = ($.inArray(currItem, experiment.interventionGenerateTrials) != -1),
-      restudyTrial = ($.inArray(currItem, experiment.interventionRestudyTrials) != -1);
+      generateItem = ($.inArray(currItem, experiment.interventionGenerateTrials) != -1),
+      restudyItem = ($.inArray(currItem, experiment.interventionRestudyTrials) != -1);
 
-    if (generateTrial){
+    if (generateItem){
       var userInput = generatedWord;
-    } else if (restudyTrial) {
+    } else if (restudyItem) {
       var userInput = restudiedWord;
     }
 
@@ -277,19 +277,19 @@ var experiment = {
         userInput: userInput,
         accuracy: accuracy
       };
-      
+
     if (exptPhase == "interventionStrategy"){
-      if (generateTrial){
+      if (generateItem){
         experiment.interventionGenerateStrategyScore[round-1] += accuracy;
         experiment.interventionGenerateFeedback(round, swahili, english, accuracy);
-      } else if (restudyTrial){
+      } else if (restudyItem){
         experiment.interventionRestudyStrategyScore[round-1] += accuracy;
         experiment.interventionStrategy(round);
       } 
     } else if (exptPhase == "interventionTest"){
-      if (generateTrial){
+      if (generateItem){
         experiment.interventionGenerateTestScore += accuracy;
-      } else if (restudyTrial){
+      } else if (restudyItem){
         experiment.interventionRestudyTestScore += accuracy;
       } 
       experiment.test(exptPhase);
