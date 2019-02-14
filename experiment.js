@@ -55,9 +55,9 @@ var numTrials = 40, //40
   // condition = randomInteger(4), // 2x2
   // condition = randomInteger(2), // expt vs. control
   condition = 2,
-  //test intervention with first testNumTrials items, in case need to re-test people
-  testNumTrials = 4,
-  myTrialOrder = shuffle([...Array(testNumTrials).keys()]),
+  //test intervention with first numTrials items, in case need to re-test people
+  numTrials = 4, // testing
+  myTrialOrder = shuffle([...Array(numTrials).keys()]),
   interventionTrials = myTrialOrder.slice(0),
   assessmentTrials = [],
   // all 40
