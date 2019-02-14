@@ -57,6 +57,8 @@ var numTrials = 40, //40
   condition = 2,
   //test intervention with first numTrials items, in case need to re-test people
   numTrials = 4, // testing
+  //toggle test 1 or 2 strategy rounds
+  numStrategyRounds = 1;
   myTrialOrder = shuffle([...Array(numTrials).keys()]),
   interventionTrials = myTrialOrder.slice(0),
   assessmentTrials = [],
@@ -203,7 +205,11 @@ var experiment = {
     console.log("interventionStrategyTrials2: ", experiment.interventionStrategyTrials2);
     if (round == 1) {
       var trials = experiment.interventionStrategyTrials1;
-      if (trials.length == 0) {experiment.interventionStrategyFraming(2); return;} 
+      if (trials.length == 0) {
+        if (numStrategyRounds == 1){experiment.interventionPredict();
+        } else if (numStrategyRounds == 2) {experiment.interventionStrategyFraming(2);
+        } return;
+      } 
     } else if (round == 2) {
       var trials = experiment.interventionStrategyTrials2;
       if (trials.length == 0) {experiment.interventionPredict(); return;} 
