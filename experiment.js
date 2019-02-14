@@ -126,8 +126,11 @@ var experiment = {
   interventionStrategyTrials1: shuffle(interventionTrials.slice(0)), // strategy order 1
   interventionStudyTrials2: shuffle(interventionTrials.slice(0)), // study order 2
   interventionStrategyTrials2: shuffle(interventionTrials.slice(0)), // strategy order 2
-  interventionGenerateTrials: interventionTrials.slice(0,(numTrials/4)),
-  interventionRestudyTrials: interventionTrials.slice((numTrials/4), numTrials/2),
+  // interventionGenerateTrials: interventionTrials.slice(0,(numTrials/4)),
+  // interventionRestudyTrials: interventionTrials.slice((numTrials/4), numTrials/2),
+  // for testing intervention only
+  interventionGenerateTrials: interventionTrials.slice(0,(numTrials/2)),
+  interventionRestudyTrials: interventionTrials.slice((numTrials/2), numTrials),
   interventionGenerateStrategyScore: 0,
   interventionTestTrials: shuffle(interventionTrials.slice(0)), // test order
   interventionGenerateTestScore: 0,
