@@ -71,6 +71,34 @@
 </div>
 
 <!-- The feedback slide with a Next button. -->
+<div class="slide" id="predictNext">
+  <div style="width: 500px; margin: 0 auto;">
+    <h1>Predict: How much did you learn?</h1>
+  </div>
+  <form id="restudiedForm" name="restudiedForm" autocomplete="off"
+    onkeypress="return event.keyCode != 13;">
+    
+    <p class="block-text">For 10 of these Swahili-English word pairs, you studied using  
+    the <b>review</b> strategy--you reviewed the English translation by copying it 
+    into the textbox. Out of these 10, how many English translations do you 
+    think you’ll remember on the quiz?</p>
+    <input id="predictionRestudy" name="predictionRestudy"><p>/ 10</p>
+
+    <p class="block-text">For 10 of these Swahili-English word pairs, you studied using 
+    the <b>recall</b> strategy--you tried to recall the English translation 
+    from memory. Out of these 10, how many English translations do you 
+    think you’ll remember on the quiz?</p>
+    <input id="predictionGenerate" name="predictionGenerate"><p>/ 10</p>
+
+    <div style="text-align: center">
+      <button type="button" id="nextButton">Next</button>
+    </div>
+    <button type="button" onclick="this.blur(); experiment.interventionPredict();">Next</button>
+    <!-- <input type="submit"> -->
+  </form>
+</div>
+
+<!-- The feedback slide with a Next button. -->
 <div class="slide" id="feedbackNext">
   <div style="width: 500px; margin: 0 auto;">
     <h1 id="feedbackHeader">Quiz Results</h1>

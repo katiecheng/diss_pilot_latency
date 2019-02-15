@@ -113,7 +113,8 @@ var numTrials = 40,
   ];
 
 // Show the instructions slide -- this is what we want subjects to see first.
-showSlide("instructions");
+// showSlide("instructions");
+showSlide("predictNext");
 
 // ## The main event
 /* I implement the sequence as an object with properties and methods. The benefit of encapsulating everything in an object is that it's conceptually coherent (i.e. the <code>data</code> variable belongs to this particular sequence and not any other) and allows you to **compose** sequences to build more complicated experiments. For instance, if you wanted an experiment with, say, a survey, a reaction time test, and a memory test presented in a number of different orders, you could easily do so by creating three separate sequences and dynamically setting the <code>end()</code> function for each sequence so that it points to the next. **More practically, you should stick everything in an object and submit that whole object so that you don't lose data (e.g. randomization parameters, what condition the subject is in, etc). Don't worry about the fact that some of the object properties are functions -- mmturkey (the Turk submission library) will strip these out.*/
@@ -181,7 +182,7 @@ var experiment = {
     if (round == 1) {
       var header = "Study - Round 1";
       var text = "Now you will be asked to study each Swahili-English word pair either by (1) \
-                copying the English translation into the textbox, or (2) trying to \
+                reviewing the English translation by copying it into the textbox, or (2) trying to \
                 recall the English translation from memory. After 5 seconds, \
                 the screen will automatically advance and save your input. For the cases that you \
                 try to recall the translation from memory, you will get to see the correct answer. If you were \
@@ -190,7 +191,7 @@ var experiment = {
       var header = "Study - Round 2";
       var text = "Now, you will be asked to study each Swahili-English word pair again, \
                 either by (1) \
-                copying the English translation into the textbox, or (2) trying to \
+                reviewing the English translation by copying it into the textbox, or (2) trying to \
                 recall the English translation from memory. For each word pair, if you copied \
                 in the first study round, you will be asked to copy again; if you tried to recall in the \
                 first study round, you will be asked to recall again. After 5 seconds,\
@@ -318,15 +319,9 @@ var experiment = {
     return false; // stop form from being submitted
   },
 
-  /* “For 10 of these Swahili-English word pairs, you used the review strategy--
-  you studied by reviewing the Swahili-English word pairs. Out of these 10, how 
-  many English translations do you think you’ll remember on the quiz?” ( __ / 10, and OE why?)
-  “For 10 of these Swahili-English word pairs, you used the recall strategy--you 
-  studied by trying to recall the English translation from memory. Out of these 10, 
-  how many English translations do you think you’ll remember on the quiz?” ( __ / 10, and OE why?)
-  */
-
+  // ask for prediction
   interventionPredict: function() {
+    //capture the input
     experiment.interventionTestFraming()
   },
 
