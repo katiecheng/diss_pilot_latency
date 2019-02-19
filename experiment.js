@@ -336,7 +336,7 @@ var experiment = {
     showSlide("predictNext");
     $("#firstPredictionText").text(firstPredictionText);
     $("#secondPredictionText").text(secondPredictionText);
-    $("#predictNextButton").click(function(){$(this).blur(); experment.capturePrediction()});
+    $("#predictNextButton").click(function(){$(this).blur(); experiment.capturePrediction()});
 
     //capture the input    
     // $("#predictionForm").submit(experment.capturePrediction());
