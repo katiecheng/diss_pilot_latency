@@ -323,6 +323,29 @@ var experiment = {
   interventionPredict: function() {
     //capture the input
     experiment.interventionTestFraming()
+
+/*
+firstPredictionText
+secondPredictionText
+
+firstPrediction
+secondPrediction
+
+For 10 of these Swahili-English word pairs, you studied using  
+    the <b>review</b> strategy--you reviewed the English translation by copying it 
+    into the textbox. Out of these 10, how many English translations do you 
+    think you’ll remember on the quiz?
+
+For 10 of these Swahili-English word pairs, you studied using 
+    the <b>recall</b> strategy--you tried to recall the English translation 
+    from memory. Out of these 10, how many English translations do you 
+    think you’ll remember on the quiz?
+
+
+predictionRestudy
+predictionGenerate
+*/
+
   },
 
   /*
