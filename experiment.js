@@ -337,7 +337,13 @@ var experiment = {
     $("#firstPredictionText").html(firstPredictionText);
     $("#secondPredictionText").html(secondPredictionText);
     $("#predictNextButton").click(function(){$(this).blur(); 
-      $("#predictionForm").submit(experiment.capturePrediction())});
+      $("#predictionForm").submit(
+        function(){
+          experiment.validatePredictionForm();
+          experiment.capturePrediction();
+        }
+      )
+    })
 
     //capture the input    
     // $("#predictionForm").submit(experiment.capturePrediction());
@@ -345,7 +351,6 @@ var experiment = {
 
   validatePredictionForm: function(){
     if ($("#firstPrediction").val() && $("#secondPrediction").val()) {
-      return true;
     } else {
       alert("Please make a prediction");
       return false;
