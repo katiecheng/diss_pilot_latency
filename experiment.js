@@ -334,8 +334,8 @@ var experiment = {
     think you’ll remember on the quiz?`;
     
     showSlide("predictNext");
-    $("#firstPredictionText").textContent(firstPredictionText);
-    $("#secondPredictionText").textContent(secondPredictionText);
+    $("#firstPredictionText").html(firstPredictionText);
+    $("#secondPredictionText").html(secondPredictionText);
     $("#predictNextButton").click(function(){$(this).blur(); 
       $("#predictionForm").submit(experment.capturePrediction())});
 
