@@ -358,7 +358,7 @@ var experiment = {
     var firstPrediction = parseInt($("#firstPrediction").val()),
       secondPrediction = parseInt($("#secondPrediction").val());
     if (!(firstPrediction && secondPrediction)) { //empty
-      alert("Please make a prediction");
+      alert("Please make a prediction from 0 to 10");
       return false;
     } else if ( firstPrediction < 0 || firstPrediction > 10 ||
                 secondPrediction < 0 || secondPrediction > 10){
@@ -430,11 +430,11 @@ var experiment = {
   */
   interventionFeedback: function() {
     var text = `You scored ${experiment.interventionGenerateTestScore + experiment.interventionRestudyTestScore} / 20. 
-    On the items that you studied by reviewing the Swahili-English word pair, you scored 
-    ${experiment.interventionRestudyTestScore} /10. On the items that you studied by tring to recall the 
+    On the items that you studied by <b>reviewing</b> the Swahili-English word pair, you scored 
+    ${experiment.interventionRestudyTestScore} /10. <br><br> On the items that you studied by tring to <b>recall</b> the 
     English translation from memory, you scored ${experiment.interventionGenerateTestScore} /10.`
     showSlide("feedbackNext");
-    $("#feedbackText").text(text);
+    $("#feedbackText").html(text);
     // TOGGLE THIS TO GO TO ASSESSMENT/END
     // $("#feedbackNextButton").click(function(){$(this).blur(); experiment.assessmentFraming()});
     $("#feedbackNextButton").click(function(){$(this).blur(); experiment.end()});
