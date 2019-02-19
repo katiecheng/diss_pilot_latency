@@ -351,11 +351,13 @@ var experiment = {
   },
 
   validatePredictionForm: function(){
-    if ($("#firstPrediction").val() && $("#secondPrediction").val()) {
-      experiment.capturePrediction();
-    } else {
+    var firstInput = $("#firstPrediction").val(),
+      secondInput = $("#secondPrediction").val();
+    if (!(firstInput && secondInput)) {
       alert("Please make a prediction");
       return false;
+    } else {
+      experiment.capturePrediction();
     }
   },
 
