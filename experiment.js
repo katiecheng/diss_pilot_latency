@@ -357,13 +357,13 @@ var experiment = {
       alert("Please make a prediction");
       return false;
     } else {
-      experiment.capturePrediction();
+      experiment.capturePrediction(firstInput, secondInput);
     }
   },
 
-  capturePrediction: function() {
-    experiment.predictionRestudy = parseInt($("#firstPrediction").val());
-    experiment.predictionGenerate = parseInt($("#secondPrediction").val());
+  capturePrediction: function(firstInput, secondInput) {
+    experiment.predictionRestudy = parseInt(firstInput);
+    experiment.predictionGenerate = parseInt(secondInput);
     // experiment.interventionTestFraming();
     experiment.end();
     return false;
