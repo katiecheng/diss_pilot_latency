@@ -347,27 +347,34 @@ var experiment = {
     })
 
     //capture the input    
+    /*
+    okay when valid
+    processing as invalid after advance to expt end
+    */
     // 
   },
 
   validatePredictionForm: function(){
-    var firstInput = $("#firstPrediction").val(),
-      secondInput = $("#secondPrediction").val();
-    if (!(firstInput && secondInput)) {
+    var firstPrediction = parseInt($("#firstPrediction").val()),
+      secondPrediction = parseInt($("#secondPrediction").val());
+    if (!(firstPrediction && secondPrediction)) { //empty
       alert("Please make a prediction");
-      // return false;
+      return false;
+    } else if ( firstPrediction < 0 || firstPrediction > 10 ||
+                secondPrediction < 0 || secondPrediction > 10){
+      alert("Please make a prediction from 0 to 10");
+      return false; 
     } else {
-      experiment.capturePrediction(firstInput, secondInput);
+      experiment.capturePrediction(firstPrediction, secondPrediction);
     }
-    return false;
   },
 
-  capturePrediction: function(firstInput, secondInput) {
-    experiment.predictionRestudy = parseInt(firstInput);
-    experiment.predictionGenerate = parseInt(secondInput);
+  capturePrediction: function(firstPrediction, secondPrediction) {
+    experiment.predictionRestudy = firstPrediction;
+    experiment.predictionGenerate = secondPrediction;
     // experiment.interventionTestFraming();
     experiment.end();
-    
+    return false;
   },
 
   /*
