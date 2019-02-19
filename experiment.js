@@ -339,7 +339,7 @@ var experiment = {
     $("#predictNextButton").click(function(){$(this).blur(); 
       $("#predictionForm").submit(
         // function(){
-          experiment.validatePredictionForm();
+          
           experiment.capturePrediction();
         // }
       )
@@ -358,6 +358,7 @@ var experiment = {
   },
 
   capturePrediction: function() {
+    experiment.validatePredictionForm();
     experiment.predictionRestudy = parseInt($("#firstPrediction").val());
     experiment.predictionGenerate = parseInt($("#secondPrediction").val());
     // experiment.interventionTestFraming();
