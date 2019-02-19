@@ -113,7 +113,8 @@ var numTrials = 40,
   ];
 
 // Show the instructions slide -- this is what we want subjects to see first.
-showSlide("instructions");
+// showSlide("instructions");
+experiment.interventionFeedback()
 
 // ## The main event
 /* I implement the sequence as an object with properties and methods. The benefit of encapsulating everything in an object is that it's conceptually coherent (i.e. the <code>data</code> variable belongs to this particular sequence and not any other) and allows you to **compose** sequences to build more complicated experiments. For instance, if you wanted an experiment with, say, a survey, a reaction time test, and a memory test presented in a number of different orders, you could easily do so by creating three separate sequences and dynamically setting the <code>end()</code> function for each sequence so that it points to the next. **More practically, you should stick everything in an object and submit that whole object so that you don't lose data (e.g. randomization parameters, what condition the subject is in, etc). Don't worry about the fact that some of the object properties are functions -- mmturkey (the Turk submission library) will strip these out.*/
@@ -436,15 +437,23 @@ var experiment = {
     showSlide("feedbackNext");
     $("#feedbackText").html(text);
     // TOGGLE THIS TO GO TO ASSESSMENT/END
-    // $("#feedbackNextButton").click(function(){$(this).blur(); experiment.assessmentFraming()});
-    $("#feedbackNextButton").click(function(){$(this).blur(); experiment.end()});
+    $("#feedbackNextButton").click(function(){$(this).blur(); experiment.assessmentFraming()});
+    // $("#feedbackNextButton").click(function(){$(this).blur(); experiment.end()});
   },
 
-  /* “Now, you will see 20 new Swahili words paired with their English translations. 
-  Then, you will have 5 seconds to study each pair using whatever method you would like. 
-  Finally, you will be quizzed on all 20 Swahili-English word pairs.”*/
+  // intro to assessment study
   assessmentStudyFraming: function() {
-    experiment.assessmentStudy();
+    var header = "Word Pairs - Round 2";
+    var text = "In a moment, you will be presented with a new set of 20 Swahili words paired with \
+    their English translations. You will see each Swahili-English word pair \
+    for 5 seconds, and then the screen will automatically advance to the \
+    next pair. Please pay attention, and study the pair so you can type \
+    the English translation given the Swahili word.";
+    showSlide("textNext");
+    $("#instructionsHeader").text(header);
+    $("#instructionsText").text(text);
+    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStudy();});
+    console.log($("#instructionsText").text());
   },
 
   // 20 items, View each item for 5 sec
@@ -457,6 +466,26 @@ var experiment = {
     
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
     var n = experiment.assessmentTrials.shift();
+  },
+
+  /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
+  /* “Now, you will see 20 new Swahili words paired with their English translations. 
+  Then, you will have 5 seconds to study each pair using whatever method you would like. 
+  Finally, you will be quizzed on all 20 Swahili-English word pairs.”*/
+  assessmentStrategyDirected: function() {
+    // var text = "In a moment, you will be presented with 20 Swahili words paired with \
+    // their English translations. You will see each Swahili-English word pair \
+    // for 5 seconds, and then the screen will automatically advance to the \
+    // next pair. Please pay attention, and study the pair so you can type \
+    // the English translation given the Swahili word.";
+    // showSlide("textNext");
+    // $("#instructionsHeader").text(header);
+    // $("#instructionsText").text(text);
+    // $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategy();});
+    // console.log($("#instructionsText").text());
+
+
+
   },
 
   /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
