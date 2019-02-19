@@ -113,8 +113,7 @@ var numTrials = 40,
   ];
 
 // Show the instructions slide -- this is what we want subjects to see first.
-// showSlide("instructions");
-showSlide("predictNext");
+showSlide("instructions");
 
 // ## The main event
 /* I implement the sequence as an object with properties and methods. The benefit of encapsulating everything in an object is that it's conceptually coherent (i.e. the <code>data</code> variable belongs to this particular sequence and not any other) and allows you to **compose** sequences to build more complicated experiments. For instance, if you wanted an experiment with, say, a survey, a reaction time test, and a memory test presented in a number of different orders, you could easily do so by creating three separate sequences and dynamically setting the <code>end()</code> function for each sequence so that it points to the next. **More practically, you should stick everything in an object and submit that whole object so that you don't lose data (e.g. randomization parameters, what condition the subject is in, etc). Don't worry about the fact that some of the object properties are functions -- mmturkey (the Turk submission library) will strip these out.*/
@@ -327,20 +326,20 @@ var experiment = {
     var firstPredictionText = `For 10 of these Swahili-English word pairs, you studied using  
     the <b>review</b> strategy--you reviewed the English translation by copying it 
     into the textbox. Out of these 10, how many English translations do you 
-    think you’ll remember on the quiz?`
+    think you’ll remember on the quiz?`;
     
     var secondPredictionText = `For 10 of these Swahili-English word pairs, you studied using 
     the <b>recall</b> strategy--you tried to recall the English translation 
     from memory. Out of these 10, how many English translations do you 
-    think you’ll remember on the quiz?`
+    think you’ll remember on the quiz?`;
     
     showSlide("predictNext");
     $("#firstPredictionText").text(firstPredictionText);
     $("#secondPredictionText").text(secondPredictionText);
-    $("#predictNextButton").click(function(){$(this).blur(); experiment.interventionTestFraming()});
+    $("#predictNextButton").click(function(){$(this).blur(); experment.capturePrediction()});
 
     //capture the input    
-    $("#predictionForm").submit(experment.capturePrediction());
+    // $("#predictionForm").submit(experment.capturePrediction());
   },
 
   capturePrediction: function() {
