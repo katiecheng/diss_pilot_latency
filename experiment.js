@@ -337,10 +337,10 @@ var experiment = {
     $("#firstPredictionText").html(firstPredictionText);
     $("#secondPredictionText").html(secondPredictionText);
     $("#predictNextButton").click(function(){$(this).blur(); 
-      $("#predictionForm").submit(experment.capturePrediction())});
+      $("#predictionForm").submit(experiment.capturePrediction())});
 
     //capture the input    
-    // $("#predictionForm").submit(experment.capturePrediction());
+    // $("#predictionForm").submit(experiment.capturePrediction());
   },
 
   capturePrediction: function() {
