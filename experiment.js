@@ -343,7 +343,7 @@ var experiment = {
       //     experiment.capturePrediction();
       //   }
       // )
-      $("#predictionForm").submit(experiment.capturePrediction());
+      $("#predictionForm").submit(experiment.validatePredictionForm());
     })
 
     //capture the input    
@@ -352,6 +352,7 @@ var experiment = {
 
   validatePredictionForm: function(){
     if ($("#firstPrediction").val() && $("#secondPrediction").val()) {
+      experiment.capturePrediction();
     } else {
       alert("Please make a prediction");
       return false;
@@ -359,7 +360,6 @@ var experiment = {
   },
 
   capturePrediction: function() {
-    experiment.validatePredictionForm();
     experiment.predictionRestudy = parseInt($("#firstPrediction").val());
     experiment.predictionGenerate = parseInt($("#secondPrediction").val());
     // experiment.interventionTestFraming();
