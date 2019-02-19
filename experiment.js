@@ -334,9 +334,10 @@ var experiment = {
     think you’ll remember on the quiz?`;
     
     showSlide("predictNext");
-    $("#firstPredictionText").text(firstPredictionText);
-    $("#secondPredictionText").text(secondPredictionText);
-    $("#predictNextButton").click(function(){$(this).blur(); experiment.capturePrediction()});
+    $("#firstPredictionText").textContent(firstPredictionText);
+    $("#secondPredictionText").textContent(secondPredictionText);
+    $("#predictNextButton").click(function(){$(this).blur(); 
+      $("#predictionForm").submit(experment.capturePrediction())});
 
     //capture the input    
     // $("#predictionForm").submit(experment.capturePrediction());
