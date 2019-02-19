@@ -355,10 +355,11 @@ var experiment = {
       secondInput = $("#secondPrediction").val();
     if (!(firstInput && secondInput)) {
       alert("Please make a prediction");
-      return false;
+      // return false;
     } else {
       experiment.capturePrediction(firstInput, secondInput);
     }
+    return false;
   },
 
   capturePrediction: function(firstInput, secondInput) {
@@ -366,7 +367,7 @@ var experiment = {
     experiment.predictionGenerate = parseInt(secondInput);
     // experiment.interventionTestFraming();
     experiment.end();
-    return false;
+    
   },
 
   /*
