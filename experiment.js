@@ -337,16 +337,17 @@ var experiment = {
     $("#firstPredictionText").html(firstPredictionText);
     $("#secondPredictionText").html(secondPredictionText);
     $("#predictNextButton").click(function(){$(this).blur(); 
-      $("#predictionForm").submit(
-        // function(){
-          
-          experiment.capturePrediction();
-        // }
-      )
+      // $("#predictionForm").submit(
+      //   function(){
+      //     experiment.validatePredictionForm();
+      //     experiment.capturePrediction();
+      //   }
+      // )
+      $("#predictionForm").submit(experiment.capturePrediction());
     })
 
     //capture the input    
-    // $("#predictionForm").submit(experiment.capturePrediction());
+    // 
   },
 
   validatePredictionForm: function(){
