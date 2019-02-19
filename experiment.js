@@ -134,6 +134,8 @@ var experiment = {
   interventionRestudyTrials: interventionTrials.slice((interventionTrials.length/2), interventionTrials.length),
   interventionGenerateStrategyScore: Array(numStrategyRounds).fill(0),
   interventionRestudyStrategyScore: Array(numStrategyRounds).fill(0),
+  predictionRestudy: -1,
+  predictionGenerate: -1,
   interventionTestTrials: shuffle(interventionTrials.slice(0)), // test order
   interventionGenerateTestScore: 0,
   interventionRestudyTestScore: 0,
@@ -321,31 +323,31 @@ var experiment = {
 
   // ask for prediction
   interventionPredict: function() {
-    //capture the input
-    experiment.interventionTestFraming()
-
-/*
-firstPredictionText
-secondPredictionText
-
-firstPrediction
-secondPrediction
-
-For 10 of these Swahili-English word pairs, you studied using  
+    // if (randomInteger(2)){ } // randomize order (if so, match on feedback slide)
+    var firstPredictionText = `For 10 of these Swahili-English word pairs, you studied using  
     the <b>review</b> strategy--you reviewed the English translation by copying it 
     into the textbox. Out of these 10, how many English translations do you 
-    think you’ll remember on the quiz?
-
-For 10 of these Swahili-English word pairs, you studied using 
+    think you’ll remember on the quiz?`
+    
+    var secondPredictionText = `For 10 of these Swahili-English word pairs, you studied using 
     the <b>recall</b> strategy--you tried to recall the English translation 
     from memory. Out of these 10, how many English translations do you 
-    think you’ll remember on the quiz?
+    think you’ll remember on the quiz?`
+    
+    showSlide("predictNext");
+    $("#firstPredictionText").text(firstPredictionText);
+    $("#secondPredictionText").text(secondPredictionText);
+    $("#predictNextButton").click(function(){$(this).blur(); experiment.interventionTestFraming()});
 
+    //capture the input    
+    $("#predictionForm").submit(experment.capturePrediction());
+  },
 
-predictionRestudy
-predictionGenerate
-*/
-
+  capturePrediction: function() {
+    experiment.predictionRestudy = parseInt($("#firstPrediction").val());
+    experiment.predictionGenerate = parseInt($("#secondPrediction").val());
+    // experiment.interventionTestFraming();
+    experiment.end();
   },
 
   /*

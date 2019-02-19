@@ -74,14 +74,15 @@
 <div class="slide" id="predictNext">
   <div style="width: 500px; margin: 0 auto;">
     <h1>Predict: How much did you learn?</h1>
-    <form id="restudiedForm" name="restudiedForm" autocomplete="off"
+    <form id="predictionForm" name="predictionForm" autocomplete="off"
       onkeypress="return event.keyCode != 13;">
       <p id="firstPredictionText" class="block-text">{{}}</p>
-      <input id="firstPrediction" name="firstPrediction"><p style="display:inline">/ 10</p>
-      <br>
+      <input id="firstPrediction" name="firstPrediction" type="number" min="0" max="10" required>
+      <p style="display:inline"> / 10</p>
+      <br><br>
       <p id="secondPredictionText" class="block-text">{{}}</p>
-      <input id="secondPrediction" name="secondPrediction"><p style="display:inline">/ 10</p>
-  
+      <input id="secondPrediction" name="secondPrediction" type="number" min="0" max="10" required>
+      <p style="display:inline"> / 10</p>
     <div style="text-align: center">
       <button type="button" id="predictNextButton">Next</button>
     </div>
