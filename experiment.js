@@ -338,10 +338,10 @@ var experiment = {
     $("#secondPredictionText").html(secondPredictionText);
     $("#predictNextButton").click(function(){$(this).blur(); 
       $("#predictionForm").submit(
-        function(){
+        // function(){
           experiment.validatePredictionForm();
           experiment.capturePrediction();
-        }
+        // }
       )
     })
 
