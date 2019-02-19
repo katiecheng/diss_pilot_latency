@@ -362,6 +362,7 @@ var experiment = {
     experiment.predictionGenerate = parseInt($("#secondPrediction").val());
     // experiment.interventionTestFraming();
     experiment.end();
+    return false;
   },
 
   /*
