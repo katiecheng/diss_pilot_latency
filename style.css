@@ -49,8 +49,15 @@ button[disabled] {
 	cursor: not-allowed;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button { /* Chrome, Safari */
+    -webkit-appearance: none;
+    margin: 0; 
+}
 
-
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
 
 /* ## Experiment-specific styles */
 /* This stuff will vary by experiment. */
