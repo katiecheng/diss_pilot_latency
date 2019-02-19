@@ -436,7 +436,7 @@ var experiment = {
     showSlide("feedbackNext");
     $("#feedbackText").html(text);
     // TOGGLE THIS TO GO TO ASSESSMENT/END
-    $("#feedbackNextButton").click(function(){$(this).blur(); experiment.assessmentFraming()});
+    $("#feedbackNextButton").click(function(){$(this).blur(); experiment.assessmentStudyFraming()});
     // $("#feedbackNextButton").click(function(){$(this).blur(); experiment.end()});
   },
 
@@ -457,49 +457,64 @@ var experiment = {
 
   // 20 items, View each item for 5 sec
   assessmentStudy: function() {
-    // If the number of remaining trials is 0, we're done, so call the end function.
-    if (experiment.assessmentTrials.length == 0) {
+    var trials = experiment.assessmentStudyTrials;
+    if (trials.length == 0) {
       experiment.assessmentStrategyFraming();
       return;
     }
-    
-    // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var n = experiment.assessmentTrials.shift();
+    var currItem = trials.shift(),    
+      swahili = swahili_english_pairs[parseInt(currItem)][0],
+      english = swahili_english_pairs[parseInt(currItem)][1];
+
+    showSlide("study");
+    $("#wordpair").text(swahili + " : " + english);
+    setTimeout(function(){experiment.interventionStudy()}, 250);
+  },
+
+
+  /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
+  assessmentStrategyFraming: function() {
+    var header = "Study";
+    var text = "Now you will be asked to study each Swahili-English word pair using whatever \
+    method you would like. At any time, you can click the 'See Translation' button to see the English \
+    translation. After 5 seconds, the screen will automatically advance to the next pair."
+    showSlide("textNext");
+    $("#instructionsHeader").text(header);
+    $("#instructionsText").text(text);
+    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategy();});
+    // console.log($("#instructionsText").text());
+  },
+
+  /*
+  first 10 items, free-study
+  Study each item for 5 sec
+  adhama - _______
+  [See Translation]
+  (measure latency to click)
+  */
+  assessmentStrategy: function() {
+    experiment.assessmentTestFraming();
   },
 
   /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
   /* “Now, you will see 20 new Swahili words paired with their English translations. 
   Then, you will have 5 seconds to study each pair using whatever method you would like. 
   Finally, you will be quizzed on all 20 Swahili-English word pairs.”*/
-  assessmentStrategyDirected: function() {
-    // var text = "In a moment, you will be presented with 20 Swahili words paired with \
-    // their English translations. You will see each Swahili-English word pair \
-    // for 5 seconds, and then the screen will automatically advance to the \
-    // next pair. Please pay attention, and study the pair so you can type \
-    // the English translation given the Swahili word.";
-    // showSlide("textNext");
-    // $("#instructionsHeader").text(header);
-    // $("#instructionsText").text(text);
-    // $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategy();});
-    // console.log($("#instructionsText").text());
-
-
-
-  },
-
-  /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
   assessmentStrategyFraming: function() {
-    experiment.assessmentStrategy();
+    var header = "Study";
+    var text = "Now you will be asked to study each Swahili-English word pair. \
+    After 5 seconds, the screen will automatically advance to the next pair. \
+    Please pay attention, and study the pair so you can type the English translation given the Swahili word."
+    showSlide("textNext");
+    $("#instructionsHeader").text(header);
+    $("#instructionsText").text(text);
+    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyDirected();});
+    // console.log($("#instructionsText").text());
   },
 
-  /*
-  Study each item for 5 sec
-  adhama - _______
-  [See English definition]
-  (measure latency to click)
-  */
-  assessmentStrategy: function() {
-    experiment.assessmentTestFraming();
+ /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
+  assessmentStrategyDirected: function() {
+    experiment.assessmentStrategy();
   },
 
   /*
