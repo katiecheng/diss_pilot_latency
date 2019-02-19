@@ -343,6 +343,15 @@ var experiment = {
     // $("#predictionForm").submit(experiment.capturePrediction());
   },
 
+  validatePredictionForm: function(){
+    if ($("#firstPrediction").val() && $("#secondPrediction").val()) {
+      return true;
+    } else {
+      alert("Please make a prediction");
+      return false;
+    }
+  },
+
   capturePrediction: function() {
     experiment.predictionRestudy = parseInt($("#firstPrediction").val());
     experiment.predictionGenerate = parseInt($("#secondPrediction").val());

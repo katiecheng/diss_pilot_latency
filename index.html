@@ -76,7 +76,7 @@
   <div style="width: 500px; margin: 0 auto;">
     <h1>Predict: How much did you learn?</h1>
     <form id="predictionForm" name="predictionForm" autocomplete="off"
-      onkeypress="return event.keyCode != 13;">
+      onkeypress="return event.keyCode != 13;" onsubmit="return experiment.validatePredictionForm()>
       <p id="firstPredictionText" class="block-text">{{}}</p>
       <input id="firstPrediction" name="firstPrediction" type="number" min="0" max="10" required>
       <p style="display:inline"> / 10</p>
@@ -85,7 +85,7 @@
       <input id="secondPrediction" name="secondPrediction" type="number" min="0" max="10" required>
       <p style="display:inline"> / 10</p>
     <div style="text-align: center">
-      <input type="submit" id="predictNextButton">Next</button>
+      <button type="submit" id="predictNextButton">Next</button>
       <!-- <button type="button" id="predictNextButton">Next</button> -->
     </div>
     <!-- <button type="button" onclick="this.blur(); experiment.interventionPredict();">Next</button> -->
