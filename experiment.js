@@ -479,7 +479,7 @@ var experiment = {
 
   /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
   assessmentStrategyFraming: function() {
-    var header = "Study";
+    var header = "Free Study";
     var text = "Now you will be asked to study 10 of the Swahili-English word pairs <b>using whatever \
     method you would like</b>. At any time, you can click the 'See Translation' button to see the English \
     translation. After 7 seconds, the screen will automatically advance to the next pair."
@@ -498,7 +498,7 @@ var experiment = {
   assessmentStrategy: function() {
     var trials = experiment.assessmentChoiceTrials;
     // if (trials.length == 0) {experiment.assessmentStrategyDirectedFraming(); return;} 
-    if (trials.length == 0) {experiment.end(); return;} 
+    if (trials.length == 0) {experiment.assessmentStrategyDirectedFraming(); return;} 
 
     var currItem = trials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
@@ -544,9 +544,10 @@ var experiment = {
   Then, you will have 5 seconds to study each pair using whatever method you would like. 
   Finally, you will be quizzed on all 20 Swahili-English word pairs.”*/
   assessmentStrategyDirectedFraming: function() {
-    var header = "Study";
-    var text = "Now you will be asked to study the remaining 10 Swahili-English word pairs \
-    <b>by trying to recall the English translation<b> before clicking the 'See Translation' button. \
+    var header = "Study by Recall";
+    var text = "This time, you will be asked to study the remaining 10 Swahili-English word pairs \
+    <b>by first trying to recall the English translation<b> before clicking the 'See Translation' button. \
+    That is, try to recall the English translation in your head or out loud, before checking your answer. \
     After 5 seconds, the screen will automatically advance to the next pair."
     showSlide("textNext");
     $("#instructionsHeader").html(header);
@@ -558,10 +559,31 @@ var experiment = {
  /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
   assessmentStrategyDirected: function() {
     var trials = experiment.assessmentGenerateTrials;
-    if (trials.length == 0) {experiment.assessmentTestFraming(); return;} 
+    // if (trials.length == 0) {experiment.assessmentStrategyDirectedFraming(); return;} 
+    if (trials.length == 0) {experiment.end(); return;} 
 
+    var currItem = trials.shift(),
+      swahili = swahili_english_pairs[parseInt(currItem)][0],
+      english = swahili_english_pairs[parseInt(currItem)][1]
+    
+    // start, and get startTime for RT
     showSlide("choiceSeeTranslation");
-    experiment.assessmentStrategy();
+    $("#swahiliCue").text(swahili + " : ");
+    $("#englishAnswer").css("color", bgcolor).text(Array(english.length+1).join("x"));
+    var startTime = (new Date()).getTime(),
+      endTime = startTime + trialDuration;
+
+    //on button click, get endTime
+    $("#seeTranslation").click(function(){$(this).blur(); 
+      endTime = (new Date()).getTime();
+      $("#englishAnswer").css("color", "black").text(english);
+    });
+
+    //auto advance
+    setTimeout(function(){
+      experiment.captureTime("assessmentStrategy", "generate", currItem, swahili, english, startTime, endTime);
+      experiment.assessmentStrategyDirected();
+    }, trialDuration); 
   },
 
   /*
