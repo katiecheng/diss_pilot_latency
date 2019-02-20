@@ -43,7 +43,7 @@
 <!-- The study slide -->
 <div class="slide" id="study">
   <div style="text-align: center">
-    <h1 id="wordpair">{{}}</h1>
+    <h1 class="wordpair" id="wordpair">{{}}</h1>
   </div>
 </div>
 
@@ -52,20 +52,20 @@
   <div style="text-align: center">
     <form id="generatedForm" name="generatedForm" autocomplete="off" 
       onkeypress="return event.keyCode != 13;">
-      <h1 style="display: inline-block" id="swahili" name="swahili">{{}}</h1>
+      <h1 class="wordpair" style="display: inline-block" id="swahili" name="swahili">{{}}</h1>
       <input style="margin-left: 10px" id="generatedWord" name="generatedWord">
     </form>
-    <h1 hidden id="feedback">{{}}</h1>
+    <h1 hidden class="wordpair" id="feedback">{{}}</h1>
   </div>
 </div>
 
 <!-- The restudy slide -->
 <div class="slide" id="restudy">
   <div style="text-align: center">
-    <h1 id="restudyWordpair">{{}}</h1>
+    <h1 class="wordpair" id="restudyWordpair">{{}}</h1>
     <form id="restudiedForm" name="restudiedForm" autocomplete="off" 
       onkeypress="return event.keyCode != 13;">
-      <h1 style="display: inline-block" id="restudySwahili" name="restudySwahili">{{}}</h1>
+      <h1 class="wordpair" style="display: inline-block" id="restudySwahili" name="restudySwahili">{{}}</h1>
       <input style="margin-left: 10px" id="restudiedWord" name="restudiedWord">
     </form>
   </div>
@@ -108,8 +108,8 @@
 <!-- The choice slide with See Answer button. -->
 <div class="slide" id="choiceSeeTranslation">
   <div style="text-align: center">
-    <h1 id="swahiliCue" style="display:inline">{{}}</h1>
-    <h1 id="englishAnswer" style="display:inline">{{}}</h1>
+    <h1 class="wordpair" id="swahiliCue" style="display:inline">{{}}</h1>
+    <h1 class="wordpair" id="englishAnswer" style="display:inline">{{}}</h1>
     <br>
     <div style="text-align: center">
       <button type="button" id="seeTranslation">See Translation</button>
