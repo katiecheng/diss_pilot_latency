@@ -50,7 +50,7 @@ function shuffle(array) {
 
 // ## Configuration settings
 var numTrials = 40,
-  trialDuration = 1000,
+  trialDuration = 2000,
   feedbackDuration = 2000, 
   //toggle test 1 or 2 strategy rounds
   numStrategyRounds = 1;
@@ -141,8 +141,8 @@ var experiment = {
   //assessmentTrials is the second half of myTrialOrder
   assessmentStudyTrials: shuffle(assessmentTrials.slice(0)),
   // assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
-  assessmentChoiceTrials: assessmentTrials.slice((interventionTrials.length/2), interventionTrials.length),
-  assessmentGenerateTrials: assessmentTrials.slice(0,(interventionTrials.length/2)),
+  assessmentChoiceTrials: assessmentTrials.slice((assessmentTrials.length/2), assessmentTrials.length),
+  assessmentGenerateTrials: assessmentTrials.slice(0,(assessmentTrials.length/2)),
   assessmentTestTrials: shuffle(assessmentTrials.slice(0)),
   assessmentTestScore: 0,
   
