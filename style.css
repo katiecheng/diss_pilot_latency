@@ -21,12 +21,8 @@ body {
 	padding: 1% 2% 1% 2%;
 }
 
-h1 {
-	font-family: Consolas, "Lucida Console", Monaco, monospace;
-}
-
 .wordpair {
-	
+	font-family: Consolas, "Lucida Console", Monaco, monospace;
 }
 
 input, select, button {font-family: Georgia, serif; font-size: 14px;}
