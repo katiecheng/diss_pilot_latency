@@ -531,7 +531,7 @@ var experiment = {
       english: english,
       startTime: startTime,
       endTime: endTime,
-      latency: endTime - startTime;
+      latency: endTime - startTime
     };
 
     experiment.assessmentData.push(data);
