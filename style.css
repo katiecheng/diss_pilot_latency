@@ -21,6 +21,10 @@ body {
 	padding: 1% 2% 1% 2%;
 }
 
+.wordpair {
+	font-family: "Lucida Console", Monaco, monospace;
+}
+
 input, select, button {font-family: Georgia, serif; font-size: 14px;}
 
 button {
