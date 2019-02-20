@@ -52,6 +52,7 @@ function shuffle(array) {
 var numTrials = 40,
   trialDuration = 2000,
   feedbackDuration = 2000, 
+  bgcolor = "white",
   //toggle test 1 or 2 strategy rounds
   numStrategyRounds = 1;
   // condition = randomInteger(4), // 2x2
@@ -506,13 +507,14 @@ var experiment = {
     // start, and get startTime for RT
     showSlide("choiceSeeTranslation");
     $("#swahiliCue").text(swahili + " : ");
+    $("#englishAnswer").css("color", bgcolor).text(Array(english.length).join("x");
     var startTime = (new Date()).getTime(),
       endTime = startTime + trialDuration;
 
     //on button click, get endTime
     $("#seeTranslation").click(function(){$(this).blur(); 
       endTime = (new Date()).getTime();
-      $("#englishAnswer").show().text(english);
+      $("#englishAnswer").css("color", "black").text(english);
     });
 
     //auto advance
