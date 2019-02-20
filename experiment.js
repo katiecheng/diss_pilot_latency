@@ -64,8 +64,8 @@ var numTrials = 40,
   // assessmentTrials = [],
   /* test intervention with last numTrials items */
   myTrialOrder = shuffle([...Array(40).keys()].slice(20,40)),
-  interventionTrials = myTrialOrder.slice(0),
-  assessmentTrials = [],
+  interventionTrials = [],
+  assessmentTrials = myTrialOrder.slice(0),
   /* full intervention with all 40 */
   // interventionTrials = myTrialOrder.slice(0,(numTrials/2)),
   // assessmentTrials = myTrialOrder.slice((numTrials/2), numTrials),
@@ -140,12 +140,15 @@ var experiment = {
   interventionRestudyTestScore: 0,
   //assessmentTrials is the second half of myTrialOrder
   assessmentStudyTrials: shuffle(assessmentTrials.slice(0)),
-  assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
+  // assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
+  assessmentChoiceTrials: assessmentTrials.slice((interventionTrials.length/2), interventionTrials.length),
+  assessmentGenerateTrials: assessmentTrials.slice(0,(interventionTrials.length/2)),
   assessmentTestTrials: shuffle(assessmentTrials.slice(0)),
   assessmentTestScore: 0,
   
   // An array to store the data that we're collecting.
-  data: [],
+  interventionData: [],
+  assessmentData: [],
 
   //Intro to study
   interventionStudyFraming: function() { 
@@ -316,7 +319,7 @@ var experiment = {
       experiment.test(exptPhase);
     }
 
-    experiment.data.push(data);
+    experiment.interventionData.push(data);
     return false; // stop form from being submitted
   },
 
@@ -468,52 +471,94 @@ var experiment = {
 
     showSlide("study");
     $("#wordpair").text(swahili + " : " + english);
-    setTimeout(function(){experiment.interventionStudy()}, 250);
+    setTimeout(function(){experiment.interventionStudy()}, trialDuration);
   },
 
 
   /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
   assessmentStrategyFraming: function() {
     var header = "Study";
-    var text = "Now you will be asked to study each Swahili-English word pair using whatever \
-    method you would like. At any time, you can click the 'See Translation' button to see the English \
-    translation. After 5 seconds, the screen will automatically advance to the next pair."
+    var text = "Now you will be asked to study 10 of the Swahili-English word pairs <b>using whatever \
+    method you would like</b>. At any time, you can click the 'See Translation' button to see the English \
+    translation. After 7 seconds, the screen will automatically advance to the next pair."
     showSlide("textNext");
-    $("#instructionsHeader").text(header);
-    $("#instructionsText").text(text);
+    $("#instructionsHeader").html(header);
+    $("#instructionsText").html(text);
     $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategy();});
     // console.log($("#instructionsText").text());
   },
 
   /*
-  first 10 items, free-study
-  Study each item for 5 sec
+  first 10 items, free-study. Study each item for trialDuration secs. Measure latency to click.
   adhama - _______
   [See Translation]
-  (measure latency to click)
   */
   assessmentStrategy: function() {
-    experiment.assessmentTestFraming();
+    var trials = experiment.assessmentChoiceTrials;
+    // if (trials.length == 0) {experiment.assessmentStrategyDirectedFraming(); return;} 
+    if (trials.length == 0) {experiment.end(); return;} 
+
+    var currItem = trials.shift(),
+      swahili = swahili_english_pairs[parseInt(currItem)][0],
+      english = swahili_english_pairs[parseInt(currItem)][1]
+    
+    // start, and get startTime for RT
+    showSlide("choiceSeeTranslation");
+    $("#swahiliCue").text(swahili + " : ");
+    var startTime = (new Date()).getTime(),
+      endTime = startTime + trialDuration;
+
+    //on button click, get endTime
+    $("#seeTranslation").click(function(){$(this).blur(); 
+      endTime = (new Date()).getTime();
+      $("#englishAnswer").show().text(english);
+    });
+
+    //auto advance
+    setTimeout(function(){
+      $("#englishAnswer").hide(); // jQuery checks if it's hidden already
+      experiment.captureTime("assessmentStrategy", "choice", currItem, swahili, english, startTime, endTime);
+      experiment.assessmentStrategy();
+    }, trialDuration); 
+  },
+
+  captureTime: function(exptPhase, strategy, currItem, swahili, english, startTime, endTime){
+    data = {
+      exptPhase: exptPhase,
+      strategy: strategy,
+      item: currItem,
+      swahili: swahili,
+      english: english,
+      startTime: startTime,
+      endTime: endTime,
+      latency: endTime - startTime;
+    };
+
+    experiment.assessmentData.push(data);
   },
 
   /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
   /* “Now, you will see 20 new Swahili words paired with their English translations. 
   Then, you will have 5 seconds to study each pair using whatever method you would like. 
   Finally, you will be quizzed on all 20 Swahili-English word pairs.”*/
-  assessmentStrategyFraming: function() {
+  assessmentStrategyDirectedFraming: function() {
     var header = "Study";
-    var text = "Now you will be asked to study each Swahili-English word pair. \
-    After 5 seconds, the screen will automatically advance to the next pair. \
-    Please pay attention, and study the pair so you can type the English translation given the Swahili word."
+    var text = "Now you will be asked to study the remaining 10 Swahili-English word pairs \
+    <b>by trying to recall the English translation<b> before clicking the 'See Translation' button. \
+    After 5 seconds, the screen will automatically advance to the next pair."
     showSlide("textNext");
-    $("#instructionsHeader").text(header);
-    $("#instructionsText").text(text);
+    $("#instructionsHeader").html(header);
+    $("#instructionsText").html(text);
     $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyDirected();});
     // console.log($("#instructionsText").text());
   },
 
  /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
   assessmentStrategyDirected: function() {
+    var trials = experiment.assessmentGenerateTrials;
+    if (trials.length == 0) {experiment.assessmentTestFraming(); return;} 
+
+    showSlide("choiceSeeTranslation");
     experiment.assessmentStrategy();
   },
 
