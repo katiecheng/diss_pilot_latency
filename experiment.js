@@ -507,7 +507,7 @@ var experiment = {
     // start, and get startTime for RT
     showSlide("choiceSeeTranslation");
     $("#swahiliCue").text(swahili + " : ");
-    $("#englishAnswer").css("color", bgcolor).text(Array(english.length).join("x");
+    $("#englishAnswer").css("color", bgcolor).text(Array(english.length+1).join("x"));
     var startTime = (new Date()).getTime(),
       endTime = startTime + trialDuration;
 
