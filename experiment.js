@@ -519,7 +519,6 @@ var experiment = {
 
     //auto advance
     setTimeout(function(){
-      $("#englishAnswer").hide(); // jQuery checks if it's hidden already
       experiment.captureTime("assessmentStrategy", "choice", currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategy();
     }, trialDuration); 
