@@ -445,7 +445,7 @@ var experiment = {
 
   // intro to assessment study
   assessmentStudyFraming: function() {
-    var header = "Word Pairs - Round 2";
+    var header = "New Word Pairs";
     var text = "In a moment, you will be presented with a new set of 20 Swahili words paired with \
     their English translations. You will see each Swahili-English word pair \
     for 5 seconds, and then the screen will automatically advance to the \
@@ -471,7 +471,7 @@ var experiment = {
 
     showSlide("study");
     $("#wordpair").text(swahili + " : " + english);
-    setTimeout(function(){experiment.interventionStudy()}, trialDuration);
+    setTimeout(function(){experiment.assessmentStudy()}, trialDuration);
   },
 
 
