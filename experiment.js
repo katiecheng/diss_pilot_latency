@@ -142,9 +142,9 @@ var experiment = {
   //assessmentTrials is the second half of myTrialOrder
   assessmentStudyTrials: shuffle(assessmentTrials.slice(0)),
   // assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
-  assessmentChoiceTrials: assessmentTrials.slice(0,(assessmentTrials.length/3),
-  assessmentRestudyTrials: assessmentTrials.slice((assessmentTrials.length/3),(assessmentTrials.length/3*2)),
-  assessmentGenerateTrials: assessmentTrials.slice((assessmentTrials.length/3)*2, assessmentTrials.length)),
+  assessmentChoiceTrials: assessmentTrials.slice(0,assessmentTrials.length/3),
+  assessmentRestudyTrials: assessmentTrials.slice(assessmentTrials.length/3,(assessmentTrials.length/3*2)),
+  assessmentGenerateTrials: assessmentTrials.slice((assessmentTrials.length/3*2), assessmentTrials.length),
   assessmentTestTrials: shuffle(assessmentTrials.slice(0)),
   assessmentTestScore: 0,
   
