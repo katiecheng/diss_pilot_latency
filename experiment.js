@@ -519,6 +519,10 @@ var experiment = {
   },
 
   assessmentStrategyLatencyReveal: function(stratType) {
+    console.log(experiment.assessmentChoiceTrials);
+    console.log(experiment.assessmentRestudyTrials);
+    console.log(experiment.assessmentGenerateTrials);
+    console.log(stratType);
     if (stratType == "assessmentChoice") {
       var trials = experiment.assessmentChoiceTrials;
       if (trials.length == 0) {experiment.assessmentRestudyFraming(); return;} 
