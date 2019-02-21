@@ -465,7 +465,7 @@ var experiment = {
   assessmentStudy: function() {
     var trials = experiment.assessmentStudyTrials;
     if (trials.length == 0) {
-      experiment.assessmentStrategyTutorial();
+      experiment.assessmentStrategyFraming();
       return;
     }
     var currItem = trials.shift(),    
@@ -477,7 +477,7 @@ var experiment = {
     setTimeout(function(){experiment.assessmentStudy()}, trialDuration);
   },
 
-  assessmentStrategyTutorial: function() {
+  assessmentStrategyFraming: function() {
     var header = "Study Phase";
     var text = "At any time, you can click the 'See Translation' button to see the English \
     translation. After 5 seconds, the screen will automatically advance, and you will get to see the \
@@ -513,8 +513,69 @@ var experiment = {
     showSlide("textNext");
     $("#instructionsHeader").html(header);
     $("#instructionsText").html(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyChoice();});
+    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyLatencyReveal();});
     // console.log($("#instructionsText").text());
+  },
+
+  assessmentStrategyLatencyReveal: function(stratType) {
+    if (stratType == "assessmentChoice") {
+      var trials = experiment.assessmentChoiceTrials;
+      if (trials.length == 0) {experiment.assessmentRestudyFraming(); return;} 
+    } else if (stratType == "assessmentRestudy") {
+      var trials = experiment.assessmentRestudyTrials;
+      if (trials.length == 0) {experiment.assessmentGenerateFraming(); return;} 
+    } else if (stratType == "assessmentGenerate") {
+      var trials = experiment.assessmentGenerateTrials;
+      if (trials.length == 0) {experiment.assessmentTestFraming(); return;} 
+    }
+
+    var currItem = trials.shift(),
+      swahili = swahili_english_pairs[parseInt(currItem)][0],
+      english = swahili_english_pairs[parseInt(currItem)][1]
+
+    // start, and get startTime for RT
+    showSlide("choiceSeeTranslation");
+    $("#swahiliCue").text(swahili + " : ");
+    $("#englishAnswer").css("color", bgcolor).text(Array(english.length+1).join("x"));
+    var startTime = (new Date()).getTime(),
+      endTime = startTime + trialDuration;
+
+    //on button click, get endTime
+    $("#seeTranslation").click(function(){$(this).blur(); 
+      endTime = (new Date()).getTime();
+      experiment.captureTime("assessmentStrategy", stratType, currItem, swahili, english, startTime, endTime);
+      experiment.assessmentStrategyLatencyMoveOn();
+    });
+
+    //auto advance
+    setTimeout(function(){
+      experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
+      experiment.assessmentStrategyLatencyMoveOn();
+    }, trialDuration); 
+  },
+
+  assessmentStrategyLatencyMoveOn: function(stratType, currItem, swahili, english){
+
+    //capture the timeout in the next slide
+    showSlide("choiceSeeTranslation");
+    $("#swahiliCue2").text(swahili + " : ");
+    $("#englishAnswer2").css("color", "black").text(english);
+    var startTime = (new Date()).getTime(),
+      endTime = startTime + trialDuration;
+
+    //on button click, get endTime
+    $("#nextWordPair").click(function(){$(this).blur(); 
+      endTime = (new Date()).getTime();
+      experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
+      experiment.assessmentStrategyLatencyReveal();
+    });
+
+    //auto advance
+    setTimeout(function(){
+      experiment.captureTime("assessmentStrategy", stratType, currItem, swahili, english, startTime, endTime);
+      experiment.assessmentStrategyLatencyReveal();
+    }, trialDuration); 
+    
   },
 
   /*
@@ -562,7 +623,7 @@ var experiment = {
     showSlide("textNext");
     $("#instructionsHeader").html(header);
     $("#instructionsText").html(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyDirected();});
+    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyLatencyReveal();});
     // console.log($("#instructionsText").text());
   },
 
@@ -603,7 +664,7 @@ var experiment = {
     showSlide("textNext");
     $("#instructionsHeader").html(header);
     $("#instructionsText").html(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyGenerate();});
+    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyLatencyReveal();});
     // console.log($("#instructionsText").text());
   },
 
@@ -611,7 +672,7 @@ var experiment = {
   assessmentStrategyGenerate: function() {
     var trials = experiment.assessmentGenerateTrials;
     // if (trials.length == 0) {experiment.assessmentStrategyDirectedFraming(); return;} 
-    if (trials.length == 0) {experiment.assessmentGenerateFraming(); return;} 
+    if (trials.length == 0) {experiment.assessmentTestFraming(); return;} 
 
     var currItem = trials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
