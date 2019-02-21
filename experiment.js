@@ -50,7 +50,7 @@ function shuffle(array) {
 
 // ## Configuration settings
 var numTrials = 40,
-  trialDuration = 2000,
+  trialDuration = 5000,
   feedbackDuration = 2000, 
   bgcolor = "white",
   //toggle test 1 or 2 strategy rounds
@@ -518,6 +518,28 @@ var experiment = {
     // console.log($("#instructionsText").text());
   },
 
+  assessmentRestudyFraming: function() {
+    var header = "Stage 2b: Study by Review";
+    var text = "Please study these 8 Swahili-English word pairs by <b>quickly revealing the English Translation\
+    and reviewing it</b>."
+    showSlide("textNext");
+    $("#instructionsHeader").html(header);
+    $("#instructionsText").html(text);
+    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyLatencyReveal("assessmentRestudy");});
+    // console.log($("#instructionsText").text());
+  },
+
+  assessmentGenerateFraming: function() {
+    var header = "Stage 2c: Study by Recall";
+    var text = "Finally, please study these 8 Swahili-English word pairs by <b>trying to recall the \
+    English translation from memory before revealing it</b>."
+    showSlide("textNext");
+    $("#instructionsHeader").html(header);
+    $("#instructionsText").html(text);
+    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyLatencyReveal("assessmentGenerate");});
+    // console.log($("#instructionsText").text());
+  },
+
   assessmentStrategyLatencyReveal: function(stratType) {
     console.log(experiment.assessmentChoiceTrials);
     console.log(experiment.assessmentRestudyTrials);
@@ -564,7 +586,7 @@ var experiment = {
     //capture the timeout in the next slide
     showSlide("choiceSeeTranslation");
     $("#swahiliCue2").text(swahili + " : ");
-    $("#englishAnswer2").css("color", "black").text(english);
+    $("#englishAnswer2").text(english);
     var startTime = (new Date()).getTime(),
       endTime = startTime + trialDuration;
 
@@ -617,21 +639,6 @@ var experiment = {
     }, trialDuration); 
   },
 
-  /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
-  /* “Now, you will see 20 new Swahili words paired with their English translations. 
-  Then, you will have 5 seconds to study each pair using whatever method you would like. 
-  Finally, you will be quizzed on all 20 Swahili-English word pairs.”*/
-  assessmentRestudyFraming: function() {
-    var header = "Stage 2b: Study by Review";
-    var text = "Please study these 8 Swahili-English word pairs by <b>quickly revealing the English Translation\
-    and reviewing it</b>."
-    showSlide("textNext");
-    $("#instructionsHeader").html(header);
-    $("#instructionsText").html(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyLatencyReveal("assessmentRestudy");});
-    // console.log($("#instructionsText").text());
-  },
-
  /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
   assessmentStrategyRestudy: function() {
     var trials = experiment.assessmentRestudyTrials;
@@ -662,16 +669,7 @@ var experiment = {
     }, trialDuration); 
   },
 
-  assessmentGenerateFraming: function() {
-    var header = "Stage 2c: Study by Recall";
-    var text = "Finally, please study these 8 Swahili-English word pairs by <b>trying to recall the \
-    English translation from memory before revealing it</b>."
-    showSlide("textNext");
-    $("#instructionsHeader").html(header);
-    $("#instructionsText").html(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyLatencyReveal("assessmentGenerate");});
-    // console.log($("#instructionsText").text());
-  },
+  
 
  /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
   assessmentStrategyGenerate: function() {
