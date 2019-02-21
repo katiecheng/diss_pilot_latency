@@ -545,13 +545,13 @@ var experiment = {
     $("#seeTranslation").click(function(){$(this).blur(); 
       endTime = (new Date()).getTime();
       experiment.captureTime("assessmentStrategy", stratType, currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyLatencyMoveOn();
+      experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
     });
 
     //auto advance
     setTimeout(function(){
       experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyLatencyMoveOn();
+      experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
     }, trialDuration); 
   },
 
@@ -568,13 +568,13 @@ var experiment = {
     $("#nextWordPair").click(function(){$(this).blur(); 
       endTime = (new Date()).getTime();
       experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyLatencyReveal();
+      experiment.assessmentStrategyLatencyReveal(stratType);
     });
 
     //auto advance
     setTimeout(function(){
       experiment.captureTime("assessmentStrategy", stratType, currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyLatencyReveal();
+      experiment.assessmentStrategyLatencyReveal(stratType);
     }, trialDuration); 
     
   },
