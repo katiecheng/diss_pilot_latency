@@ -568,16 +568,16 @@ var experiment = {
       endTime = startTime + trialDuration;
 
     //auto advance
-    var myTimeout = setTimeout(function(){
-      $("#seeTranslation").click();
+    // var myTimeout = setTimeout(function(){
+    //   $("#seeTranslation").click();
       // experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
       // experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
-    }, trialDuration); 
+    // }, trialDuration); 
     
     //on button click, get endTime
     $("#seeTranslation").click(function(){$(this).blur(); 
       endTime = (new Date()).getTime();
-      clearTimeout(myTimeout);
+      // clearTimeout(myTimeout);
       experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
       // return;
@@ -596,16 +596,16 @@ var experiment = {
       endTime = startTime + trialDuration;
 
     //auto advance
-    var myTimeout = setTimeout(function(){
-      $("#nextWordPair").click();
+    // var myTimeout = setTimeout(function(){
+    //   $("#nextWordPair").click();
       // experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
       // experiment.assessmentStrategyLatencyReveal(stratType);
-    }, trialDuration); 
+    // }, trialDuration); 
 
     //on button click, get endTime
     $("#nextWordPair").click(function(){$(this).blur(); 
       endTime = (new Date()).getTime();
-      clearTimeout(myTimeout);
+      // clearTimeout(myTimeout);
       experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategyLatencyReveal(stratType);
       // return;
