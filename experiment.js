@@ -567,6 +567,12 @@ var experiment = {
     var startTime = (new Date()).getTime(),
       endTime = startTime + trialDuration;
 
+    //auto advance
+    var myTimeout = setTimeout(function(){
+      experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
+      experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
+    }, trialDuration); 
+
     //on button click, get endTime
     $("#seeTranslation").click(function(){$(this).blur(); 
       endTime = (new Date()).getTime();
@@ -574,30 +580,16 @@ var experiment = {
       experiment.captureTime("assessmentStrategy", stratType, currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
     });
-
-    //auto advance
-    var myTimeout = setTimeout(function(){
-      experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
-    }, trialDuration); 
   },
 
   assessmentStrategyLatencyMoveOn: function(stratType, currItem, swahili, english){
 
     //capture the timeout in the next slide
-    showSlide("choiceSeeTranslation");
+    showSlide("choiceNextWordPair");
     $("#swahiliCue2").text(swahili + " : ");
     $("#englishAnswer2").text(english);
     var startTime = (new Date()).getTime(),
       endTime = startTime + trialDuration;
-
-    //on button click, get endTime
-    $("#nextWordPair").click(function(){$(this).blur(); 
-      endTime = (new Date()).getTime();
-      clearTimeout(myTimeout);
-      experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyLatencyReveal(stratType);
-    });
 
     //auto advance
     var myTimeout = setTimeout(function(){
@@ -605,6 +597,13 @@ var experiment = {
       experiment.assessmentStrategyLatencyReveal(stratType);
     }, trialDuration); 
     
+    //on button click, get endTime
+    $("#nextWordPair").click(function(){$(this).blur(); 
+      endTime = (new Date()).getTime();
+      clearTimeout(myTimeout);
+      experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
+      experiment.assessmentStrategyLatencyReveal(stratType);
+    });
   },
 
   /*
