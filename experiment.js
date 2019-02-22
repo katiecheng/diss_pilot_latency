@@ -545,6 +545,7 @@ var experiment = {
     console.log(experiment.assessmentRestudyTrials);
     console.log(experiment.assessmentGenerateTrials);
     console.log(stratType);
+    debugger;
     if (stratType == "assessmentChoice") {
       var trials = experiment.assessmentChoiceTrials;
       if (trials.length == 0) {experiment.assessmentRestudyFraming(); return;} 
@@ -573,7 +574,7 @@ var experiment = {
       // experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
       // experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
     // }, trialDuration); 
-    
+
     //on button click, get endTime
     $("#seeTranslation").click(function(){$(this).blur(); 
       endTime = (new Date()).getTime();
