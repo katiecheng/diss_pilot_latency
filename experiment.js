@@ -570,12 +570,13 @@ var experiment = {
     //on button click, get endTime
     $("#seeTranslation").click(function(){$(this).blur(); 
       endTime = (new Date()).getTime();
+      clearTimeout(myTimeout);
       experiment.captureTime("assessmentStrategy", stratType, currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
     });
 
     //auto advance
-    setTimeout(function(){
+    var myTimeout = setTimeout(function(){
       experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
     }, trialDuration); 
@@ -593,12 +594,13 @@ var experiment = {
     //on button click, get endTime
     $("#nextWordPair").click(function(){$(this).blur(); 
       endTime = (new Date()).getTime();
+      clearTimeout(myTimeout);
       experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategyLatencyReveal(stratType);
     });
 
     //auto advance
-    setTimeout(function(){
+    var myTimeout = setTimeout(function(){
       experiment.captureTime("assessmentStrategy", stratType, currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategyLatencyReveal(stratType);
     }, trialDuration); 
