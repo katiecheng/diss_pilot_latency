@@ -567,6 +567,13 @@ var experiment = {
     var startTime = (new Date()).getTime(),
       endTime = startTime + trialDuration;
 
+    //auto advance
+    var myTimeout = setTimeout(function(){
+      $("#seeTranslation").click();
+      // experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
+      // experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
+    }, trialDuration); 
+    
     //on button click, get endTime
     $("#seeTranslation").click(function(){$(this).blur(); 
       endTime = (new Date()).getTime();
@@ -576,12 +583,7 @@ var experiment = {
       return;
     });
 
-    //auto advance
-    var myTimeout = setTimeout(function(){
-      $("#seeTranslation").click();
-      // experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
-      // experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
-    }, trialDuration); 
+
   },
 
   assessmentStrategyLatencyMoveOn: function(stratType, currItem, swahili, english){
@@ -593,6 +595,13 @@ var experiment = {
     var startTime = (new Date()).getTime(),
       endTime = startTime + trialDuration;
 
+    //auto advance
+    var myTimeout = setTimeout(function(){
+      $("#nextWordPair").click();
+      // experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
+      // experiment.assessmentStrategyLatencyReveal(stratType);
+    }, trialDuration); 
+
     //on button click, get endTime
     $("#nextWordPair").click(function(){$(this).blur(); 
       endTime = (new Date()).getTime();
@@ -602,12 +611,7 @@ var experiment = {
       return;
     });
 
-    //auto advance
-    var myTimeout = setTimeout(function(){
-      $("#nextWordPair").click();
-      // experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
-      // experiment.assessmentStrategyLatencyReveal(stratType);
-    }, trialDuration); 
+
   },
 
   /*
