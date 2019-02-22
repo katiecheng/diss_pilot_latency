@@ -579,6 +579,7 @@ var experiment = {
       clearTimeout(myTimeout);
       experiment.captureTime("assessmentStrategy", stratType, currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
+      return;
     });
   },
 
@@ -603,6 +604,7 @@ var experiment = {
       clearTimeout(myTimeout);
       experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategyLatencyReveal(stratType);
+      return;
     });
   },
 
