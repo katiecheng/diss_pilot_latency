@@ -545,7 +545,7 @@ var experiment = {
     console.log(experiment.assessmentRestudyTrials);
     console.log(experiment.assessmentGenerateTrials);
     console.log(stratType);
-    debugger;
+    // debugger;
     if (stratType == "assessmentChoice") {
       var trials = experiment.assessmentChoiceTrials;
       if (trials.length == 0) {experiment.assessmentRestudyFraming(); return;} 
