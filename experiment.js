@@ -576,7 +576,7 @@ var experiment = {
     // }, trialDuration); 
 
     //on button click, get endTime
-    $("#seeTranslation").click(experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english));
+    $("#seeTranslation").on("click", experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english));
     // $("#seeTranslation").click(function(){$(this).blur(); 
     //   console.log("clicked seeTranslation");
     //   endTime = (new Date()).getTime();
@@ -606,7 +606,7 @@ var experiment = {
     // }, trialDuration); 
 
     //on button click, get endTime
-    $("#nextWordPair").click(experiment.assessmentStrategyLatencyReveal(stratType));
+    $("#nextWordPair").on("click", experiment.assessmentStrategyLatencyReveal(stratType));
     // $("#nextWordPair").click(function(){$(this).blur(); 
     //   console.log("clicked nextWord");
     //   endTime = (new Date()).getTime();
