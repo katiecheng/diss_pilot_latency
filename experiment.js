@@ -576,14 +576,15 @@ var experiment = {
     // }, trialDuration); 
 
     //on button click, get endTime
-    $("#seeTranslation").click(function(){$(this).blur(); 
-      console.log("clicked seeTranslation");
-      endTime = (new Date()).getTime();
-      // clearTimeout(myTimeout);
-      experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
-      // return false;
-    });
+    $("#seeTranslation").click(experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);)
+    // $("#seeTranslation").click(function(){$(this).blur(); 
+    //   console.log("clicked seeTranslation");
+    //   endTime = (new Date()).getTime();
+    //   // clearTimeout(myTimeout);
+    //   experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
+    //   experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
+    //   // return false;
+    // });
 
 
   },
@@ -605,14 +606,15 @@ var experiment = {
     // }, trialDuration); 
 
     //on button click, get endTime
-    $("#nextWordPair").click(function(){$(this).blur(); 
-      console.log("clicked nextWord");
-      endTime = (new Date()).getTime();
-      // clearTimeout(myTimeout);
-      experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyLatencyReveal(stratType);
-      // return false;
-    });
+    $("#nextWordPair").click(experiment.assessmentStrategyLatencyReveal(stratType);)
+    // $("#nextWordPair").click(function(){$(this).blur(); 
+    //   console.log("clicked nextWord");
+    //   endTime = (new Date()).getTime();
+    //   // clearTimeout(myTimeout);
+    //   experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
+    //   experiment.assessmentStrategyLatencyReveal(stratType);
+    //   // return false;
+    // });
 
 
   },
