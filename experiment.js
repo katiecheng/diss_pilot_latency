@@ -141,16 +141,21 @@ var experiment = {
   interventionRestudyTestScore: 0,
   //assessmentTrials is the second half of myTrialOrder
   assessmentStudyTrials: shuffle(assessmentTrials.slice(0)),
-  // assessmentStrategyTrials: shuffle(assessmentTrials.slice(0)),
+  // assessmentStrategyTrials: assessmentTrials.slice(0),
   assessmentChoiceTrials: assessmentTrials.slice(0,assessmentTrials.length/3),
   assessmentRestudyTrials: assessmentTrials.slice(assessmentTrials.length/3,(assessmentTrials.length/3*2)),
   assessmentGenerateTrials: assessmentTrials.slice((assessmentTrials.length/3*2), assessmentTrials.length),
+  assessmentChoiceTrialsSave: [],
+  assessmentRestudyTrialsSave: [],
+  assessmentGenerateTrialsSave: [],
   assessmentTestTrials: shuffle(assessmentTrials.slice(0)),
   assessmentTestScore: 0,
   
   // An array to store the data that we're collecting.
-  interventionData: [],
-  assessmentData: [],
+  interventionStrategyData: [],
+  interventionTestData: [],
+  assessmentStrategyData: [],
+  assessmentTestData: [],
 
   //Intro to study
   interventionStudyFraming: function() { 
@@ -271,15 +276,16 @@ var experiment = {
   captureWord: function(exptPhase, round, currItem, swahili, english) {
     var generatedWord = $("#generatedWord").val().toLowerCase(),
       restudiedWord = $("#restudiedWord").val().toLowerCase(),
-      generateItem = ($.inArray(currItem, experiment.interventionGenerateTrials) != -1),
-      restudyItem = ($.inArray(currItem, experiment.interventionRestudyTrials) != -1);
+      generateItem = ($.inArray(currItem, experiment.assessmentGenerateTrialsSave) != -1),
+      restudyItem = ($.inArray(currItem, experiment.assessmentRestudyTrialsSave) != -1);
+      choiceItem = ($.inArray(currItem, experiment.assessmentChoiceTrialsSave) != -1);
 
     if (generateItem){
       strategy = "generate";
     } else if (restudyItem){
       strategy = "restudy";
-    } else {
-      strategy = "unknown";
+    } else if (choiceItem) {
+      strategy = "free choice";
     }
 
     if (exptPhase == "interventionStrategy"){
@@ -311,6 +317,7 @@ var experiment = {
         experiment.interventionRestudyStrategyScore[round-1] += accuracy;
         experiment.interventionStrategy(round);
       } 
+      experiment.interventionStrategyData.push(data);
     } else if (exptPhase == "interventionTest"){
       if (generateItem){
         experiment.interventionGenerateTestScore += accuracy;
@@ -318,12 +325,13 @@ var experiment = {
         experiment.interventionRestudyTestScore += accuracy;
       } 
       experiment.test(exptPhase);
+      experiment.interventionTestData.push(data);
     } else if (exptPhase == "assessmentTest"){
       experiment.assessmentTestScore += accuracy;
-      experiment.test(exptPhase);
+      experiment.test(exptPhase);.
+      experiment.assessmentTestData.push(data);
     }
-
-    experiment.interventionData.push(data);
+    
     return false; // stop form from being submitted
   },
 
@@ -506,7 +514,7 @@ var experiment = {
       latency: endTime - startTime
     };
 
-    experiment.assessmentData.push(data);
+    experiment.assessmentStrategyData.push(data);
   },
 
   /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
@@ -544,10 +552,6 @@ var experiment = {
   },
 
   assessmentStrategyLatencyReveal: function(stratType) {
-    console.log(experiment.assessmentChoiceTrials);
-    console.log(experiment.assessmentRestudyTrials);
-    console.log(experiment.assessmentGenerateTrials);
-    console.log(stratType);
     if (stratType == "assessmentChoice") {
       var trials = experiment.assessmentChoiceTrials;
       if (trials.length == 0) {experiment.assessmentRestudyFraming(); return;} 
@@ -563,6 +567,14 @@ var experiment = {
     var currItem = trials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1]
+
+    if (stratType == "assessmentChoice") {
+      experiment.assessmentChoiceTrialsSave.push(currItem);
+    } else if (stratType == "assessmentRestudy") {
+      experiment.assessmentRestudyTrialsSave.push(currItem);      
+    } else if (stratType == "assessmentGenerate") {
+      experiment.assessmentGenerateTrialsSave.push(currItem);
+    }
 
     // start, and get startTime for RT
     showSlide("choiceSeeTranslation");
