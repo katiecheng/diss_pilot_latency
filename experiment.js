@@ -488,11 +488,13 @@ var experiment = {
 
   assessmentStrategyFraming: function() {
     var header = "Stage 2: Study Phase";
-    var text = "you will be asked to study each Swahili-English word pair\
-    At any time, you can click the 'See Translation' button to see the English \
-    translation. After 5 seconds, the screen will automatically advance, and you will get to see the \
-    correct answer. Then, at any time, you can click the 'Move On' button to advance to the next word \
-    pair."
+    var text = "Next, you will study the 24 Swahili-English word pairs. \
+    For each pair, you will be shown the Swahili word. You can click 'See Translation' \
+    to see the English Translation. Then, you can click 'Move On' to move on to the \
+    next word pair. If you don't click the buttons, the screens will automatically \
+    advance after 5 seconds. \
+    <br><br> The 24 word pairs will be split into three sets of eight. You will be asked to use a \
+    different study strategy for each set."
     showSlide("textNext");
     $("#instructionsHeader").html(header);
     $("#instructionsText").html(text);
@@ -512,9 +514,9 @@ var experiment = {
       endTime: endTime,
       latency: latency
     };
-    
+
     if (exptPhase == "assessmentStrategyLatencyReveal"){
-      if (strategy == "assesssmentChoice"){
+      if (strategy == "assessmentChoice"){
         experiment.assessmentChoiceTimes.reveal.push(latency)
       } else if (strategy == "assessmentRestudy"){
         experiment.assessmentRestudyTimes.reveal.push(latency)
@@ -522,7 +524,7 @@ var experiment = {
         experiment.assessmentGenerateTimes.reveal.push(latency)
       }
     } else if (exptPhase == "assessmentStrategyLatencyMoveOn"){
-      if (strategy == "assesssmentChoice"){
+      if (strategy == "assessmentChoice"){
         experiment.assessmentChoiceTimes.moveOn.push(latency)
       } else if (strategy == "assessmentRestudy"){
         experiment.assessmentRestudyTimes.moveOn.push(latency)
@@ -536,43 +538,48 @@ var experiment = {
 
   /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
   assessmentChoiceFraming: function() {
-    var header = "Stage 2a: Free Study";
+    var header = "Set 1 of 3: Free Study";
     var text = "Please study these 8 Swahili-English word pairs <b>using whatever \
-    study method you would like</b>."
+    study method you would like</b>.\
+    <br><br>Please make sure you understand these instructions before you begin."
     showSlide("textNext");
     $("#instructionsHeader").html(header);
     $("#instructionsText").html(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyLatencyReveal("assessmentChoice");});
-    // console.log($("#instructionsText").text());
+    $("#nextButton").click(function(){$(this).blur(); 
+      experiment.assessmentStrategyLatencyReveal("assessmentChoice");
+    });
   },
 
   assessmentRestudyFraming: function() {
-    var header = "Stage 2b: Study by Review";
+    var header = "Set 2 of 3: Study by Review";
     var text = "Please study these 8 Swahili-English word pairs by <b>quickly revealing the English Translation\
-    and reviewing it</b>."
+    and reviewing it</b>.\
+    <br><br>Please make sure you understand these instructions before you begin."
     showSlide("textNext");
     $("#instructionsHeader").html(header);
     $("#instructionsText").html(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyLatencyReveal("assessmentRestudy");});
-    // console.log($("#instructionsText").text());
+    $("#nextButton").click(function(){$(this).blur(); 
+      experiment.assessmentStrategyLatencyReveal("assessmentRestudy");
+    });
   },
 
   assessmentGenerateFraming: function() {
-    var header = "Stage 2c: Study by Recall";
+    var header = "Set 3 of 3: Study by Recall";
     var text = "Finally, please study these 8 Swahili-English word pairs by <b>trying to recall the \
-    English translation from memory before revealing it</b>."
+    English translation from memory before revealing it</b>.\
+    <br><br>Please make sure you understand these instructions before you begin."
     showSlide("textNext");
     $("#instructionsHeader").html(header);
     $("#instructionsText").html(text);
-    $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStrategyLatencyReveal("assessmentGenerate");});
-    // console.log($("#instructionsText").text());
+    $("#nextButton").click(function(){$(this).blur(); 
+      experiment.assessmentStrategyLatencyReveal("assessmentGenerate");
+    });
   },
 
   assessmentStrategyLatencyReveal: function(stratType) {
     if (stratType == "assessmentChoice") {
       var trials = experiment.assessmentChoiceTrials;
       if (trials.length == 0) {experiment.assessmentRestudyFraming(); return;} 
-      // if (trials.length == 0) {experiment.end(); return;}
     } else if (stratType == "assessmentRestudy") {
       var trials = experiment.assessmentRestudyTrials;
       if (trials.length == 0) {experiment.assessmentGenerateFraming(); return;} 
