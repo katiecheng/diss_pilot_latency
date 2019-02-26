@@ -278,6 +278,8 @@ var experiment = {
       strategy = "generate";
     } else if (restudyItem){
       strategy = "restudy";
+    } else {
+      strategy = "unknown";
     }
 
     if (exptPhase == "interventionStrategy"){
@@ -610,102 +612,6 @@ var experiment = {
   },
 
   /*
-  first 8 items, free-study. Study each item for trialDuration secs. Measure latency to click.
-  adhama - _______
-  [See Translation]
-  */
-  assessmentStrategyChoice: function() {
-    var trials = experiment.assessmentChoiceTrials;
-    // if (trials.length == 0) {experiment.assessmentStrategyDirectedFraming(); return;} 
-    if (trials.length == 0) {experiment.assessmentRestudyFraming(); return;} 
-
-    var currItem = trials.shift(),
-      swahili = swahili_english_pairs[parseInt(currItem)][0],
-      english = swahili_english_pairs[parseInt(currItem)][1]
-    
-    // start, and get startTime for RT
-    showSlide("choiceSeeTranslation");
-    $("#swahiliCue").text(swahili + " : ");
-    $("#englishAnswer").css("color", bgcolor).text(Array(english.length+1).join("x"));
-    var startTime = (new Date()).getTime(),
-      endTime = startTime + trialDuration;
-
-    //on button click, get endTime
-    $("#seeTranslation").click(function(){$(this).blur(); 
-      endTime = (new Date()).getTime();
-      $("#englishAnswer").css("color", "black").text(english);
-    });
-
-    //auto advance
-    setTimeout(function(){
-      experiment.captureTime("assessmentStrategy", "choice", currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyChoice();
-    }, trialDuration); 
-  },
-
- /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
-  assessmentStrategyRestudy: function() {
-    var trials = experiment.assessmentRestudyTrials;
-    // if (trials.length == 0) {experiment.assessmentStrategyDirectedFraming(); return;} 
-    if (trials.length == 0) {experiment.assessmentGenerateFraming(); return;} 
-
-    var currItem = trials.shift(),
-      swahili = swahili_english_pairs[parseInt(currItem)][0],
-      english = swahili_english_pairs[parseInt(currItem)][1]
-    
-    // start, and get startTime for RT
-    showSlide("choiceSeeTranslation");
-    $("#swahiliCue").text(swahili + " : ");
-    $("#englishAnswer").css("color", bgcolor).text(Array(english.length+1).join("x"));
-    var startTime = (new Date()).getTime(),
-      endTime = startTime + trialDuration;
-
-    //on button click, get endTime
-    $("#seeTranslation").click(function(){$(this).blur(); 
-      endTime = (new Date()).getTime();
-      $("#englishAnswer").css("color", "black").text(english);
-    });
-
-    //auto advance
-    setTimeout(function(){
-      experiment.captureTime("assessmentStrategy", "generate", currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyRestudy();
-    }, trialDuration); 
-  },
-
-  
-
- /*Then, you will have 5 seconds to study each pair using whatever method you would like. */
-  assessmentStrategyGenerate: function() {
-    var trials = experiment.assessmentGenerateTrials;
-    // if (trials.length == 0) {experiment.assessmentStrategyDirectedFraming(); return;} 
-    if (trials.length == 0) {experiment.assessmentTestFraming(); return;} 
-
-    var currItem = trials.shift(),
-      swahili = swahili_english_pairs[parseInt(currItem)][0],
-      english = swahili_english_pairs[parseInt(currItem)][1]
-    
-    // start, and get startTime for RT
-    showSlide("choiceSeeTranslation");
-    $("#swahiliCue").text(swahili + " : ");
-    $("#englishAnswer").css("color", bgcolor).text(Array(english.length+1).join("x"));
-    var startTime = (new Date()).getTime(),
-      endTime = startTime + trialDuration;
-
-    //on button click, get endTime
-    $("#seeTranslation").click(function(){$(this).blur(); 
-      endTime = (new Date()).getTime();
-      $("#englishAnswer").css("color", "black").text(english);
-    });
-
-    //auto advance
-    setTimeout(function(){
-      experiment.captureTime("assessmentStrategy", "generate", currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyRestudy();
-    }, trialDuration); 
-  },
-
-  /*
   “Now, you will be shown each Swahili word again. You’ll have 10 seconds to type the 
   correct English translation.”
   */
@@ -717,8 +623,6 @@ var experiment = {
     $("#instructionsHeader").text(header);
     $("#instructionsText").text(text);
     $("#nextButton").click(function(){$(this).blur(); experiment.test("assessmentTest");});
-    // console.log($("#instructionsText").text());
-    // experiment.test(2);
   },
 
   // The function that gets called when the sequence is finished.
