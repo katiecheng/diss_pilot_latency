@@ -50,7 +50,7 @@ function shuffle(array) {
 
 // ## Configuration settings
 var numTrials = 40,
-  trialDuration = 5000,
+  trialDuration = 2000,
   feedbackDuration = 2000, 
   bgcolor = "white",
   //toggle test 1 or 2 strategy rounds
