@@ -570,9 +570,9 @@ var experiment = {
 
     //auto advance
     var myTimeout = setTimeout(function(){
-      // $("#seeTranslation").click();
-      experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
+      $("#seeTranslation").click();
+      // experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
+      // experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
     }, trialDuration); 
 
     //on button click, get endTime
@@ -607,9 +607,9 @@ var experiment = {
 
     //auto advance
     var myTimeout = setTimeout(function(){
-      // $("#nextWordPair").click();
-      experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
-      experiment.assessmentStrategyLatencyReveal(stratType);
+      $("#nextWordPair").click();
+      // experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
+      // experiment.assessmentStrategyLatencyReveal(stratType);
     }, trialDuration); 
 
     //on button click, get endTime
