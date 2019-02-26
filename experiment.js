@@ -409,7 +409,7 @@ var experiment = {
     }
 
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var currItem = experiment.interventionTestTrials.shift(),
+    var currItem = trials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1];
 
