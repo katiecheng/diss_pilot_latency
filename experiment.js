@@ -328,10 +328,10 @@ var experiment = {
       experiment.interventionTestData.push(data);
     } else if (exptPhase == "assessmentTest"){
       experiment.assessmentTestScore += accuracy;
-      experiment.test(exptPhase);.
+      experiment.test(exptPhase);
       experiment.assessmentTestData.push(data);
     }
-    
+
     return false; // stop form from being submitted
   },
 
