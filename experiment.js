@@ -149,7 +149,9 @@ var experiment = {
   assessmentRestudyTrialsSave: [],
   assessmentGenerateTrialsSave: [],
   assessmentTestTrials: shuffle(assessmentTrials.slice(0)),
-  assessmentTestScore: 0,
+  assessmentGenerateTestScore: 0,
+  assessmentRestudyTestScore: 0,
+  assessmentChoiceTestScore: 0,
   
   // An array to store the data that we're collecting.
   interventionStrategyData: [],
@@ -327,7 +329,13 @@ var experiment = {
       experiment.test(exptPhase);
       experiment.interventionTestData.push(data);
     } else if (exptPhase == "assessmentTest"){
-      experiment.assessmentTestScore += accuracy;
+      if (generateItem){
+        experiment.assessmentGenerateTestScore += accuracy;
+      } else if (restudyItem){
+        experiment.assessmentRestudyTestScore += accuracy;
+      } else if (choiceItem){
+        experiment.assessmentChoiceTestScore += accuracy;
+      }
       experiment.test(exptPhase);
       experiment.assessmentTestData.push(data);
     }
