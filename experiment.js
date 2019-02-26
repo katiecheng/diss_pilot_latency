@@ -391,7 +391,8 @@ var experiment = {
   interventionTestFraming: function() {
     var header = "Quiz"
     var text = "Let's see what you learned! Next, you will be shown each Swahili word again.\
-     You’ll have 5 seconds to type the correct English translation."
+      You’ll have 5 seconds to type the correct English translation. After 5 seconds,\
+      the screen will automatically advance and save your input."
     showSlide("textNext");
     $("#instructionsHeader").text(header);
     $("#instructionsText").text(text);
@@ -400,7 +401,7 @@ var experiment = {
   },
 
 
-  // (All items rote for 10 sec, +/- feedback on each item)
+  // (All items rote for trialDuration sec, +/- feedback on each item)
   test: function(exptPhase) {
     if (exptPhase == "interventionTest") {
       var trials = experiment.interventionTestTrials;
@@ -618,7 +619,8 @@ var experiment = {
   assessmentTestFraming: function() {
     var header = "Stage 3: Quiz"
     var text = "Let's see what you learned! Next, you will be shown each Swahili word again.\
-     You’ll have 5 seconds to type the correct English translation."
+      You’ll have 5 seconds to type the correct English translation. After 5 seconds,\
+      the screen will automatically advance and save your input."
     showSlide("textNext");
     $("#instructionsHeader").text(header);
     $("#instructionsText").text(text);
