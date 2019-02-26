@@ -570,7 +570,7 @@ var experiment = {
 
     //auto advance
     var myTimeout = setTimeout(function(){
-      $("#seeTranslation").click();
+      // $("#seeTranslation").click();
       experiment.captureTime("assessmentStrategyLatencyReveal", stratType, currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategyLatencyMoveOn(stratType, currItem, swahili, english);
     }, trialDuration); 
@@ -607,7 +607,7 @@ var experiment = {
 
     //auto advance
     var myTimeout = setTimeout(function(){
-      $("#nextWordPair").click();
+      // $("#nextWordPair").click();
       experiment.captureTime("assessmentStrategyLatencyMoveOn", stratType, currItem, swahili, english, startTime, endTime);
       experiment.assessmentStrategyLatencyReveal(stratType);
     }, trialDuration); 
