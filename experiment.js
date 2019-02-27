@@ -538,7 +538,15 @@ var experiment = {
       latency: latency
     };
 
-    experiment.assessmentData.strategy[currItem] = strategy;
+    if (strategy =="assessmentChoice") {
+      var strategyAbbrev = "C";
+    } else if (strategy == "assessmentRestudy") {
+      var strategyAbbrev = "R";   
+    } else if (strategy == "assessmentGenerate") {
+      var strategyAbbrev = "G";
+    }
+
+    experiment.assessmentData.strategy[currItem] = strategyAbbrev;
 
     if (exptPhase == "assessmentStrategyLatencyReveal"){
       experiment.assessmentData.revealLatency[currItem] = latency;
