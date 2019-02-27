@@ -50,7 +50,7 @@ function shuffle(array) {
 
 // ## Configuration settings
 var numTrials = 40,
-  trialDuration = 2000,
+  trialDuration = 5000,
   feedbackDuration = 2000, 
   bgcolor = "white",
   //toggle test 1 or 2 strategy rounds
@@ -150,6 +150,19 @@ var experiment = {
   predictionGenerate: -1,
   interventionRestudyTestScore: 0,
   interventionGenerateTestScore: 0,
+  asssessmentData: {
+    itemIndex: [...Array(24).keys()],
+    studyOrder: Array(24).fill(0),
+    strategyOrder: Array(24).fill(0),
+    strategy: Array(24).fill(""),
+    revealLatency: Array(24).fill(0),
+    moveOnLatency: Array(24).fill(0),
+    testOrder: Array(24).fill(0),
+    testAccuracy: Array(24).fill(0)
+  },
+  assessmentStudyOrderCounter: 0,
+  assessmentStrategyOrderCounter: 0,
+  assessmentTestOrderCounter: 0,
   assessmentChoiceTimes: {reveal: [], moveOn: []},
   assessmentRestudyTimes: {reveal: [], moveOn: []},
   assessmentGenerateTimes: {reveal: [], moveOn: []},
@@ -332,13 +345,14 @@ var experiment = {
       experiment.test(exptPhase);
       experiment.interventionTestData.push(data);
     } else if (exptPhase == "assessmentTest"){
-      if (generateItem){
-        experiment.assessmentGenerateTestAccuracy.push(accuracy);
-      } else if (restudyItem){
-        experiment.assessmentRestudyTestAccuracy.push(accuracy);
-      } else if (choiceItem){
-        experiment.assessmentChoiceTestAccuracy.push(accuracy);
-      }
+      experiment.assessmentData.testAccuracy[currItem] = accuracy;
+      // if (generateItem){
+      //   experiment.assessmentGenerateTestAccuracy.push(accuracy);
+      // } else if (restudyItem){
+      //   experiment.assessmentRestudyTestAccuracy.push(accuracy);
+      // } else if (choiceItem){
+      //   experiment.assessmentChoiceTestAccuracy.push(accuracy);
+      // }
       experiment.test(exptPhase);
       experiment.assessmentTestData.push(data);
     }
@@ -422,6 +436,11 @@ var experiment = {
       swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1];
 
+    if (exptPhase == "assessmentTest") {
+      experiment.assessmentTestOrderCounter += 1;
+      experiment.assessmentData.testOrder[currItem] = experiment.assessmentTestOrderCounter;
+    }
+
     showSlide("generate");
     $("#swahili").text(swahili + " : ");
     $("#generatedWord").val('');
@@ -477,6 +496,10 @@ var experiment = {
       experiment.assessmentStrategyFraming();
       return;
     }
+
+    experiment.assessmentStudyOrderCounter += 1;
+    experiment.assessmentData.studyOrder[currItem] = experiment.assessmentStudyOrderCounter;
+
     var currItem = trials.shift(),    
       swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1];
@@ -515,22 +538,26 @@ var experiment = {
       latency: latency
     };
 
+    experiment.assessmentData.strategy[currItem] = strategy;
+
     if (exptPhase == "assessmentStrategyLatencyReveal"){
-      if (strategy == "assessmentChoice"){
-        experiment.assessmentChoiceTimes.reveal.push(latency)
-      } else if (strategy == "assessmentRestudy"){
-        experiment.assessmentRestudyTimes.reveal.push(latency)
-      } else if (strategy == "assessmentGenerate"){
-        experiment.assessmentGenerateTimes.reveal.push(latency)
-      }
+      experiment.assessmentData.revealLatency[currItem] = latency;
+      // if (strategy == "assessmentChoice"){
+      //   experiment.assessmentChoiceTimes.reveal.push(latency)
+      // } else if (strategy == "assessmentRestudy"){
+      //   experiment.assessmentRestudyTimes.reveal.push(latency)
+      // } else if (strategy == "assessmentGenerate"){
+      //   experiment.assessmentGenerateTimes.reveal.push(latency)
+      // }
     } else if (exptPhase == "assessmentStrategyLatencyMoveOn"){
-      if (strategy == "assessmentChoice"){
-        experiment.assessmentChoiceTimes.moveOn.push(latency)
-      } else if (strategy == "assessmentRestudy"){
-        experiment.assessmentRestudyTimes.moveOn.push(latency)
-      } else if (strategy == "assessmentGenerate"){
-        experiment.assessmentGenerateTimes.moveOn.push(latency)
-      }
+      experiment.assessmentData.moveOnLatency[currItem] = latency;
+      // if (strategy == "assessmentChoice"){
+      //   experiment.assessmentChoiceTimes.moveOn.push(latency)
+      // } else if (strategy == "assessmentRestudy"){
+      //   experiment.assessmentRestudyTimes.moveOn.push(latency)
+      // } else if (strategy == "assessmentGenerate"){
+      //   experiment.assessmentGenerateTimes.moveOn.push(latency)
+      // }
     }
     
     experiment.assessmentStrategyData.push(data);
@@ -591,6 +618,9 @@ var experiment = {
     var currItem = trials.shift(),
       swahili = swahili_english_pairs[parseInt(currItem)][0],
       english = swahili_english_pairs[parseInt(currItem)][1]
+
+    experiment.assessmentStrategyOrderCounter += 1;
+    experiment.assessmentData.strategyOrder[currItem] = experiment.assessmentStrategyOrderCounter;
 
     if (stratType == "assessmentChoice") {
       experiment.assessmentChoiceTrialsSave.push(currItem);
