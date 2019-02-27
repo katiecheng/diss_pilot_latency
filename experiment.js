@@ -468,7 +468,8 @@ var experiment = {
     their English translations. You will see each Swahili-English word pair \
     for 5 seconds, and then the screen will automatically advance to the \
     next pair. Please pay attention, and study the pair so you can type \
-    the English translation given the Swahili word.";
+    the English translation given the Swahili word.\
+    <br><br>Please make sure you understand these instructions before you begin.";
     showSlide("textNext");
     $("#instructionsHeader").text(header);
     $("#instructionsText").text(text);
