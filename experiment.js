@@ -153,9 +153,9 @@ var experiment = {
   assessmentChoiceTimes: {reveal: [], moveOn: []},
   assessmentRestudyTimes: {reveal: [], moveOn: []},
   assessmentGenerateTimes: {reveal: [], moveOn: []},
-  assessmentChoiceTestScore: 0,
-  assessmentRestudyTestScore: 0,
-  assessmentGenerateTestScore: 0,
+  assessmentChoiceTestAccuracy: [],
+  assessmentRestudyTestAccuracy: [],
+  assessmentGenerateTestAccuracy: [],
   // An array to store the item-level data that we're collecting.
   interventionStrategyData: [],
   interventionTestData: [],
@@ -333,11 +333,11 @@ var experiment = {
       experiment.interventionTestData.push(data);
     } else if (exptPhase == "assessmentTest"){
       if (generateItem){
-        experiment.assessmentGenerateTestScore += accuracy;
+        experiment.assessmentGenerateTestAccuracy.push(accuracy);
       } else if (restudyItem){
-        experiment.assessmentRestudyTestScore += accuracy;
+        experiment.assessmentRestudyTestAccuracy.push(accuracy);
       } else if (choiceItem){
-        experiment.assessmentChoiceTestScore += accuracy;
+        experiment.assessmentChoiceTestAccuracy.push(accuracy);
       }
       experiment.test(exptPhase);
       experiment.assessmentTestData.push(data);
