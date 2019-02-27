@@ -472,7 +472,7 @@ var experiment = {
     <br><br>Please make sure you understand these instructions before you begin.";
     showSlide("textNext");
     $("#instructionsHeader").text(header);
-    $("#instructionsText").text(text);
+    $("#instructionsText").html(text);
     $("#nextButton").click(function(){$(this).blur(); experiment.assessmentStudy();});
     console.log($("#instructionsText").text());
   },
