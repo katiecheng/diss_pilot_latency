@@ -150,7 +150,7 @@ var experiment = {
   predictionGenerate: -1,
   interventionRestudyTestScore: 0,
   interventionGenerateTestScore: 0,
-  asssessmentData: {
+  assessmentData: {
     itemIndex: [...Array(24).keys()],
     studyOrder: Array(24).fill(0),
     strategyOrder: Array(24).fill(0),
