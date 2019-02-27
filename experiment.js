@@ -163,12 +163,6 @@ var experiment = {
   assessmentStudyOrderCounter: 0,
   assessmentStrategyOrderCounter: 0,
   assessmentTestOrderCounter: 0,
-  assessmentChoiceTimes: {reveal: [], moveOn: []},
-  assessmentRestudyTimes: {reveal: [], moveOn: []},
-  assessmentGenerateTimes: {reveal: [], moveOn: []},
-  assessmentChoiceTestAccuracy: [],
-  assessmentRestudyTestAccuracy: [],
-  assessmentGenerateTestAccuracy: [],
   // An array to store the item-level data that we're collecting.
   interventionStrategyData: [],
   interventionTestData: [],
@@ -346,13 +340,6 @@ var experiment = {
       experiment.interventionTestData.push(data);
     } else if (exptPhase == "assessmentTest"){
       experiment.assessmentData.testAccuracy[currItem] = accuracy;
-      // if (generateItem){
-      //   experiment.assessmentGenerateTestAccuracy.push(accuracy);
-      // } else if (restudyItem){
-      //   experiment.assessmentRestudyTestAccuracy.push(accuracy);
-      // } else if (choiceItem){
-      //   experiment.assessmentChoiceTestAccuracy.push(accuracy);
-      // }
       experiment.test(exptPhase);
       experiment.assessmentTestData.push(data);
     }
@@ -550,22 +537,8 @@ var experiment = {
 
     if (exptPhase == "assessmentStrategyLatencyReveal"){
       experiment.assessmentData.revealLatency[currItem] = latency;
-      // if (strategy == "assessmentChoice"){
-      //   experiment.assessmentChoiceTimes.reveal.push(latency)
-      // } else if (strategy == "assessmentRestudy"){
-      //   experiment.assessmentRestudyTimes.reveal.push(latency)
-      // } else if (strategy == "assessmentGenerate"){
-      //   experiment.assessmentGenerateTimes.reveal.push(latency)
-      // }
     } else if (exptPhase == "assessmentStrategyLatencyMoveOn"){
       experiment.assessmentData.moveOnLatency[currItem] = latency;
-      // if (strategy == "assessmentChoice"){
-      //   experiment.assessmentChoiceTimes.moveOn.push(latency)
-      // } else if (strategy == "assessmentRestudy"){
-      //   experiment.assessmentRestudyTimes.moveOn.push(latency)
-      // } else if (strategy == "assessmentGenerate"){
-      //   experiment.assessmentGenerateTimes.moveOn.push(latency)
-      // }
     }
     
     experiment.assessmentStrategyData.push(data);
