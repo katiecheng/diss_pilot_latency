@@ -181,7 +181,7 @@ var experiment = {
     var text = "In a moment, you will be presented with 20 Swahili words paired with \
     their English translations. You will see each Swahili-English word pair \
     for 5 seconds, and then the screen will automatically advance to the \
-    next pair. Please pay attention, and study the pair so you can type \
+    next pair. Please pay attention, and study each pair so you can type \
     the English translation given the Swahili word.";
     showSlide("textNext");
     $("#instructionsHeader").text(header);
@@ -197,9 +197,9 @@ var experiment = {
       experiment.interventionStrategyFraming(1);
       return;
     }
-    var currItem = trials.shift(),    
-      swahili = swahili_english_pairs[parseInt(currItem)][0],
-      english = swahili_english_pairs[parseInt(currItem)][1];
+    var currItem = parseInt(trials.shift()),
+      swahili = swahili_english_pairs[currItem][0],
+      english = swahili_english_pairs[currItem][1];
 
     showSlide("study");
     $("#wordpair").text(swahili + " : " + english);
@@ -250,9 +250,9 @@ var experiment = {
       var trials = experiment.interventionStrategyTrials2;
       if (trials.length == 0) {experiment.interventionPredict(); return;} 
     }
-    var currItem = trials.shift(),
-      swahili = swahili_english_pairs[parseInt(currItem)][0],
-      english = swahili_english_pairs[parseInt(currItem)][1],
+    var currItem = parseInt(trials.shift()),
+      swahili = swahili_english_pairs[currItem][0],
+      english = swahili_english_pairs[currItem][1],
       generateItem = ($.inArray(currItem, experiment.interventionGenerateTrials) != -1),
       restudyItem = ($.inArray(currItem, experiment.interventionRestudyTrials) != -1);
 
@@ -432,9 +432,9 @@ var experiment = {
     }
 
     // Get the current trial - <code>shift()</code> removes the first element of the array and returns it.
-    var currItem = trials.shift(),
-      swahili = swahili_english_pairs[parseInt(currItem)][0],
-      english = swahili_english_pairs[parseInt(currItem)][1];
+    var currItem = parseInt(trials.shift()),
+      swahili = swahili_english_pairs[currItem][0],
+      english = swahili_english_pairs[currItem][1];
 
     if (exptPhase == "assessmentTest") {
       experiment.assessmentTestOrderCounter += 1;
@@ -497,12 +497,12 @@ var experiment = {
       return;
     }
 
+    var currItem = parseInt(trials.shift()),
+      swahili = swahili_english_pairs[currItem][0],
+      english = swahili_english_pairs[currItem][1];
+
     experiment.assessmentStudyOrderCounter += 1;
     experiment.assessmentData.studyOrder[currItem] = experiment.assessmentStudyOrderCounter;
-
-    var currItem = trials.shift(),    
-      swahili = swahili_english_pairs[parseInt(currItem)][0],
-      english = swahili_english_pairs[parseInt(currItem)][1];
 
     showSlide("study");
     $("#wordpair").text(swahili + " : " + english);
@@ -615,9 +615,9 @@ var experiment = {
       if (trials.length == 0) {experiment.assessmentTestFraming(); return;} 
     }
 
-    var currItem = trials.shift(),
-      swahili = swahili_english_pairs[parseInt(currItem)][0],
-      english = swahili_english_pairs[parseInt(currItem)][1]
+    var currItem = parseInt(trials.shift()),
+      swahili = swahili_english_pairs[currItem][0],
+      english = swahili_english_pairs[currItem][1];
 
     experiment.assessmentStrategyOrderCounter += 1;
     experiment.assessmentData.strategyOrder[currItem] = experiment.assessmentStrategyOrderCounter;
